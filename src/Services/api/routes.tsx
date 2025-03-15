@@ -5,3 +5,10 @@ export const AUTH_API_ROUTES = {
   SIGN_UP: `users/sign-up`,
   REFRESH_TOKEN: `users/refresh-token`,
 };
+
+export const BUCKETS_API_ROUTES = {
+  GET_BUCKET: `buckets/{id}`,
+  GET_BUCKETS: `buckets/filter`,
+  DELETE: `buckets/`,
+  CREATE: `buckets/`,
+};
