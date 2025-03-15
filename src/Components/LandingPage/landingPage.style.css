@@ -38,12 +38,12 @@
   flex-direction: column;
   align-items: center;
   font-weight: 230;
-  font-family: var(--font-roboto);
+  font-family: "Exo 2", sans-serif;
 }
 
 .logoText {
   margin-top: 1.4ch;
-  font-family: var(--font-exo-2);
+  font-family: "Exo 2", sans-serif;
   font-size: 4rem;
   font-weight: 700;
   font-style: normal;
@@ -51,7 +51,7 @@
 
 .subLogoText {
   margin-top: 1.4ch;
-  font-family: var(--font-exo-2);
+  font-family: "Exo 2", sans-serif;
   font-size: 2rem;
   font-weight: 600;
   font-style: normal;
@@ -72,7 +72,7 @@
   padding: 5ch;
   border-radius: 3ch;
   text-align: left;
-  font-family: var(--font-roboto);
+  font-family: "Exo 2", sans-serif;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
     rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
@@ -117,11 +117,11 @@
   font-size: 2rem;
   font-weight: 700;
   font-style: normal;
-  font-family: var(--font-roboto);
+  font-family: "Exo 2", sans-serif;
 }
 
 .footer {
-  font-family: var(--font-exo-2);
+  font-family: "Exo 2", sans-serif;
   width: 80%;
   margin-left: auto;
   margin-right: auto;
