@@ -2,9 +2,7 @@ import api from "./api/api";
 import { AUTH_API_ROUTES } from "./api/routes";
 import TokenService from "./token.service";
 
-type RegisterModel = {
-  firstName: string;
-  secondName: string;
+type signUpModel = {
   email: string;
   password: string;
 };
@@ -28,13 +26,9 @@ class AuthService {
     TokenService.removeUserTokens();
   }
 
-  async register(registerData: RegisterModel) {
-    const response = await api.post(AUTH_API_ROUTES.SIGN_UP, {
-      firstName: registerData.firstName,
-      secondName: registerData.secondName,
-      email: registerData.email,
-      password: registerData.password,
-    });
+  async signUp(registerData: signUpModel) {
+    console.log(process.env.REACT_APP_MUNITS_SERVER_URL);
+    const response = await api.post(AUTH_API_ROUTES.SIGN_UP, registerData);
     if (response.data.accessToken) {
       TokenService.setUserTokens({
         accessToken: response.data.accessToken,
