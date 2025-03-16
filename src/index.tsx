@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Buckets from "./Components/Buckets/buckets.page";
 import Home from "./Components/Home/home.page";
 import LandingPage from "./Components/Landing/landing.page";
 import Login from "./Components/Login/login.page";
@@ -14,8 +15,14 @@ const router = createBrowserRouter([
     element: <LandingPage />,
   },
   {
-    path: "/home",
+    path: "/",
     element: <Home />,
+    children: [
+      {
+        path: "buckets",
+        element: <Buckets />,
+      },
+    ],
   },
   {
     path: "login",
