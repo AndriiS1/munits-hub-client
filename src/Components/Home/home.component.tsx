@@ -1,20 +1,29 @@
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from "@mui/material";
-import Paper from "@mui/material/Paper";
-import { JSX } from "react";
-import { BucketResponse } from "../../Services/Bucket/bucket.types";
+import { JSX, useState } from "react";
+import { BucketResponse } from "../../Services/Buckets/bucket.types";
 import "./home.style.css";
 
 export default function Home() {
+  const [userEmail, setUserEmail] = useState<string>("admin@gmail.com");
+
   const rows: BucketResponse[] = [
     {
       id: "1",
+      name: "Bucket 1",
+      versioningEnabled: true,
+      versionsLimit: 10,
+      size: 100,
+      objectsCount: 10,
+    },
+    {
+      id: "2",
+      name: "Bucket 1",
+      versioningEnabled: true,
+      versionsLimit: 10,
+      size: 100,
+      objectsCount: 10,
+    },
+    {
+      id: "3",
       name: "Bucket 1",
       versioningEnabled: true,
       versionsLimit: 10,
@@ -25,33 +34,71 @@ export default function Home() {
 
   const getDataRow = (bucket: BucketResponse): JSX.Element => {
     return (
-      <TableRow
+      <tr
         key={bucket.id}
-        sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+        className="border-b border-gray-200 dark:border-gray-700"
       >
-        <TableCell component="th" scope="row">
+        <th
+          scope="row"
+          className="text-[rgb(18,18,228)] underline underline hover:cursor-pointer
+          px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800"
+        >
           {bucket.name}
-        </TableCell>
-        <TableCell align="right">{bucket.objectsCount}</TableCell>
-        <TableCell align="right">{bucket.size}</TableCell>
-      </TableRow>
+        </th>
+        <td className="px-6 py-4">{bucket.objectsCount}</td>
+        <td className="px-6 py-4 bg-gray-50 dark:bg-gray-800">{bucket.size}</td>
+      </tr>
     );
   };
 
   return (
-    <div className="buckets-table-wrap">
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Buckets</TableCell>
-              <TableCell align="right">Objects</TableCell>
-              <TableCell align="right">Size</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>{rows.map((row) => getDataRow(row))}</TableBody>
-        </Table>
-      </TableContainer>
+    <div>
+      <header>
+        <ul className="nav">
+          <li className="logo-text">MunitS</li>
+          <li>Log out</li>
+        </ul>
+      </header>
+
+      <div className="home-container">
+        <div className="side-bar">
+          <div className="user-email">{userEmail}</div>
+          <ul>
+            <li className="">Dashboard</li>
+            <li className="">Analytics</li>
+            <li>Settings</li>
+          </ul>
+        </div>
+        <div className="buckets-container">
+          <div className="buckets-data">
+            <div className="space-y-3">
+              <h3 className="heading">MunitS object storage</h3>
+              <h1 className="title">Overview</h1>
+              <h3 className="heading">
+                High-performance storage for files and objects with zero egress
+                charges.
+              </h3>
+              <a href="https://github.com/AndriiS1/MunitS" className="link">
+                MunitS source code
+              </a>
+            </div>
+
+            <div className="table-container">
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Buckets</th>
+                    <th scope="col">Objects</th>
+                    <th scope="col">Size</th>
+                  </tr>
+                </thead>
+                <tbody>{rows.map((bucket) => getDataRow(bucket))}</tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <footer className="home-footer"></footer>
+      </div>
     </div>
   );
 }

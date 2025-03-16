@@ -4,7 +4,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./Components/Home/home.component";
 import LandingPage from "./Components/LandingPage/landingPage.component";
 import Login from "./Components/Login/login.component";
-import ProtectedWrap from "./Components/ProtectedWrap/protectedWrap.component";
 import SignUp from "./Components/SignUp/signUp.component";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
@@ -16,11 +15,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/home",
-    element: (
-      <ProtectedWrap>
-        <Home />
-      </ProtectedWrap>
-    ),
+    element: <Home />,
   },
   {
     path: "login",
