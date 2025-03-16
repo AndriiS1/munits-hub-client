@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Home from "./Components/Home/home.component";
-import LandingPage from "./Components/LandingPage/landingPage.component";
-import Login from "./Components/Login/login.component";
-import SignUp from "./Components/SignUp/signUp.component";
+import Home from "./Components/Home/home.page";
+import LandingPage from "./Components/Landing/landing.page";
+import Login from "./Components/Login/login.page";
+import SignUp from "./Components/SignUp/signUp.page";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 

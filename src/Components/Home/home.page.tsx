@@ -1,5 +1,7 @@
+import { Button } from "@mui/material";
 import { JSX, useState } from "react";
 import { BucketResponse } from "../../Services/Buckets/bucket.types";
+import SearchInput from "../SearchInput/searchInput.component";
 import "./home.style.css";
 
 export default function Home() {
@@ -81,6 +83,13 @@ export default function Home() {
               <a href="https://github.com/AndriiS1/MunitS" className="link">
                 MunitS source code
               </a>
+            </div>
+
+            <div className="buckets-options">
+              <SearchInput placeholder="Search for buckets" />
+              <Button variant="contained" disableElevation>
+                Add bucket
+              </Button>
             </div>
 
             <div className="table-container">

@@ -132,3 +132,9 @@ tbody {
   font-family: "Exo 2", sans-serif;
   font-size: xx-large;
 }
+
+.buckets-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

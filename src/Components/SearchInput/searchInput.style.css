@@ -1,0 +1,79 @@
+/* Basic styles for the container */
+.search-container {
+  padding-bottom: 1rem;
+  background-color: white;
+}
+
+.search-container.dark-mode {
+  background-color: #1a202c; /* Dark mode background */
+}
+
+/* Styling for the search box */
+.search-box {
+  position: relative;
+  margin-top: 0.25rem;
+}
+
+.search-box .sr-only {
+  position: absolute;
+  width: 0;
+  height: 0;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  overflow: hidden;
+}
+
+/* Input wrapper for positioning */
+.input-wrapper {
+  position: relative;
+}
+
+/* Positioning and styling for the icon */
+.search-icon {
+  position: absolute;
+  top: 50%;
+  left: 0.75rem; /* Adjust for padding */
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.search-icon .icon {
+  width: 1rem;
+  height: 1rem;
+  color: #6b7280; /* Gray color */
+}
+
+.search-box.dark-mode .search-icon .icon {
+  color: #e5e7eb; /* Dark mode icon color */
+}
+
+/* Search input styling */
+.search-input {
+  padding-top: 0.5rem;
+  padding-left: 2.5rem; /* Adjust for the icon */
+  font-size: 0.875rem;
+  color: #111827; /* Text color */
+  border: 1px solid #d1d5db; /* Border color */
+  border-radius: 0.5rem;
+  width: 20rem; /* Adjust the width */
+  background-color: #f9fafb; /* Light background */
+  transition: all 0.2s ease;
+}
+
+.search-input:focus {
+  outline: 2px solid #3b82f6; /* Blue border on focus */
+  border-color: #3b82f6;
+}
+
+.search-input.dark-mode {
+  background-color: #374151; /* Dark mode background */
+  border-color: #4b5563; /* Dark mode border */
+  color: white;
+}
+
+.search-input.dark-mode:focus {
+  outline: 2px solid #3b82f6;
+  border-color: #3b82f6;
+}
