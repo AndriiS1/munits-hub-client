@@ -1,0 +1,18 @@
+.new-bucket-data {
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.table-container {
+  position: relative;
+  overflow-x: auto;
+  border-radius: 0.5rem;
+  margin-top: 2.5rem;
+}
+
+.buckets-table {
+  width: 100%;
+  text-align: left;
+  color: #6b7280;
+}

@@ -23,7 +23,9 @@ export default function Home() {
             <li>Settings</li>
           </ul>
         </div>
-        <Outlet />
+        <div className="page-content">
+          <Outlet />
+        </div>
         <footer className="home-footer"></footer>
       </div>
     </div>

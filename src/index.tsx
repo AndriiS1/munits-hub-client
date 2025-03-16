@@ -5,6 +5,7 @@ import Buckets from "./Components/Buckets/buckets.page";
 import Home from "./Components/Home/home.page";
 import LandingPage from "./Components/Landing/landing.page";
 import Login from "./Components/Login/login.page";
+import NewBucketPage from "./Components/NewBucket/newBucket.page";
 import SignUp from "./Components/SignUp/signUp.page";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: "buckets",
         element: <Buckets />,
+      },
+      {
+        path: "buckets/new",
+        element: <NewBucketPage />,
       },
     ],
   },
