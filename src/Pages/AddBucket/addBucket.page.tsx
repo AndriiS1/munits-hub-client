@@ -1,6 +1,6 @@
-import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Button from "../../Components/Button/button.component";
 import Input from "../../Components/Input/input.component";
 import SelectList from "../../Components/SelectList/selectList.component";
 import "./addBucket.style.css";
@@ -15,19 +15,23 @@ enum VersioningOptions {
 }
 
 export default function AddBucketPage() {
+  const navigate = useNavigate();
   const [bucketName, setBucketName] = useState<string>("");
   const [bucketNameErrorMessage, setBucketNameErrorMessage] = useState<
     string | undefined
   >();
-
+  const [versionLimitErrorMessage, setVersionLimitErrorMessage] = useState<
+    string | undefined
+  >();
   const [locationOption, setLocationOption] = useState<LocationOptions>(
     LocationOptions.DEFAULT
   );
   const [versioningOption, setVersioningOption] = useState<VersioningOptions>(
     VersioningOptions.NO_VERSIONING
   );
-
   const [versionsCount, setVersionsCount] = useState<number | null>(null);
+  const [creationDataIsValid, setCreationDataIsValid] =
+    useState<boolean>(false);
 
   const handleLocationSelectionChange = (value: LocationOptions) => {
     setLocationOption(value);
@@ -44,6 +48,9 @@ export default function AddBucketPage() {
   useEffect(() => {
     const bucketNameRegex = /^$|^[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9-]+)*$/;
     const maxBucketNameLength = 63;
+    const minimumBucketName = 3;
+    const versionsLimit = 5;
+    const minimumVersionLimit = 1;
 
     if (bucketName.length > maxBucketNameLength) {
       setBucketNameErrorMessage("Maximum bucket name is 63 symbols.");
@@ -52,7 +59,28 @@ export default function AddBucketPage() {
     } else {
       setBucketNameErrorMessage(undefined);
     }
-  }, [bucketName]);
+
+    if (versioningOption === VersioningOptions.VERSIONING_ENABLED) {
+      if (!versionsCount) {
+        setVersionLimitErrorMessage(undefined);
+      } else if (versionsCount > versionsLimit) {
+        setVersionLimitErrorMessage(`Versioning limit is ${versionsLimit}`);
+        return;
+      } else {
+        setVersionLimitErrorMessage(undefined);
+      }
+    } else {
+      setVersionLimitErrorMessage(undefined);
+    }
+
+    setCreationDataIsValid(
+      !bucketNameErrorMessage &&
+        !versionLimitErrorMessage &&
+        bucketName.length > minimumBucketName &&
+        (versioningOption === VersioningOptions.NO_VERSIONING ||
+          (!!versionsCount && versionsCount > minimumVersionLimit))
+    );
+  }, [bucketName, versioningOption, versionsCount]);
 
   return (
     <div className="new-bucket-data">
@@ -102,8 +130,11 @@ export default function AddBucketPage() {
             title: "Versioning enabled",
             value: VersioningOptions.VERSIONING_ENABLED,
             content: "Each object has fixed number of versions.",
-            placeholder: "Number of versions",
-            inputValue: versionsCount,
+            childPlaceholder: "Number of versions",
+            childInputValue: versionsCount,
+            onChildInputChange: (e: any) =>
+              handleVersionCountChange(e.target.value.toLowerCase()),
+            childErrorMessage: versionLimitErrorMessage,
           },
         ]}
       />
@@ -116,9 +147,13 @@ export default function AddBucketPage() {
           stored within your bucket by binding the bucket to a Worker or using
           the API. Bucket access can be changed to Public at any time.
         </span>
-        <div>
-          <Button>Cancel</Button>
-          <Button disabled={true}>Create</Button>
+        <div className="create-bucket-buttons">
+          <Button
+            color="#9d03fc"
+            text="Cancel"
+            onClick={() => navigate("/buckets")}
+          />
+          <Button disabled={!creationDataIsValid} text="Create" />
         </div>
       </div>
     </div>

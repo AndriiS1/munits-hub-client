@@ -16,3 +16,22 @@
   text-align: left;
   color: #6b7280;
 }
+
+.create-bucket-buttons {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 20%;
+}
+
+.create-bucket-buttons > * {
+  margin: 0.5rem;
+}
+
+.create-bucket-buttons > *:first-child {
+  margin-left: 0;
+}
+
+.create-bucket-buttons > *:last-child {
+  margin-right: 0;
+}

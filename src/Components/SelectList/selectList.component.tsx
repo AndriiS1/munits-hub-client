@@ -9,8 +9,10 @@ interface SelectListOption {
 }
 
 interface ExtendedSelectListOption extends SelectListOption {
-  placeholder: string;
-  inputValue: any;
+  childPlaceholder: string;
+  childInputValue: any;
+  childErrorMessage?: string;
+  onChildInputChange: (value: any) => void;
 }
 
 export default function SelectList(props: {
@@ -21,15 +23,19 @@ export default function SelectList(props: {
   const optionRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const displayOption = (option: SelectListOption) => {
-    if ("inputValue" in option) {
+    if ("childInputValue" in option) {
       return (
         <div className="option-content">
           <h2>{option.title}</h2>
           <span>{option.content}</span>
           <Input
             type="number"
-            value={(option as ExtendedSelectListOption).inputValue}
-            placeholder={(option as ExtendedSelectListOption).placeholder}
+            value={(option as ExtendedSelectListOption).childInputValue}
+            placeholder={(option as ExtendedSelectListOption).childPlaceholder}
+            errorMessage={
+              (option as ExtendedSelectListOption).childErrorMessage
+            }
+            onChange={(option as ExtendedSelectListOption).onChildInputChange}
           ></Input>
         </div>
       );
