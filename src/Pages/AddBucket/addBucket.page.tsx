@@ -43,8 +43,11 @@ export default function AddBucketPage() {
 
   useEffect(() => {
     const bucketNameRegex = /^$|^[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9-]+)*$/;
+    const maxBucketNameLength = 63;
 
-    if (!bucketNameRegex.test(bucketName)) {
+    if (bucketName.length > maxBucketNameLength) {
+      setBucketNameErrorMessage("Maximum bucket name is 63 symbols.");
+    } else if (!bucketNameRegex.test(bucketName)) {
       setBucketNameErrorMessage("Invalid bucket name.");
     } else {
       setBucketNameErrorMessage(undefined);
@@ -68,7 +71,7 @@ export default function AddBucketPage() {
         topPlaceholder="Bucket name"
         bottomPlaceholder="Bucket name is permanent and unchangeable."
         value={bucketName}
-        onChange={(e: any) => setBucketName(e.target.value)}
+        onChange={(e: any) => setBucketName(e.target.value.toLowerCase())}
       />
       <hr />
       <h2>Location</h2>
@@ -115,7 +118,7 @@ export default function AddBucketPage() {
         </span>
         <div>
           <Button>Cancel</Button>
-          <Button>Create</Button>
+          <Button disabled={true}>Create</Button>
         </div>
       </div>
     </div>
