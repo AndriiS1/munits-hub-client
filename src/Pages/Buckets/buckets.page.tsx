@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import SearchInput from "../../Components/SearchInput/searchInput.component";
 import { BucketResponse } from "../../Services/Buckets/bucket.types";
-import SearchInput from "../SearchInput/searchInput.component";
 import "./buckets.style.css";
 
 export default function Buckets() {
@@ -47,7 +47,7 @@ export default function Buckets() {
 
   return (
     <div className="buckets-data">
-      <div className="space-y-3">
+      <div>
         <h3>MunitS object storage</h3>
         <h1>Overview</h1>
         <h3>

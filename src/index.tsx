@@ -1,12 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Buckets from "./Components/Buckets/buckets.page";
-import Home from "./Components/Home/home.page";
-import LandingPage from "./Components/Landing/landing.page";
-import Login from "./Components/Login/login.page";
-import NewBucketPage from "./Components/NewBucket/newBucket.page";
-import SignUp from "./Components/SignUp/signUp.page";
+import AddBucketPage from "./Pages/AddBucket/addBucket.page";
+import Buckets from "./Pages/Buckets/buckets.page";
+import Home from "./Pages/Home/home.page";
+import LandingPage from "./Pages/Landing/landing.page";
+import Login from "./Pages/Login/login.page";
+import SignUp from "./Pages/SignUp/signUp.page";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 
@@ -25,7 +25,7 @@ const router = createBrowserRouter([
       },
       {
         path: "buckets/new",
-        element: <NewBucketPage />,
+        element: <AddBucketPage />,
       },
     ],
   },

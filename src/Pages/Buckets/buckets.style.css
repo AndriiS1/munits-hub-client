@@ -60,7 +60,7 @@
 }
 
 .buckets-table tr {
-  border-bottom: 1px solid #e5e7eb; /* border-gray-200 */
+  border-bottom: 1px solid #e5e7eb;
 }
 
 .buckets-table th {
@@ -78,5 +78,5 @@
 }
 
 .buckets-table td:nth-child(3) {
-  background-color: #f9fafb; /* bg-gray-50 */
+  background-color: #f9fafb;
 }

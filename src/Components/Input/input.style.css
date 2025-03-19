@@ -1,0 +1,39 @@
+.custom-input-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.custom-input-wrapper span {
+  color: rgb(84, 84, 84);
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.custom-input-wrapper > * {
+  margin-top: 0.25rem;
+}
+
+.custom-input {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0.5rem;
+  font-size: 0.875rem;
+  color: #111827;
+  border: 2px solid #d1d5db;
+  border-radius: 0.5rem;
+  width: 20rem;
+  background-color: #f9fafb;
+  transition: all 0.2s ease;
+}
+
+.custom-input:focus {
+  outline: 2px solid #3b82f6;
+  border-color: #3b82f6;
+}
+
+.custom-input-wrapper .input-error-message {
+  color: red;
+}
