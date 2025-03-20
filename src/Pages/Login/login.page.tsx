@@ -44,7 +44,7 @@ export default function Login() {
         await AuthService.login(email, password);
       }
       if (TokenService.getUserTokens()) {
-        navigate("/home");
+        navigate("/buckets");
       }
     } catch (e) {
       const error = e as AxiosError;

@@ -8,7 +8,24 @@ class BucketService {
 
     return response.data;
   }
+
+  async BucketExistsCheck(name: string): Promise<boolean> {
+    const response = await api.post(BUCKETS_API_ROUTES.EXISTS, { name });
+    return response.data.exists;
+  }
+
+  async CreateBucket(
+    name: string,
+    versioningEnabled: boolean,
+    versionsLimit: number
+  ) {
+    return api.post(BUCKETS_API_ROUTES.CREATE, {
+      name,
+      versioningEnabled,
+      versionsLimit,
+    });
+  }
 }
 
-const authServiceInstance = new BucketService();
-export default authServiceInstance;
+const bucketServiceInstance = new BucketService();
+export default bucketServiceInstance;

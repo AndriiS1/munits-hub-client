@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../../Components/Button/button.component";
 import Input from "../../Components/Input/input.component";
 import SelectList from "../../Components/SelectList/selectList.component";
+import bucketServiceInstance from "../../Services/Buckets/bucket.service";
 import "./addBucket.style.css";
 
 enum LocationOptions {
@@ -45,6 +46,19 @@ export default function AddBucketPage() {
     setVersionsCount(value);
   };
 
+  const handleCreateBucket = async () => {
+    if (versioningOption === VersioningOptions.NO_VERSIONING) {
+      await bucketServiceInstance.CreateBucket(bucketName, false, 1);
+    } else if (
+      versioningOption === VersioningOptions.VERSIONING_ENABLED &&
+      versionsCount
+    ) {
+      await bucketServiceInstance.CreateBucket(bucketName, true, versionsCount);
+    }
+
+    navigate("/buckets");
+  };
+
   useEffect(() => {
     const bucketNameRegex = /^$|^[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9-]+)*$/;
     const maxBucketNameLength = 63;
@@ -56,6 +70,18 @@ export default function AddBucketPage() {
       setBucketNameErrorMessage("Maximum bucket name is 63 symbols.");
     } else if (!bucketNameRegex.test(bucketName)) {
       setBucketNameErrorMessage("Invalid bucket name.");
+    } else if (bucketName) {
+      const checkBucketExists = async () => {
+        const bucketExists = await bucketServiceInstance.BucketExistsCheck(
+          bucketName
+        );
+        if (bucketExists) {
+          setBucketNameErrorMessage("Bucket with this name already exists.");
+        } else {
+          setBucketNameErrorMessage(undefined);
+        }
+      };
+      checkBucketExists();
     } else {
       setBucketNameErrorMessage(undefined);
     }
@@ -138,9 +164,7 @@ export default function AddBucketPage() {
           },
         ]}
       />
-
       <hr />
-
       <div>
         <span>
           By default buckets are not publicly accessible. You can access objects
@@ -153,7 +177,11 @@ export default function AddBucketPage() {
             text="Cancel"
             onClick={() => navigate("/buckets")}
           />
-          <Button disabled={!creationDataIsValid} text="Create" />
+          <Button
+            onClick={handleCreateBucket}
+            disabled={!creationDataIsValid}
+            text="Create"
+          />
         </div>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import ProtectedWrap from "./Components/ProtectedWrap/protectedWrap.component";
 import AddBucketPage from "./Pages/AddBucket/addBucket.page";
 import Buckets from "./Pages/Buckets/buckets.page";
 import Home from "./Pages/Home/home.page";
@@ -17,7 +18,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <Home />,
+    element: (
+      <ProtectedWrap>
+        <Home />
+      </ProtectedWrap>
+    ),
     children: [
       {
         path: "buckets",

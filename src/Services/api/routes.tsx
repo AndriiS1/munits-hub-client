@@ -11,4 +11,5 @@ export const BUCKETS_API_ROUTES = {
   GET_BUCKETS: `buckets/filter`,
   DELETE: `buckets/`,
   CREATE: `buckets/`,
+  EXISTS: `buckets/exists`,
 };
