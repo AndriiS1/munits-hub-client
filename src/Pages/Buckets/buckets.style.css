@@ -80,3 +80,9 @@
 .buckets-table td:nth-child(3) {
   background-color: #f9fafb;
 }
+
+.no-buckets {
+  width: 100%;
+  text-align: center;
+  margin-top: 15rem;
+}

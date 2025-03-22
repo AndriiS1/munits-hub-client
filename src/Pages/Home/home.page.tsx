@@ -1,9 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
+import authServiceInstance from "../../Services/auth.service";
 import "./home.style.css";
 
 export default function Home() {
   const [userEmail, setUserEmail] = useState<string>("admin@gmail.com");
+
+  useEffect(() => {
+    const getUserEmail = async () => {
+      setUserEmail(await authServiceInstance.getUserEmail());
+    };
+
+    getUserEmail();
+  }, []);
 
   return (
     <div>

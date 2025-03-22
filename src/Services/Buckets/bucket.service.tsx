@@ -4,7 +4,7 @@ import { BucketResponse } from "./bucket.types";
 
 class BucketService {
   async GetBuckets(): Promise<BucketResponse[]> {
-    const response = await api.post(BUCKETS_API_ROUTES.GET_BUCKETS, {});
+    const response = await api.post(BUCKETS_API_ROUTES.GET_USER_BUCKETS, {});
 
     return response.data;
   }

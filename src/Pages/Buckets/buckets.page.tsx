@@ -1,38 +1,26 @@
 import { Button } from "@mui/material";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SearchInput from "../../Components/SearchInput/searchInput.component";
+import bucketServiceInstance from "../../Services/Buckets/bucket.service";
 import { BucketResponse } from "../../Services/Buckets/bucket.types";
 import "./buckets.style.css";
 
 export default function Buckets() {
   const navigate = useNavigate();
 
-  const rows: BucketResponse[] = [
-    {
-      id: "1",
-      name: "Bucket 1",
-      versioningEnabled: true,
-      versionsLimit: 10,
-      size: 100,
-      objectsCount: 10,
-    },
-    {
-      id: "2",
-      name: "Bucket 1",
-      versioningEnabled: true,
-      versionsLimit: 10,
-      size: 100,
-      objectsCount: 10,
-    },
-    {
-      id: "3",
-      name: "Bucket 1",
-      versioningEnabled: true,
-      versionsLimit: 10,
-      size: 100,
-      objectsCount: 10,
-    },
-  ];
+  const [loading, setLoading] = useState<boolean>(true);
+  const [buckets, setBuckets] = useState<BucketResponse[]>([]);
+
+  useEffect(() => {
+    const getBuckets = async () => {
+      setBuckets(await bucketServiceInstance.GetBuckets());
+    };
+
+    getBuckets();
+    setLoading(false);
+  }, []);
+
   const getDataRow = (bucket: BucketResponse) => {
     return (
       <tr key={bucket.id} className="data-row">
@@ -72,18 +60,27 @@ export default function Buckets() {
         </Button>
       </div>
 
-      <div className="table-container">
-        <table className="buckets-table">
-          <thead>
-            <tr>
-              <th scope="col">Buckets</th>
-              <th scope="col">Objects</th>
-              <th scope="col">Size</th>
-            </tr>
-          </thead>
-          <tbody>{rows.map((bucket) => getDataRow(bucket))}</tbody>
-        </table>
-      </div>
+      <hr />
+      {loading ? (
+        <div className="no-buckets">Loading...</div>
+      ) : !buckets || buckets.length === 0 ? (
+        <div className="no-buckets">
+          You have no buckets created. Add one to start working with.
+        </div>
+      ) : (
+        <div className="table-container">
+          <table className="buckets-table">
+            <thead>
+              <tr>
+                <th scope="col">Buckets</th>
+                <th scope="col">Objects</th>
+                <th scope="col">Size</th>
+              </tr>
+            </thead>
+            <tbody>{buckets.map((bucket) => getDataRow(bucket))}</tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 }

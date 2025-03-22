@@ -22,6 +22,11 @@ class AuthService {
     return response.data;
   }
 
+  async getUserEmail(): Promise<string> {
+    const response = await api.get(AUTH_API_ROUTES.GET_USER_EMAIL);
+    return response.data.email;
+  }
+
   logout() {
     TokenService.removeUserTokens();
   }
