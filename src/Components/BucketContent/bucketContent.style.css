@@ -14,7 +14,8 @@
 .bucket-content-table thead {
   font-size: 1.125rem;
   text-transform: uppercase;
-  color: #374151;
+
+  color: #0b2b5f;
 }
 
 .bucket-content-table thead th {
@@ -35,7 +36,6 @@
 
 .bucket-content-table th {
   color: rgb(18, 18, 228);
-  cursor: pointer;
   padding: 16px 24px;
   font-weight: 500;
   color: #111827;

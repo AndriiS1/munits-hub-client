@@ -35,37 +35,13 @@
   font-size: 1rem;
 }
 
-.buckets-table .data-header span {
-  text-decoration: underline;
-  text-decoration-color: hsl(344deg 83% 47%);
-  background: linear-gradient(
-    80deg,
-    hsl(240deg 100% 20%) 0%,
-    hsl(277deg 100% 21%) 8%,
-    hsl(297deg 100% 21%) 17%,
-    hsl(313deg 100% 26%) 25%,
-    hsl(323deg 100% 31%) 33%,
-    hsl(331deg 100% 36%) 42%,
-    hsl(336deg 100% 40%) 50%,
-    hsl(344deg 83% 47%) 58%,
-    hsl(359deg 82% 57%) 67%,
-    hsl(11deg 91% 58%) 75%,
-    hsl(21deg 97% 57%) 83%,
-    hsl(31deg 100% 54%) 92%,
-    hsl(39deg 100% 50%) 100%
-  );
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
 .buckets-table tr {
   border-bottom: 1px solid #e5e7eb;
 }
 
 .buckets-table th {
   color: rgb(18, 18, 228);
-  cursor: pointer;
+
   padding: 16px 24px;
   font-weight: 500;
   color: #111827;
@@ -85,4 +61,22 @@
   width: 100%;
   text-align: center;
   margin-top: 15rem;
+}
+
+.bucket-content-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bucket-content-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bucket-content-options button {
+  padding: 0.5rem 1rem;
+  margin: 5px;
+  background-color: #2563eb;
 }

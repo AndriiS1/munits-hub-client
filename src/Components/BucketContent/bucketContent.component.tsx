@@ -4,6 +4,7 @@ import {
   FolderResponse,
   ObjectResponse,
 } from "../../Services/Objects/objects.types";
+import Button from "../Button/button.component";
 import "./bucketContent.style.css";
 
 function BucketFolder(props: {
@@ -47,12 +48,10 @@ function BucketFolder(props: {
   const getFolderRow = (folder: FolderResponse) => {
     return (
       <tr key={folder.id}>
-        <th
-          scope="row"
-          className="custom-link"
-          onClick={() => setPath(folder.prefix)}
-        >
-          <span>{truncateToDeepestPath(folder.prefix)}</span>
+        <th scope="row" onClick={() => setPath(folder.prefix)}>
+          <span className="custom-link">
+            {truncateToDeepestPath(folder.prefix)}
+          </span>
         </th>
         <td className="data-cell">Folder</td>
       </tr>
@@ -72,14 +71,17 @@ function BucketFolder(props: {
           >
             {part}
           </span>
-          <span>/ </span>
+          <span> / </span>
         </>
       );
     });
 
     return (
       <div className="bucket-breadcrumbs">
-        <span onClick={() => setPath("/")}>{props.bucketName} / </span>
+        <span className="custom-link" key="/" onClick={() => setPath("/")}>
+          {props.bucketName}
+        </span>
+        <span> / </span>
         {breadcrumbs}
       </div>
     );
@@ -89,7 +91,7 @@ function BucketFolder(props: {
     return (
       <tr key={bucket.id}>
         <th scope="row">
-          <span>{bucket.fileName}</span>
+          <span className="custom-link">{bucket.fileName}</span>
         </th>
         <td className="data-cell">Object</td>
       </tr>
@@ -98,7 +100,13 @@ function BucketFolder(props: {
 
   return (
     <div className="bucket-content">
-      {getBreadcrumbs()}
+      <div className="bucket-content-navigation">
+        {getBreadcrumbs()}
+        <div className="bucket-content-options">
+          <Button text="Refresh" />
+          <Button text="Upload" />
+        </div>
+      </div>
       <table className="bucket-content-table">
         <thead>
           <tr>

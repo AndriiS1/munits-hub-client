@@ -32,11 +32,11 @@ function Buckets() {
         className="data-row"
         onClick={() => navigate(`/buckets/${bucket.name}`)}
       >
-        <th scope="row" className="data-header">
-          <span>{bucket.name}</span>
+        <th scope="row">
+          <span className="custom-link">{bucket.name}</span>
         </th>
-        <td className="data-cell">{bucket.objectsCount}</td>
-        <td className="data-cell-alt">{bucket.size}</td>
+        <td>{bucket.objectsCount}</td>
+        <td>{bucket.size}</td>
       </tr>
     );
   };

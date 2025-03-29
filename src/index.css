@@ -94,5 +94,6 @@ hr {
 
 .custom-link {
   text-decoration: underline;
-  color: rgb(28, 28, 235);
+  cursor: pointer;
+  color: rgb(28, 28, 235) !important;
 }

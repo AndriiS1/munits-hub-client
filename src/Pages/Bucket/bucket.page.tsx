@@ -12,8 +12,6 @@ function Bucket() {
 
   const navigate = useNavigate();
 
-  const [loading, setLoading] = useState<boolean>(true);
-  const [path, setPath] = useState<string>("/");
   const [bucketData, setBucketData] = useState<BucketResponse>();
 
   const fetchBucket = useCallback(async () => {
@@ -23,16 +21,11 @@ function Bucket() {
     }
 
     setBucketData(await bucketServiceInstance.GetBucketByName(bucketName));
-    setLoading(false);
   }, []);
 
   useEffect(() => {
     fetchBucket();
   }, [fetchBucket]);
-
-  useEffect(() => {
-    setLoading(false);
-  }, []);
 
   return (
     <div className="bucket-data-wrapper">
