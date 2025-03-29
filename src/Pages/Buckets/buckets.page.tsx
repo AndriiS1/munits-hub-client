@@ -1,29 +1,37 @@
 import { Button } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SearchInput from "../../Components/SearchInput/searchInput.component";
 import bucketServiceInstance from "../../Services/Buckets/bucket.service";
 import { BucketResponse } from "../../Services/Buckets/bucket.types";
 import "./buckets.style.css";
 
-export default function Buckets() {
+function Buckets() {
   const navigate = useNavigate();
+
+  const handleNewBucketClick = useCallback(() => {
+    navigate("/buckets/new");
+  }, [navigate]);
 
   const [loading, setLoading] = useState<boolean>(true);
   const [buckets, setBuckets] = useState<BucketResponse[]>([]);
 
-  useEffect(() => {
-    const getBuckets = async () => {
-      setBuckets(await bucketServiceInstance.GetBuckets());
-    };
-
-    getBuckets();
+  const fetchBuckets = useCallback(async () => {
+    setBuckets(await bucketServiceInstance.GetBuckets());
     setLoading(false);
   }, []);
 
+  useEffect(() => {
+    fetchBuckets();
+  }, [fetchBuckets]);
+
   const getDataRow = (bucket: BucketResponse) => {
     return (
-      <tr key={bucket.id} className="data-row">
+      <tr
+        key={bucket.id}
+        className="data-row"
+        onClick={() => navigate(`/buckets/${bucket.name}`)}
+      >
         <th scope="row" className="data-header">
           <span>{bucket.name}</span>
         </th>
@@ -49,13 +57,7 @@ export default function Buckets() {
 
       <div className="buckets-options">
         <SearchInput placeholder="Search for buckets" />
-        <Button
-          variant="contained"
-          disableElevation
-          onClick={() => {
-            navigate("/buckets/new");
-          }}
-        >
+        <Button variant="contained" onClick={handleNewBucketClick}>
           Add bucket
         </Button>
       </div>
@@ -84,3 +86,5 @@ export default function Buckets() {
     </div>
   );
 }
+
+export default Buckets;

@@ -9,6 +9,14 @@ class BucketService {
     return response.data;
   }
 
+  async GetBucketByName(name: string): Promise<BucketResponse> {
+    const response = await api.get(
+      `${BUCKETS_API_ROUTES.GET_BUCKET_BY_NAME}/${name}`
+    );
+
+    return response.data;
+  }
+
   async BucketExistsCheck(name: string): Promise<boolean> {
     const response = await api.post(BUCKETS_API_ROUTES.EXISTS, { name });
     return response.data.exists;

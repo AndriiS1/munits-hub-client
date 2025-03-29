@@ -10,7 +10,12 @@ export const AUTH_API_ROUTES = {
 export const BUCKETS_API_ROUTES = {
   GET_BUCKET: `buckets/{id}`,
   GET_USER_BUCKETS: `buckets/user`,
+  GET_BUCKET_BY_NAME: `buckets/by-name`,
   DELETE: `buckets/`,
   CREATE: `buckets/`,
   EXISTS: `buckets/exists`,
+};
+
+export const OBJECTS_API_ROUTES = {
+  FILTER_OBJECTS: `objects/filter`,
 };

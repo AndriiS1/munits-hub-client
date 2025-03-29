@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ProtectedWrap from "./Components/ProtectedWrap/protectedWrap.component";
 import AddBucketPage from "./Pages/AddBucket/addBucket.page";
+import Bucket from "./Pages/Bucket/bucket.page";
 import Buckets from "./Pages/Buckets/buckets.page";
 import Home from "./Pages/Home/home.page";
 import LandingPage from "./Pages/Landing/landing.page";
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "buckets/new",
         element: <AddBucketPage />,
+      },
+      {
+        path: "buckets/:bucketName",
+        element: <Bucket />,
       },
     ],
   },
