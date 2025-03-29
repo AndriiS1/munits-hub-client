@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import BucketFolder from "../../Components/BucketContent/bucketContent.component";
+import Button from "../../Components/Button/button.component";
 import SearchInput from "../../Components/SearchInput/searchInput.component";
 import bucketServiceInstance from "../../Services/Buckets/bucket.service";
 import { BucketResponse } from "../../Services/Buckets/bucket.types";
@@ -30,31 +31,14 @@ function Bucket() {
   }, [fetchBucket]);
 
   useEffect(() => {
-    // const getBuckets = async () => {
-    //   setBuckets(await bucketServiceInstance.GetBuckets());
-    // };
-
-    // getBuckets();
     setLoading(false);
   }, []);
 
-  const getDataRow = (bucket: BucketResponse) => {
-    return (
-      <tr key={bucket.id} className="data-row">
-        <th scope="row" className="data-header">
-          <span>{bucket.name}</span>
-        </th>
-        <td className="data-cell">{bucket.objectsCount}</td>
-        <td className="data-cell-alt">{bucket.size}</td>
-      </tr>
-    );
-  };
-
   return (
-    <div className="buckets-data">
+    <div className="bucket-data-wrapper">
       <div>
         <Link to="/buckets" className="link">
-          MunitS / {bucketName}
+          🠔 MunitS / {bucketName}
         </Link>
         <h1>{bucketName}</h1>
       </div>
@@ -66,24 +50,37 @@ function Bucket() {
               <th scope="col">Objects count</th>
               <th scope="col">Size</th>
               <th scope="col">Versioning enabled</th>
+              {bucketData?.versioningEnabled ?? (
+                <th scope="col">Versions limit</th>
+              )}
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>{bucketData?.objectsCount}</td>
               <td>{bucketData?.size}</td>
-              <td>{bucketData?.versioningEnabled}</td>
+              <td>{bucketData?.versioningEnabled ? "Yes" : "No"}</td>
+              {bucketData?.versioningEnabled ?? (
+                <td>{bucketData?.versionsLimit}</td>
+              )}
             </tr>
           </tbody>
         </table>
       </div>
 
-      <div className="buckets-options">
-        <SearchInput placeholder="Search for buckets" />
+      <hr />
+      <div className="bucket-options">
+        <SearchInput placeholder="Search for objects" />
+        <div className="search-objects-button">
+          <Button text="Search"></Button>
+        </div>
       </div>
 
       <hr />
-      <BucketFolder bucketId={bucketData?.id}></BucketFolder>
+      <BucketFolder
+        bucketName={bucketName}
+        bucketId={bucketData?.id}
+      ></BucketFolder>
     </div>
   );
 }

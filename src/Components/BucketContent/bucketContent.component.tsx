@@ -6,10 +6,19 @@ import {
 } from "../../Services/Objects/objects.types";
 import "./bucketContent.style.css";
 
-function BucketFolder(props: { bucketId: string | undefined }) {
+function BucketFolder(props: {
+  bucketName: string | undefined;
+  bucketId: string | undefined;
+}) {
   const [path, setPath] = useState<string>("/");
   const [folders, setFolders] = useState<FolderResponse[]>([]);
   const [objects, setObjects] = useState<ObjectResponse[]>([]);
+
+  const truncateToDeepestPath = useCallback((path: string) => {
+    const parts = path.split("/").filter(Boolean);
+    const deepest = parts[parts.length - 1] || "";
+    return `${deepest}/`;
+  }, []);
 
   const fetchObjects = useCallback(async () => {
     if (!props.bucketId) {
@@ -24,7 +33,6 @@ function BucketFolder(props: { bucketId: string | undefined }) {
         path
       );
 
-      console.log("objects", objects);
       setFolders(objects.folders);
       setObjects(objects.objects);
     } catch (error) {
@@ -41,20 +49,46 @@ function BucketFolder(props: { bucketId: string | undefined }) {
       <tr key={folder.id}>
         <th
           scope="row"
-          className="data-header"
+          className="custom-link"
           onClick={() => setPath(folder.prefix)}
         >
-          <span>{folder.prefix}</span>
+          <span>{truncateToDeepestPath(folder.prefix)}</span>
         </th>
         <td className="data-cell">Folder</td>
       </tr>
     );
   };
 
+  const getBreadcrumbs = () => {
+    const parts = path.split("/").filter(Boolean);
+    const breadcrumbs = parts.map((part, index) => {
+      const path = parts.slice(0, index + 1).join("/ ");
+      return (
+        <>
+          <span
+            key={index}
+            className="custom-link"
+            onClick={() => setPath(`/${path}/`)}
+          >
+            {part}
+          </span>
+          <span>/ </span>
+        </>
+      );
+    });
+
+    return (
+      <div className="bucket-breadcrumbs">
+        <span onClick={() => setPath("/")}>{props.bucketName} / </span>
+        {breadcrumbs}
+      </div>
+    );
+  };
+
   const getObjectRow = (bucket: ObjectResponse) => {
     return (
       <tr key={bucket.id}>
-        <th scope="row" className="data-header">
+        <th scope="row">
           <span>{bucket.fileName}</span>
         </th>
         <td className="data-cell">Object</td>
@@ -64,6 +98,7 @@ function BucketFolder(props: { bucketId: string | undefined }) {
 
   return (
     <div className="bucket-content">
+      {getBreadcrumbs()}
       <table className="bucket-content-table">
         <thead>
           <tr>

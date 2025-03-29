@@ -1,9 +1,3 @@
-.buckets-data {
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .table-container {
   position: relative;
   overflow-x: auto;
@@ -33,30 +27,6 @@
 
 .bucket-content-table tbody {
   font-size: 1rem;
-}
-
-.bucket-content-table .data-header span {
-  text-decoration: underline;
-  text-decoration-color: hsl(344deg 83% 47%);
-  background: linear-gradient(
-    80deg,
-    hsl(240deg 100% 20%) 0%,
-    hsl(277deg 100% 21%) 8%,
-    hsl(297deg 100% 21%) 17%,
-    hsl(313deg 100% 26%) 25%,
-    hsl(323deg 100% 31%) 33%,
-    hsl(331deg 100% 36%) 42%,
-    hsl(336deg 100% 40%) 50%,
-    hsl(344deg 83% 47%) 58%,
-    hsl(359deg 82% 57%) 67%,
-    hsl(11deg 91% 58%) 75%,
-    hsl(21deg 97% 57%) 83%,
-    hsl(31deg 100% 54%) 92%,
-    hsl(39deg 100% 50%) 100%
-  );
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
 .bucket-content-table tr {

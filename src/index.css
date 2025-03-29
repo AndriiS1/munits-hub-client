@@ -91,3 +91,8 @@ hr {
   margin-bottom: 1em;
   padding: 0;
 }
+
+.custom-link {
+  text-decoration: underline;
+  color: rgb(28, 28, 235);
+}
