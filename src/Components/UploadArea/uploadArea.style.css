@@ -1,0 +1,98 @@
+.upload-area-container {
+  width: 100%;
+  background: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  display: flex;
+}
+
+.upload-area {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 97%;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px dashed #ccc;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+
+  .upload-cloud-icon {
+    height: 150px;
+    width: 150px;
+    margin: 20px;
+  }
+
+  .welcome-upload-info {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    margin-bottom: 1rem;
+  }
+
+  .upload-info {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .file-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  .file-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+
+    .file-info {
+      display: flex;
+      flex-direction: column;
+
+      flex: 1;
+
+      p {
+        margin: 0;
+        font-size: 14px;
+        color: #333;
+      }
+    }
+
+    .file-actions {
+      cursor: pointer;
+
+      svg {
+        font-size: 18px;
+        color: #888;
+      }
+
+      &:hover {
+        svg {
+          color: #d44;
+        }
+      }
+    }
+  }
+
+  .success-file {
+    display: flex;
+    align-items: center;
+    color: #6dc24b;
+
+    p {
+      margin: 0;
+      font-size: 14px;
+      font-weight: bold;
+    }
+  }
+}

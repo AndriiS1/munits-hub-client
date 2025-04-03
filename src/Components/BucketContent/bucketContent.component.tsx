@@ -5,6 +5,7 @@ import {
   ObjectResponse,
 } from "../../Services/Objects/objects.types";
 import Button from "../Button/button.component";
+import UploadArea from "../UploadArea/uploadArea.components";
 import "./bucketContent.style.css";
 
 function BucketFolder(props: {
@@ -14,6 +15,7 @@ function BucketFolder(props: {
   const [path, setPath] = useState<string>("/");
   const [folders, setFolders] = useState<FolderResponse[]>([]);
   const [objects, setObjects] = useState<ObjectResponse[]>([]);
+  const [uploadFormIsOpened, setUploadFormIsOpened] = useState<boolean>(false);
 
   const truncateToDeepestPath = useCallback((path: string) => {
     const parts = path.split("/").filter(Boolean);
@@ -104,9 +106,13 @@ function BucketFolder(props: {
         {getBreadcrumbs()}
         <div className="bucket-content-options">
           <Button text="Refresh" />
-          <Button text="Upload" />
+          <Button
+            text="Upload"
+            onClick={() => setUploadFormIsOpened(!uploadFormIsOpened)}
+          />
         </div>
       </div>
+      {uploadFormIsOpened && <UploadArea pathPlaceholder={path} />}
       <table className="bucket-content-table">
         <thead>
           <tr>
