@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { ReactComponent as CrossIcon } from "../../Assets/cross.icon.svg";
 import { ReactComponent as CloudUploadIcon } from "../../Assets/upload-cloud.icon.svg";
 import storageServiceInstance from "../../Services/Storage/storage.service";
 import Button from "../Button/button.component";
@@ -40,8 +39,8 @@ const UploadArea: React.FC<UploadAreaProps> = ({ bucketId, bucketName }) => {
     }
   };
 
-  const handleRemoveFile = (index: number) => {
-    setFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
+  const handleRemoveFile = (fileName: string) => {
+    setFiles((prevFiles) => prevFiles.filter((file) => file.name !== fileName));
   };
 
   const handleUpload = () => {
@@ -127,15 +126,15 @@ const UploadArea: React.FC<UploadAreaProps> = ({ bucketId, bucketName }) => {
             <div className="file-list">
               <div className="file-list__container">
                 {files.map((file, index) => (
-                  <div className="file-item" key={index}>
+                  <div className="file-item" key={file.name}>
                     <div className="file-info">
                       <p>{file.name}</p>
                     </div>
                     <div
                       className="file-actions"
-                      onClick={() => handleRemoveFile(index)}
+                      onClick={() => handleRemoveFile(file.name)}
                     >
-                      <CrossIcon className="trash-icon" />
+                      <Button text="Remove" color="red" />
                     </div>
                   </div>
                 ))}
