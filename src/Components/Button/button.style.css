@@ -26,6 +26,7 @@
   -webkit-user-select: none;
   touch-action: manipulation;
   width: 100%;
+  min-height: 30px;
 }
 
 .custom-button:disabled {

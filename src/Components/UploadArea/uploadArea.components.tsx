@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ReactComponent as CrossIcon } from "../../Assets/cross.icon.svg";
 import { ReactComponent as CloudUploadIcon } from "../../Assets/upload-cloud.icon.svg";
-import storageServiceInstance from "../../Services/Objects/storage.service";
+import storageServiceInstance from "../../Services/Storage/storage.service";
 import Button from "../Button/button.component";
 import Input from "../Input/input.component";
 import "./uploadArea.style.css";

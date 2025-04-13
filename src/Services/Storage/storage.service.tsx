@@ -1,5 +1,5 @@
 import axios from "axios";
-import objectsServiceInstance from "./objects.api.service";
+import objectsServiceInstance from "../Objects/objects.api.service";
 
 class StorageService {
   async UploadFile(bucketId: string, uploadPathPrefix: string, file: File) {

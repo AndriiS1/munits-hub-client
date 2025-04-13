@@ -20,7 +20,7 @@ function Bucket() {
     }
 
     setBucketData(await bucketServiceInstance.GetBucketByName(bucketName));
-  }, []);
+  }, [bucketName, navigate]);
 
   useEffect(() => {
     fetchBucket();
@@ -49,8 +49,12 @@ function Bucket() {
           </thead>
           <tbody>
             <tr>
-              <td>{bucketData?.objectsCount}</td>
-              <td>{bucketData ? GetSizeString(bucketData.size) : 0}</td>
+              <td>{bucketData?.counter?.objectsCount}</td>
+              <td>
+                {bucketData && bucketData.counter
+                  ? GetSizeString(bucketData.counter.size)
+                  : 0}
+              </td>
               <td>{bucketData?.versioningEnabled ? "Yes" : "No"}</td>
               {bucketData?.versioningEnabled ?? (
                 <td>{bucketData?.versionsLimit}</td>

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import SearchInput from "../../Components/SearchInput/searchInput.component";
 import bucketServiceInstance from "../../Services/Buckets/buckets.api.service";
 import { BucketResponse } from "../../Services/Buckets/buckets.types";
+import { GetSizeString } from "../../Utils/fileSize.util";
 import "./buckets.style.css";
 
 function Buckets() {
@@ -35,8 +36,8 @@ function Buckets() {
         <th scope="row">
           <span className="custom-link">{bucket.name}</span>
         </th>
-        <td>{bucket.objectsCount}</td>
-        <td>{bucket.size}</td>
+        <td>{bucket.counter ? bucket.counter.objectsCount : 0}</td>
+        <td>{bucket.counter ? GetSizeString(bucket.counter.size) : 0}</td>
       </tr>
     );
   };

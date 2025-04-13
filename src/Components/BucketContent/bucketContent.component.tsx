@@ -63,11 +63,7 @@ function BucketContent(props: { bucketName: string; bucketId: string }) {
       const path = parts.slice(0, index + 1).join("/ ");
       return (
         <>
-          <span
-            key={index}
-            className="custom-link"
-            onClick={() => setPath(`/${path}/`)}
-          >
+          <span className="custom-link" onClick={() => setPath(`/${path}/`)}>
             {part}
           </span>
           <span> / </span>
