@@ -4,7 +4,20 @@ import { BucketResponse } from "./buckets.types";
 
 class BucketService {
   async GetBuckets(): Promise<BucketResponse[]> {
-    const response = await api.post(BUCKETS_API_ROUTES.GET_BUCKETS, {});
+    const response = await api.post(BUCKETS_API_ROUTES.GET_BUCKETS, {
+      page: 1,
+      pageSize: 100,
+    });
+
+    return response.data;
+  }
+
+  async SearchBuckets(search: string): Promise<BucketResponse[]> {
+    const response = await api.post(BUCKETS_API_ROUTES.SEARCH_BUCKETS, {
+      search: search,
+      page: 1,
+      pageSize: 100,
+    });
 
     return response.data;
   }

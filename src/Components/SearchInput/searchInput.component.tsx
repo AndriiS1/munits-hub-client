@@ -1,6 +1,10 @@
 import "./searchInput.style.css";
 
-export default function SearchInput(props: { placeholder: string }) {
+export default function SearchInput(props: {
+  placeholder: string;
+  value: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}) {
   return (
     <div className="search-container">
       <div className="search-box">
@@ -26,6 +30,8 @@ export default function SearchInput(props: { placeholder: string }) {
             </svg>
           </div>
           <input
+            value={props.value}
+            onChange={props.onChange}
             type="text"
             id="table-search"
             className="search-input"

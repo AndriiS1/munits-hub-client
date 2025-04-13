@@ -1,6 +1,6 @@
-import { Button } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Button from "../../Components/Button/button.component";
 import SearchInput from "../../Components/SearchInput/searchInput.component";
 import bucketServiceInstance from "../../Services/Buckets/buckets.api.service";
 import { BucketResponse } from "../../Services/Buckets/buckets.types";
@@ -15,6 +15,7 @@ function Buckets() {
   }, [navigate]);
 
   const [loading, setLoading] = useState<boolean>(true);
+  const [search, setSearch] = useState<string | undefined>();
   const [buckets, setBuckets] = useState<BucketResponse[]>([]);
 
   const fetchBuckets = useCallback(async () => {
@@ -22,9 +23,29 @@ function Buckets() {
     setLoading(false);
   }, []);
 
+  const searchBuckets = useCallback(async () => {
+    if (search && search.length > 0) {
+      setLoading(true);
+      setBuckets(await bucketServiceInstance.SearchBuckets(search));
+      setLoading(false);
+    }
+  }, [search]);
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(event.target.value);
+  };
+
   useEffect(() => {
     fetchBuckets();
   }, [fetchBuckets]);
+
+  useEffect(() => {
+    if (search && search.length > 0) {
+      searchBuckets();
+    } else {
+      fetchBuckets();
+    }
+  }, [fetchBuckets, search]);
 
   const getDataRow = (bucket: BucketResponse) => {
     return (
@@ -57,10 +78,12 @@ function Buckets() {
       </div>
 
       <div className="buckets-options">
-        <SearchInput placeholder="Search for buckets" />
-        <Button variant="contained" onClick={handleNewBucketClick}>
-          Add bucket
-        </Button>
+        <SearchInput
+          onChange={(e: any) => handleSearchChange(e)}
+          value={search ?? ""}
+          placeholder="Search for buckets"
+        />
+        <Button text="Add bucket" onClick={handleNewBucketClick} />
       </div>
 
       <hr />

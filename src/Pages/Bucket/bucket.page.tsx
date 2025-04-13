@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import BucketContent from "../../Components/BucketContent/bucketContent.component";
 import Button from "../../Components/Button/button.component";
-import SearchInput from "../../Components/SearchInput/searchInput.component";
 import bucketServiceInstance from "../../Services/Buckets/buckets.api.service";
 import { BucketResponse } from "../../Services/Buckets/buckets.types";
 import { GetSizeString } from "../../Utils/fileSize.util";
@@ -66,7 +65,7 @@ function Bucket() {
 
       <hr />
       <div className="bucket-options">
-        <SearchInput placeholder="Search for objects" />
+        {/* <SearchInput placeholder="Search for objects" /> */}
         <div className="search-objects-button">
           <Button text="Search"></Button>
         </div>
