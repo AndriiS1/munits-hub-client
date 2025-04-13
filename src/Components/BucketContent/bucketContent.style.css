@@ -6,6 +6,21 @@
     margin-top: 2.5rem;
   }
 
+  .folder-title {
+    display: flex;
+    align-items: center;
+
+    .custom-link {
+      margin-left: 10px;
+    }
+
+    .folder-icon {
+      width: 30px;
+      height: 30px;
+      fill: var(--primary-color);
+    }
+  }
+
   .navigation {
     display: flex;
     flex-direction: row;

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { ReactComponent as FolderIcon } from "../../Assets/folder.icon.svg";
 import objectsServiceInstance from "../../Services/Objects/objects.api.service";
 import {
   FolderResponse,
@@ -47,7 +48,12 @@ function BucketContent(props: { bucketName: string; bucketId: string }) {
   const getFolderRow = (folder: FolderResponse) => {
     return (
       <tr key={folder.id}>
-        <th scope="row" onClick={() => setPath(`${path}${folder.prefix}/`)}>
+        <th
+          scope="row"
+          className="folder-title"
+          onClick={() => setPath(`${path}${folder.prefix}/`)}
+        >
+          <FolderIcon className="folder-icon" />
           <span className="custom-link">
             {truncateToDeepestPath(folder.prefix)}
           </span>
