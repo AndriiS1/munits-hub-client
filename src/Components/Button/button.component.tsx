@@ -9,7 +9,7 @@ export default function Button(props: {
   return (
     <button
       className="custom-button"
-      onClick={props.onClick}
+      onClick={props.disabled ? undefined : props.onClick}
       disabled={props.disabled}
       style={{ backgroundColor: props.color }}
     >

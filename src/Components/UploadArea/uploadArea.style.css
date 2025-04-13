@@ -27,6 +27,15 @@
     margin: 20px;
   }
 
+  .trash-icon {
+    padding: 2px;
+    fill: rgb(170, 2, 2);
+    background-color: rgb(255, 0, 0);
+    border-radius: 30%;
+    height: 1rem;
+    width: 1rem;
+  }
+
   .welcome-upload-info {
     display: flex;
     flex-direction: column;
@@ -48,11 +57,13 @@
   }
 
   .file-item {
+    padding: 1rem;
+    margin-top: 5px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0.5rem;
-    border: 1px solid var(--border-color);
+    background-color: var(--light-gray);
     border-radius: 8px;
 
     .file-info {
@@ -70,16 +81,8 @@
 
     .file-actions {
       cursor: pointer;
-
-      svg {
-        font-size: 18px;
-        color: #888;
-      }
-
       &:hover {
-        svg {
-          color: #d44;
-        }
+        color: #d44;
       }
     }
   }

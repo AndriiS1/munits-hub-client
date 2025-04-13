@@ -5,6 +5,8 @@ import Button from "../../Components/Button/button.component";
 import SearchInput from "../../Components/SearchInput/searchInput.component";
 import bucketServiceInstance from "../../Services/Buckets/buckets.api.service";
 import { BucketResponse } from "../../Services/Buckets/buckets.types";
+
+import { GetSizeString } from "../../Utils/fileSize.util";
 import "./bucket.style.css";
 
 function Bucket() {
@@ -51,7 +53,7 @@ function Bucket() {
           <tbody>
             <tr>
               <td>{bucketData?.objectsCount}</td>
-              <td>{bucketData?.size}</td>
+              <td>{bucketData ? GetSizeString(bucketData.size) : 0}</td>
               <td>{bucketData?.versioningEnabled ? "Yes" : "No"}</td>
               {bucketData?.versioningEnabled ?? (
                 <td>{bucketData?.versionsLimit}</td>

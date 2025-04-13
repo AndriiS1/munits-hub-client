@@ -102,7 +102,7 @@ function BucketContent(props: { bucketName: string; bucketId: string }) {
       <div className="bucket-content-navigation">
         {getBreadcrumbs()}
         <div className="bucket-content-options">
-          <Button text="Refresh" />
+          <Button text="Refresh" onClick={() => fetchObjects()} />
           <Button
             text="Upload"
             onClick={() => setUploadFormIsOpened(!uploadFormIsOpened)}

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ReactComponent as CrossIcon } from "../../Assets/cross.icon.svg";
 import { ReactComponent as CloudUploadIcon } from "../../Assets/upload-cloud.icon.svg";
 import storageServiceInstance from "../../Services/Objects/storage.service";
 import Button from "../Button/button.component";
@@ -112,10 +113,12 @@ const UploadArea: React.FC<UploadAreaProps> = ({
                   <div className="file-item" key={index}>
                     <div className="file-info">
                       <p>{file.name}</p>
-                      <p>{file.type}</p>
                     </div>
-                    <div className="file-actions">
-                      {/* <MdClear onClick={() => handleRemoveFile(index)} /> */}
+                    <div
+                      className="file-actions"
+                      onClick={() => handleRemoveFile(index)}
+                    >
+                      <CrossIcon className="trash-icon" />
                     </div>
                   </div>
                 ))}
@@ -124,6 +127,7 @@ const UploadArea: React.FC<UploadAreaProps> = ({
             <Button
               text="upload"
               disabled={uploadButtonDisabled}
+              color="orange"
               onClick={() => handleUpload()}
             ></Button>
           </>

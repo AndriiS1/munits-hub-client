@@ -7,6 +7,8 @@ export default function Input(props: {
   value: string;
   type: "number" | "text";
   errorMessage?: string | undefined;
+  prefix?: string | undefined;
+  suffix?: string | undefined;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
   return (

@@ -9,6 +9,12 @@
   font-family: "Roboto", sans-serif;
 }
 
+:root {
+  --primary-color: #3b82f6;
+  --light-gray: #f4f5f6;
+  --link-color: rgb(18, 18, 228);
+}
+
 a {
   background: linear-gradient(
     80deg,
@@ -95,5 +101,5 @@ hr {
 .custom-link {
   text-decoration: underline;
   cursor: pointer;
-  color: rgb(28, 28, 235) !important;
+  color: var(--link-color) !important;
 }

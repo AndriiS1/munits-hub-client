@@ -26,20 +26,16 @@
 }
 
 .bucket-data-table th {
-  color: rgb(18, 18, 228);
+  color: var(--link-color);
   font-weight: 500;
   color: #111827;
   text-align: left;
-  background-color: #f9fafb;
+  background-color: var(--light-gray);
 }
 
 .bucket-data-table td {
   font-size: medium;
   font-weight: 400;
-}
-
-.bucket-data-table td:nth-child(3) {
-  background-color: #f9fafb;
 }
 
 .bucket-options {
