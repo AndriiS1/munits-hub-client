@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import authServiceInstance from "../../Services/auth.service";
 import "./home.style.css";
 
 export default function Home() {
+  const navigate = useNavigate();
+
   const [userEmail, setUserEmail] = useState<string>("admin@gmail.com");
 
   useEffect(() => {
@@ -14,12 +16,19 @@ export default function Home() {
     getUserEmail();
   }, []);
 
+  const handleLogout = () => {
+    authServiceInstance.logout();
+    navigate("/");
+  };
+
   return (
     <div>
       <header>
         <ul className="nav">
           <li className="logo-text">MunitS</li>
-          <li>Log out</li>
+          <li className="log-out" onClick={() => handleLogout()}>
+            Log out
+          </li>
         </ul>
       </header>
 

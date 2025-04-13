@@ -64,6 +64,10 @@ a:hover {
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
+
+  .log-out {
+    cursor: pointer;
+  }
 }
 
 .logo-text {

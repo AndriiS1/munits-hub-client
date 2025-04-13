@@ -27,15 +27,27 @@ const router = createBrowserRouter([
     children: [
       {
         path: "buckets",
-        element: <Buckets />,
+        element: (
+          <ProtectedWrap>
+            <Buckets />
+          </ProtectedWrap>
+        ),
       },
       {
         path: "buckets/new",
-        element: <AddBucketPage />,
+        element: (
+          <ProtectedWrap>
+            <AddBucketPage />
+          </ProtectedWrap>
+        ),
       },
       {
         path: "buckets/:bucketName",
-        element: <Bucket />,
+        element: (
+          <ProtectedWrap>
+            <Bucket />
+          </ProtectedWrap>
+        ),
       },
     ],
   },

@@ -10,20 +10,20 @@ const api = axios.create({
 });
 
 api.interceptors.request.use(
-  (config) => {
+  async (config) => {
     const token = TokenService.getLocalAccessToken();
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
     }
     return config;
   },
-  (error) => {
+  async (error) => {
     return Promise.reject(error);
   }
 );
 
 api.interceptors.response.use(
-  (res) => {
+  async (res) => {
     return res;
   },
   async (err) => {
@@ -34,17 +34,24 @@ api.interceptors.response.use(
         originalConfig._retry = true;
 
         try {
-          const response = await api.post(AUTH_API_ROUTES.REFRESH_TOKEN, {
-            refreshToken: TokenService.getLocalRefreshToken(),
-          });
+          const refreshToken = TokenService.getLocalRefreshToken();
 
-          const { accessToken } = response.data;
-          TokenService.updateLocalAccessToken(accessToken);
+          if (refreshToken) {
+            const response = await api.post(AUTH_API_ROUTES.REFRESH_TOKEN, {
+              refreshToken,
+            });
 
-          return api(originalConfig);
+            const { accessToken } = response.data;
+            TokenService.updateLocalAccessToken(accessToken);
+
+            return api(originalConfig);
+          }
         } catch (_error) {
           return Promise.reject(_error);
         }
+      } else {
+        TokenService.removeUserTokens();
+        window.location.href = "/login";
       }
     }
 
