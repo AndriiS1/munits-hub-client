@@ -47,7 +47,7 @@ function BucketContent(props: { bucketName: string; bucketId: string }) {
   const getFolderRow = (folder: FolderResponse) => {
     return (
       <tr key={folder.id}>
-        <th scope="row" onClick={() => setPath(folder.prefix)}>
+        <th scope="row" onClick={() => setPath(`${path}${folder.prefix}/`)}>
           <span className="custom-link">
             {truncateToDeepestPath(folder.prefix)}
           </span>
