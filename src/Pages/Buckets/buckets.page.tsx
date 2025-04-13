@@ -2,8 +2,8 @@ import { Button } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SearchInput from "../../Components/SearchInput/searchInput.component";
-import bucketServiceInstance from "../../Services/Buckets/bucket.service";
-import { BucketResponse } from "../../Services/Buckets/bucket.types";
+import bucketServiceInstance from "../../Services/Buckets/buckets.api.service";
+import { BucketResponse } from "../../Services/Buckets/buckets.types";
 import "./buckets.style.css";
 
 function Buckets() {

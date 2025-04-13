@@ -1,4 +1,4 @@
-export const API_BASE_URL = process.env.MUNITS_HUB_SERVER_URL || "";
+export const API_BASE_URL = process.env.REACT_APP_MUNITS_HUB_SERVER_URL || "";
 
 export const AUTH_API_ROUTES = {
   GET_USER_EMAIL: `users/email`,
@@ -20,9 +20,9 @@ export const MUNITS_HUB_ROUTES = {
   FILTER_OBJECTS: `objects/filter`,
   INITIATE_UPLOAD: `objects/upload/initiate`,
 
-  COMPLETE_UPLOAD: (uploadId: string) => `objects/upload/${uploadId}/abort`,
+  COMPLETE_UPLOAD: (uploadId: string) => `objects/upload/${uploadId}/complete`,
 
-  ABORT_UPLOAD: (uploadId: string) => `objects/upload/${uploadId}/complete`,
+  ABORT_UPLOAD: (uploadId: string) => `objects/upload/${uploadId}abort/`,
 
   GET_UPLOAD_SIGNED_URLS: (
     uploadId: string,

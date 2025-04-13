@@ -1,16 +1,24 @@
 import { useState } from "react";
 import { ReactComponent as CloudUploadIcon } from "../../Assets/upload-cloud.icon.svg";
+import storageServiceInstance from "../../Services/Objects/storage.service";
+import Button from "../Button/button.component";
 import Input from "../Input/input.component";
 import "./uploadArea.style.css";
 
 interface UploadAreaProps {
   onFilesSelected?: (files: File[]) => void;
   pathPlaceholder: string;
+  bucketId: string;
 }
 
-const UploadArea: React.FC<UploadAreaProps> = ({ pathPlaceholder }) => {
+const UploadArea: React.FC<UploadAreaProps> = ({
+  pathPlaceholder,
+  bucketId,
+}) => {
   const [files, setFiles] = useState<File[]>([]);
   const [uploadPath, setUploadPath] = useState<string>(pathPlaceholder);
+  const [uploadButtonDisabled, setUploadButtonDisabled] =
+    useState<boolean>(false);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = event.target.files;
@@ -35,6 +43,16 @@ const UploadArea: React.FC<UploadAreaProps> = ({ pathPlaceholder }) => {
     setFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
   };
 
+  const handleUpload = () => {
+    if (uploadButtonDisabled) return;
+
+    files.forEach(async (file) => {
+      await storageServiceInstance.UploadFile(bucketId, file.name, file);
+    });
+
+    setUploadButtonDisabled(true);
+  };
+
   return (
     <section className="upload-area-container">
       <div
@@ -42,18 +60,21 @@ const UploadArea: React.FC<UploadAreaProps> = ({ pathPlaceholder }) => {
         onDrop={handleDrop}
         onDragOver={(event) => event.preventDefault()}
       >
-        <CloudUploadIcon className="upload-cloud-icon" />
         {files.length === 0 && (
-          <div className="welcome-upload-info">
-            <div>Your bucket is ready. Add files to get started. </div>
+          <>
+            <CloudUploadIcon className="upload-cloud-icon" />
+            <div className="welcome-upload-info">
+              <div>Your bucket is ready. Add files to get started. </div>
 
-            <div>
-              Drag and drop your files here to upload or{" "}
-              <label className="custom-link" htmlFor="browse-files">
-                select from you computer
-              </label>
+              <div>
+                Drag and drop your files here to upload or{" "}
+                <label className="custom-link" htmlFor="browse-files">
+                  select from you computer
+                </label>
+                .
+              </div>
             </div>
-          </div>
+          </>
         )}
 
         <input
@@ -100,6 +121,11 @@ const UploadArea: React.FC<UploadAreaProps> = ({ pathPlaceholder }) => {
                 ))}
               </div>
             </div>
+            <Button
+              text="upload"
+              disabled={uploadButtonDisabled}
+              onClick={() => handleUpload()}
+            ></Button>
           </>
         )}
       </div>

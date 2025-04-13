@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import objectsServiceInstance from "../../Services/Objects/objects.service";
+import objectsServiceInstance from "../../Services/Objects/objects.api.service";
 import {
   FolderResponse,
   ObjectResponse,
@@ -8,10 +8,7 @@ import Button from "../Button/button.component";
 import UploadArea from "../UploadArea/uploadArea.components";
 import "./bucketContent.style.css";
 
-function BucketFolder(props: {
-  bucketName: string | undefined;
-  bucketId: string | undefined;
-}) {
+function BucketContent(props: { bucketName: string; bucketId: string }) {
   const [path, setPath] = useState<string>("/");
   const [folders, setFolders] = useState<FolderResponse[]>([]);
   const [objects, setObjects] = useState<ObjectResponse[]>([]);
@@ -112,7 +109,9 @@ function BucketFolder(props: {
           />
         </div>
       </div>
-      {uploadFormIsOpened && <UploadArea pathPlaceholder={path} />}
+      {uploadFormIsOpened && (
+        <UploadArea bucketId={props.bucketId} pathPlaceholder={path} />
+      )}
       <table className="bucket-content-table">
         <thead>
           <tr>
@@ -129,4 +128,4 @@ function BucketFolder(props: {
   );
 }
 
-export default BucketFolder;
+export default BucketContent;

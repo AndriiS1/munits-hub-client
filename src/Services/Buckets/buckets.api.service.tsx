@@ -1,6 +1,6 @@
 import api from "../api/api";
 import { BUCKETS_API_ROUTES } from "../api/routes";
-import { BucketResponse } from "./bucket.types";
+import { BucketResponse } from "./buckets.types";
 
 class BucketService {
   async GetBuckets(): Promise<BucketResponse[]> {

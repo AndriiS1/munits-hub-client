@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../../Components/Button/button.component";
 import Input from "../../Components/Input/input.component";
 import SelectList from "../../Components/SelectList/selectList.component";
-import bucketServiceInstance from "../../Services/Buckets/bucket.service";
+import bucketServiceInstance from "../../Services/Buckets/buckets.api.service";
 import "./addBucket.style.css";
 
 enum LocationOptions {

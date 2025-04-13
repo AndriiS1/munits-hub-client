@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import BucketFolder from "../../Components/BucketContent/bucketContent.component";
+import BucketContent from "../../Components/BucketContent/bucketContent.component";
 import Button from "../../Components/Button/button.component";
 import SearchInput from "../../Components/SearchInput/searchInput.component";
-import bucketServiceInstance from "../../Services/Buckets/bucket.service";
-import { BucketResponse } from "../../Services/Buckets/bucket.types";
+import bucketServiceInstance from "../../Services/Buckets/buckets.api.service";
+import { BucketResponse } from "../../Services/Buckets/buckets.types";
 import "./bucket.style.css";
 
 function Bucket() {
@@ -70,10 +70,12 @@ function Bucket() {
       </div>
 
       <hr />
-      <BucketFolder
-        bucketName={bucketName}
-        bucketId={bucketData?.id}
-      ></BucketFolder>
+      {bucketName && bucketData?.id && (
+        <BucketContent
+          bucketName={bucketName}
+          bucketId={bucketData?.id}
+        ></BucketContent>
+      )}
     </div>
   );
 }
