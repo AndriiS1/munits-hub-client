@@ -1,67 +1,78 @@
-.table-container {
-  position: relative;
-  overflow-x: auto;
-  border-radius: 0.5rem;
-  margin-top: 2.5rem;
-}
-
-.bucket-content-table {
-  width: 100%;
-  text-align: left;
-  color: #6b7280;
-  border-collapse: collapse;
-  table-layout: fixed;
-
-  thead {
-    display: block;
-    font-size: 1.125rem;
-    text-transform: uppercase;
-
-    color: #0b2b5f;
+.bucket-content-wrapper {
+  .table-container {
+    position: relative;
+    overflow-x: auto;
+    border-radius: 0.5rem;
+    margin-top: 2.5rem;
   }
 
-  thead th {
+  .navigation {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .options {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+  }
+
+  .content-table {
+    margin-top: 2%;
     width: 100%;
-    padding: 12px 24px;
+    text-align: left;
+    color: #6b7280;
+    border-collapse: collapse;
+    table-layout: fixed;
+
+    thead {
+      font-size: 1.125rem;
+      text-transform: uppercase;
+
+      color: #0b2b5f;
+    }
+
+    thead th {
+      width: 100%;
+      padding: 12px 24px;
+      background-color: #f9fafb;
+    }
+
+    tbody {
+      font-size: 1rem;
+    }
+
+    tr {
+      width: 100%;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    th {
+      width: 100%;
+      padding: 16px 24px;
+      font-weight: 500;
+      color: #111827;
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 16px 24px;
+    }
+
+    td:nth-child(3) {
+      background-color: #f9fafb;
+    }
   }
 
-  thead th:nth-child(odd) {
-    background-color: #f9fafb;
-  }
-
-  tbody {
+  .no-buckets {
     width: 100%;
-    display: block;
-    font-size: 1rem;
-    overflow-y: auto;
-    height: 40vh;
+    text-align: center;
+    margin-top: 15rem;
   }
 
-  tr {
-    width: 100%;
-    border-bottom: 1px solid #e5e7eb;
+  .breadcrumbs {
+    margin-top: 7px;
+    margin-bottom: 7px;
   }
-
-  th {
-    width: 100%;
-    padding: 16px 24px;
-    font-weight: 500;
-    color: #111827;
-    white-space: nowrap;
-    background-color: #f9fafb;
-  }
-
-  td {
-    padding: 16px 24px;
-  }
-
-  td:nth-child(3) {
-    background-color: #f9fafb;
-  }
-}
-
-.no-buckets {
-  width: 100%;
-  text-align: center;
-  margin-top: 15rem;
 }

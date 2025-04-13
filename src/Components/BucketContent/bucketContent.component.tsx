@@ -76,7 +76,7 @@ function BucketContent(props: { bucketName: string; bucketId: string }) {
     });
 
     return (
-      <div className="bucket-breadcrumbs">
+      <div className="breadcrumbs">
         <span className="custom-link" key="/" onClick={() => setPath("/")}>
           {props.bucketName}
         </span>
@@ -98,10 +98,10 @@ function BucketContent(props: { bucketName: string; bucketId: string }) {
   };
 
   return (
-    <div className="bucket-content">
-      <div className="bucket-content-navigation">
+    <div className="bucket-content-wrapper">
+      <div className="navigation">
         {getBreadcrumbs()}
-        <div className="bucket-content-options">
+        <div className="options">
           <Button text="Refresh" onClick={() => fetchObjects()} />
           <Button
             text="Upload"
@@ -112,7 +112,7 @@ function BucketContent(props: { bucketName: string; bucketId: string }) {
       {uploadFormIsOpened && (
         <UploadArea bucketId={props.bucketId} pathPlaceholder={path} />
       )}
-      <table className="bucket-content-table">
+      <table className="content-table">
         <thead>
           <tr>
             <th scope="col">Objects</th>

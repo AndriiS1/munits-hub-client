@@ -1,37 +1,33 @@
 .new-bucket-data {
-  width: 60%;
-  margin-left: auto;
-  margin-right: auto;
-}
+  .table-container {
+    position: relative;
+    overflow-x: auto;
+    border-radius: 0.5rem;
+    margin-top: 2.5rem;
+  }
 
-.table-container {
-  position: relative;
-  overflow-x: auto;
-  border-radius: 0.5rem;
-  margin-top: 2.5rem;
-}
+  .buckets-table {
+    width: 100%;
+    text-align: left;
+    color: #6b7280;
+  }
 
-.buckets-table {
-  width: 100%;
-  text-align: left;
-  color: #6b7280;
-}
+  .create-bucket-buttons {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 20%;
+  }
 
-.create-bucket-buttons {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  width: 20%;
-}
+  .create-bucket-buttons > * {
+    margin: 0.5rem;
+  }
 
-.create-bucket-buttons > * {
-  margin: 0.5rem;
-}
+  .create-bucket-buttons > *:first-child {
+    margin-left: 0;
+  }
 
-.create-bucket-buttons > *:first-child {
-  margin-left: 0;
-}
-
-.create-bucket-buttons > *:last-child {
-  margin-right: 0;
+  .create-bucket-buttons > *:last-child {
+    margin-right: 0;
+  }
 }

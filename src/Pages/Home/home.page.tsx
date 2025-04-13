@@ -41,8 +41,10 @@ export default function Home() {
             <li>Settings</li>
           </ul>
         </div>
-        <div className="page-content">
-          <Outlet />
+        <div className="page-content-wrapper">
+          <div className="page-content">
+            <Outlet />
+          </div>
         </div>
         <footer className="home-footer"></footer>
       </div>
