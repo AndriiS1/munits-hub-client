@@ -13,7 +13,9 @@ export default function Input(props: {
 }) {
   return (
     <div className="custom-input-wrapper">
-      {props.topPlaceholder && <span>{props.topPlaceholder}</span>}
+      {props.topPlaceholder && (
+        <div className="bold-message">{props.topPlaceholder}</div>
+      )}
       <input
         type={props.type}
         className="custom-input"
@@ -22,9 +24,13 @@ export default function Input(props: {
         onChange={props.onChange}
       />
       {props.errorMessage ? (
-        <span className="input-error-message">{props.errorMessage}</span>
+        <div className="input-error-message bold-message">
+          {props.errorMessage}
+        </div>
       ) : (
-        props.bottomPlaceholder && <span>{props.bottomPlaceholder}</span>
+        props.bottomPlaceholder && (
+          <div className="bold-message">{props.bottomPlaceholder}</div>
+        )
       )}
     </div>
   );

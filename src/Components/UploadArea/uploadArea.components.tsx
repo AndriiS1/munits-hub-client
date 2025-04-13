@@ -7,17 +7,17 @@ import Input from "../Input/input.component";
 import "./uploadArea.style.css";
 
 interface UploadAreaProps {
-  onFilesSelected?: (files: File[]) => void;
   pathPlaceholder: string;
   bucketId: string;
+  bucketName: string;
 }
 
-const UploadArea: React.FC<UploadAreaProps> = ({
-  pathPlaceholder,
-  bucketId,
-}) => {
+const UploadArea: React.FC<UploadAreaProps> = ({ bucketId, bucketName }) => {
   const [files, setFiles] = useState<File[]>([]);
-  const [uploadPath, setUploadPath] = useState<string>(pathPlaceholder);
+  const [uploadPath, setUploadPath] = useState<string>("");
+  const [uploadPathError, setUploadPathError] = useState<string | undefined>(
+    undefined
+  );
   const [uploadButtonDisabled, setUploadButtonDisabled] =
     useState<boolean>(false);
 
@@ -48,14 +48,31 @@ const UploadArea: React.FC<UploadAreaProps> = ({
     if (uploadButtonDisabled) return;
 
     files.forEach(async (file) => {
-      await storageServiceInstance.UploadFile(bucketId, file.name, file);
+      await storageServiceInstance.UploadFile(bucketId, uploadPath, file);
     });
 
     setUploadButtonDisabled(true);
   };
 
+  const handleUploadPathChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const uploadPathRegex =
+      /^(?!.*\/\/)(?!\/)(?!.*\/$)([a-zA-Z0-9._-]+\/)*[a-zA-Z0-9._-]+$/;
+
+    const newUploadPath = event.target.value.trim();
+
+    if (newUploadPath !== "" && !uploadPathRegex.test(newUploadPath)) {
+      setUploadPathError("Invalid upload path.");
+    } else {
+      setUploadPathError(undefined);
+    }
+
+    setUploadPath(newUploadPath);
+  };
+
   return (
-    <section className="upload-area-container">
+    <section className="upload-area-wrapper">
       <div
         className="upload-area"
         onDrop={handleDrop}
@@ -90,16 +107,16 @@ const UploadArea: React.FC<UploadAreaProps> = ({
         {files.length > 0 && (
           <>
             <div className="upload-info">
-              <label className="custom-link" htmlFor="browse-files">
-                Continue file selection
-              </label>
-              <Input
-                type="text"
-                value={uploadPath}
-                onChange={(e: any) =>
-                  setUploadPath(e.target.value.toLowerCase())
-                }
-              />
+              <div className="custom-path-wrapper">
+                <span>{bucketName} / </span>
+                <Input
+                  errorMessage={uploadPathError}
+                  placeholder="custom upload path"
+                  type="text"
+                  value={uploadPath}
+                  onChange={(e: any) => handleUploadPathChange(e)}
+                />
+              </div>
               <div className="success-file">
                 <p>
                   {files.length} file{files.length > 1 ? "s" : ""} selected
@@ -124,12 +141,19 @@ const UploadArea: React.FC<UploadAreaProps> = ({
                 ))}
               </div>
             </div>
-            <Button
-              text="upload"
-              disabled={uploadButtonDisabled}
-              color="orange"
-              onClick={() => handleUpload()}
-            ></Button>
+            <div className="options">
+              <div className="browse-files-wrapper">
+                <label className="custom-link" htmlFor="browse-files">
+                  Continue file selection
+                </label>
+              </div>
+              <Button
+                text="upload"
+                disabled={uploadButtonDisabled}
+                color="orange"
+                onClick={() => handleUpload()}
+              ></Button>
+            </div>
           </>
         )}
       </div>

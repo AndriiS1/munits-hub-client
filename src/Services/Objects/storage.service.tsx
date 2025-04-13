@@ -2,9 +2,10 @@ import axios from "axios";
 import objectsServiceInstance from "./objects.api.service";
 
 class StorageService {
-  async UploadFile(bucketId: string, fileKey: string, file: File) {
+  async UploadFile(bucketId: string, uploadPathPrefix: string, file: File) {
     let uploadId: string | undefined;
 
+    const fileKey = `${uploadPathPrefix}/${file.name}`;
     try {
       console.log("Uploading file:", file.name, file.size, file.type);
 

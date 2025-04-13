@@ -109,8 +109,12 @@ function BucketContent(props: { bucketName: string; bucketId: string }) {
           />
         </div>
       </div>
-      {uploadFormIsOpened && (
-        <UploadArea bucketId={props.bucketId} pathPlaceholder={path} />
+      {uploadFormIsOpened && props.bucketName && (
+        <UploadArea
+          bucketId={props.bucketId}
+          bucketName={props.bucketName}
+          pathPlaceholder={path}
+        />
       )}
       <table className="content-table">
         <thead>
