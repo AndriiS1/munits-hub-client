@@ -8,9 +8,9 @@ export const AUTH_API_ROUTES = {
 };
 
 export const BUCKETS_API_ROUTES = {
-  GET_BUCKET: `buckets/{id}`,
-  GET_USER_BUCKETS: `buckets/user`,
-  GET_BUCKET_BY_NAME: `buckets/by-name`,
+  GET_BUCKET: (bucketId: string) => `buckets/${bucketId}`,
+  GET_BUCKETS: `buckets/filter`,
+  GET_BUCKET_BY_NAME: (bucketName: string) => `buckets/by-name/${bucketName}`,
   DELETE: `buckets/`,
   CREATE: `buckets/`,
   EXISTS: `buckets/exists`,

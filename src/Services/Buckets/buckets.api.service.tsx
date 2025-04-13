@@ -4,15 +4,13 @@ import { BucketResponse } from "./buckets.types";
 
 class BucketService {
   async GetBuckets(): Promise<BucketResponse[]> {
-    const response = await api.post(BUCKETS_API_ROUTES.GET_USER_BUCKETS, {});
+    const response = await api.post(BUCKETS_API_ROUTES.GET_BUCKETS, {});
 
     return response.data;
   }
 
   async GetBucketByName(name: string): Promise<BucketResponse> {
-    const response = await api.get(
-      `${BUCKETS_API_ROUTES.GET_BUCKET_BY_NAME}/${name}`
-    );
+    const response = await api.get(BUCKETS_API_ROUTES.GET_BUCKET_BY_NAME(name));
 
     return response.data;
   }
