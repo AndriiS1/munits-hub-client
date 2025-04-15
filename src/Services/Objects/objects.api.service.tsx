@@ -1,6 +1,10 @@
 import api from "../api/api";
 import { MUNITS_HUB_ROUTES } from "../api/routes";
-import { GetObjectsResponse, ObjectSuffixesCursor } from "./objects.types";
+import {
+  GetObjectsResponse,
+  InitiateUploadResponse,
+  ObjectSuffixesCursor,
+} from "./objects.types";
 
 class ObjectsService {
   async GetObjectSuffixes(
@@ -24,23 +28,7 @@ class ObjectsService {
     fileKey: string,
     sizeInBytes: number,
     mimeType: string
-  ): Promise<{ uploadId: string }> {
-    const response = await api.post(MUNITS_HUB_ROUTES.INITIATE_UPLOAD, {
-      bucketId,
-      fileKey,
-      sizeInBytes,
-      contentType: mimeType,
-    });
-
-    return response.data;
-  }
-
-  async UploadPart(
-    bucketId: string,
-    fileKey: string,
-    sizeInBytes: number,
-    mimeType: string
-  ): Promise<{ uploadId: string }> {
+  ): Promise<InitiateUploadResponse> {
     const response = await api.post(MUNITS_HUB_ROUTES.INITIATE_UPLOAD, {
       bucketId,
       fileKey,
@@ -52,30 +40,37 @@ class ObjectsService {
   }
 
   async GetUploadSignedUrls(
-    uploadId: string,
     bucketId: string,
+    objectId: string,
+    uploadId: string,
     sizeInBytes: number
   ): Promise<{ urls: string[] }> {
     const response = await api.get(
-      MUNITS_HUB_ROUTES.GET_UPLOAD_SIGNED_URLS(uploadId, bucketId, sizeInBytes)
+      MUNITS_HUB_ROUTES.GET_UPLOAD_SIGNED_URLS(
+        bucketId,
+        objectId,
+        uploadId,
+        sizeInBytes
+      )
     );
 
     return response.data;
   }
 
   async CompleteUpload(
-    uploadId: string,
     bucketId: string,
+    objectId: string,
+    uploadId: string,
     ETags: Record<number, string>
   ) {
-    await api.post(MUNITS_HUB_ROUTES.COMPLETE_UPLOAD(uploadId), {
+    await api.post(MUNITS_HUB_ROUTES.COMPLETE_UPLOAD(objectId, uploadId), {
       bucketId,
       ETags,
     });
   }
 
-  async AbortUpload(uploadId: string, bucketId: string) {
-    await api.post(MUNITS_HUB_ROUTES.ABORT_UPLOAD(uploadId), {
+  async AbortUpload(bucketId: string, objectId: string, uploadId: string) {
+    await api.post(MUNITS_HUB_ROUTES.ABORT_UPLOAD(objectId, uploadId), {
       bucketId,
     });
   }

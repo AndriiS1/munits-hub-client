@@ -1,30 +1,30 @@
 import axios from "axios";
 import objectsServiceInstance from "../Objects/objects.api.service";
+import { InitiateUploadResponse } from "../Objects/objects.types";
 
 class StorageService {
   async UploadFile(bucketId: string, uploadPathPrefix: string, file: File) {
-    let uploadId: string | undefined;
+    let initiateUploadData: InitiateUploadResponse;
 
     const fileKey = `${uploadPathPrefix}/${file.name}`;
     try {
       console.log("Uploading file:", file.name, file.size, file.type);
 
       console.log("Initiating upload.");
-      uploadId = (
-        await objectsServiceInstance.InitiateUpload(
-          bucketId,
-          fileKey,
-          file.size,
-          file.type
-        )
-      ).uploadId;
+      initiateUploadData = await objectsServiceInstance.InitiateUpload(
+        bucketId,
+        fileKey,
+        file.size,
+        file.type
+      );
 
-      console.log("Upload id.", uploadId);
+      console.log("Upload data.", initiateUploadData);
 
       console.log("Getting signed URLs.");
       const { urls } = await objectsServiceInstance.GetUploadSignedUrls(
-        uploadId,
         bucketId,
+        initiateUploadData.objectId,
+        initiateUploadData.uploadId,
         file.size
       );
       console.log("URLs.", urls);
@@ -33,7 +33,12 @@ class StorageService {
       const { ETags } = await this.uploadFilePartsToSignedUrls(file, urls);
       console.log("ETags.", ETags);
 
-      await objectsServiceInstance.CompleteUpload(uploadId, bucketId, ETags);
+      await objectsServiceInstance.CompleteUpload(
+        bucketId,
+        initiateUploadData.objectId,
+        initiateUploadData.uploadId,
+        ETags
+      );
 
       console.log("Upload completed successfully.");
     } catch (error) {

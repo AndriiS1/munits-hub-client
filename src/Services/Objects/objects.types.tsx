@@ -16,3 +16,8 @@ export interface GetObjectsResponse {
   nextCursor?: ObjectSuffixesCursor[];
   hasNext: boolean;
 }
+
+export interface InitiateUploadResponse {
+  objectId: string;
+  uploadId: string;
+}

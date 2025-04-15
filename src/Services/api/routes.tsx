@@ -21,14 +21,17 @@ export const MUNITS_HUB_ROUTES = {
   FILTER_OBJECTS: `objects/filter`,
   INITIATE_UPLOAD: `objects/upload/initiate`,
 
-  COMPLETE_UPLOAD: (uploadId: string) => `objects/upload/${uploadId}/complete`,
+  COMPLETE_UPLOAD: (objectId: string, uploadId: string) =>
+    `objects/${objectId}/upload/${uploadId}/complete`,
 
-  ABORT_UPLOAD: (uploadId: string) => `objects/upload/${uploadId}abort/`,
+  ABORT_UPLOAD: (objectId: string, uploadId: string) =>
+    `objects/${objectId}/upload/${uploadId}abort/`,
 
   GET_UPLOAD_SIGNED_URLS: (
-    uploadId: string,
     bucketId: string,
+    objectId: string,
+    uploadId: string,
     fileSize: number
   ) =>
-    `objects/upload/${uploadId}/signed-urls?bucketId=${bucketId}&fileSize=${fileSize}`,
+    `objects/${objectId}/upload/${uploadId}/signed-urls?bucketId=${bucketId}&fileSize=${fileSize}`,
 };

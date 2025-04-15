@@ -53,6 +53,7 @@ function BucketContent(props: { bucketName: string; bucketId: string }) {
               <span className="custom-link">{objectSuffix.suffix}</span>
             </th>
             <td className="data-cell">Object</td>
+            <td className="data-cell">{objectSuffix.mimeType}</td>
           </tr>
         </>
       )) ||
@@ -70,6 +71,8 @@ function BucketContent(props: { bucketName: string; bucketId: string }) {
               </span>
             </th>
             <td className="data-cell">Folder</td>
+
+            <td className="data-cell">{objectSuffix.mimeType}</td>
           </tr>
         </>
       ))
@@ -124,6 +127,7 @@ function BucketContent(props: { bucketName: string; bucketId: string }) {
         <thead>
           <tr>
             <th scope="col">Objects</th>
+            <th scope="col">Storage class</th>
             <th scope="col">Type</th>
           </tr>
         </thead>
