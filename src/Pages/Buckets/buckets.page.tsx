@@ -83,7 +83,9 @@ function Buckets() {
           value={search ?? ""}
           placeholder="Search for buckets"
         />
-        <Button text="Add bucket" onClick={handleNewBucketClick} />
+        <div className="add-bucket-button">
+          <Button text="Add bucket" onClick={handleNewBucketClick} />
+        </div>
       </div>
 
       <hr />
