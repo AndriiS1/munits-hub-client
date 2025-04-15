@@ -49,10 +49,11 @@ api.interceptors.response.use(
         } catch (_error) {
           return Promise.reject(_error);
         }
-      } else {
-        TokenService.removeUserTokens();
-        window.location.href = "/login";
       }
+      // else {
+      //   TokenService.removeUserTokens();
+      //   window.location.href = "/login";
+      // }
     }
 
     return Promise.reject(err);

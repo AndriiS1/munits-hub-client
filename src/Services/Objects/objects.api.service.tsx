@@ -1,15 +1,19 @@
 import api from "../api/api";
 import { MUNITS_HUB_ROUTES } from "../api/routes";
-import { GetObjectsResponse } from "./objects.types";
+import { GetObjectsResponse, ObjectSuffixesCursor } from "./objects.types";
 
 class ObjectsService {
-  async GetObjects(
+  async GetObjectSuffixes(
     bucketId: string,
-    prefix: string
+    prefix: string,
+    cursor?: ObjectSuffixesCursor,
+    pageSize: number = 20
   ): Promise<GetObjectsResponse> {
     const response = await api.post(MUNITS_HUB_ROUTES.FILTER_OBJECTS, {
       bucketId,
       prefix,
+      pageSize,
+      cursor,
     });
 
     return response.data;

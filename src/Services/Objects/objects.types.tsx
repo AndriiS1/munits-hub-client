@@ -1,15 +1,18 @@
-export interface ObjectResponse {
+export interface ObjectSuffixResponse {
   id: string;
-  fileName: string;
-  uploadedAt: boolean;
+  suffix: string;
+  createdAt: string;
+  type: "Object" | "Directory";
+  mimeType: string;
 }
 
-export interface FolderResponse {
-  id: string;
-  prefix: string;
+export interface ObjectSuffixesCursor {
+  type?: string;
+  suffix?: string;
 }
 
 export interface GetObjectsResponse {
-  objects: ObjectResponse[];
-  folders: FolderResponse[];
+  objectSuffixes: ObjectSuffixResponse[];
+  nextCursor?: ObjectSuffixesCursor[];
+  hasNext: boolean;
 }

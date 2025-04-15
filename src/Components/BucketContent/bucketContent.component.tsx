@@ -1,18 +1,16 @@
 import { useCallback, useEffect, useState } from "react";
 import { ReactComponent as FolderIcon } from "../../Assets/folder.icon.svg";
 import objectsServiceInstance from "../../Services/Objects/objects.api.service";
-import {
-  FolderResponse,
-  ObjectResponse,
-} from "../../Services/Objects/objects.types";
+import { ObjectSuffixResponse } from "../../Services/Objects/objects.types";
 import Button from "../Button/button.component";
 import UploadArea from "../UploadArea/uploadArea.components";
 import "./bucketContent.style.css";
 
 function BucketContent(props: { bucketName: string; bucketId: string }) {
   const [path, setPath] = useState<string>("/");
-  const [folders, setFolders] = useState<FolderResponse[]>([]);
-  const [objects, setObjects] = useState<ObjectResponse[]>([]);
+  const [objectSuffixes, setObjectSuffixes] = useState<ObjectSuffixResponse[]>(
+    []
+  );
   const [uploadFormIsOpened, setUploadFormIsOpened] = useState<boolean>(false);
 
   const truncateToDeepestPath = useCallback((path: string) => {
@@ -29,13 +27,14 @@ function BucketContent(props: { bucketName: string; bucketId: string }) {
     console.log("fetchObjects", path);
 
     try {
-      const objects = await objectsServiceInstance.GetObjects(
+      const objects = await objectsServiceInstance.GetObjectSuffixes(
         props.bucketId,
         path
       );
 
-      setFolders(objects.folders);
-      setObjects(objects.objects);
+      setObjectSuffixes(objects.objectSuffixes);
+
+      console.log("suffixes", objects);
     } catch (error) {
       console.error("Failed to fetch objects:", error);
     }
@@ -45,21 +44,35 @@ function BucketContent(props: { bucketName: string; bucketId: string }) {
     fetchObjects();
   }, [fetchObjects]);
 
-  const getFolderRow = (folder: FolderResponse) => {
+  const getObjectSuffixRow = (objectSuffix: ObjectSuffixResponse) => {
     return (
-      <tr key={folder.id}>
-        <th
-          scope="row"
-          className="folder-title"
-          onClick={() => setPath(`${path}${folder.prefix}/`)}
-        >
-          <FolderIcon className="folder-icon" />
-          <span className="custom-link">
-            {truncateToDeepestPath(folder.prefix)}
-          </span>
-        </th>
-        <td className="data-cell">Folder</td>
-      </tr>
+      (objectSuffix.type === "Object" && (
+        <>
+          <tr key={objectSuffix.id}>
+            <th scope="row">
+              <span className="custom-link">{objectSuffix.suffix}</span>
+            </th>
+            <td className="data-cell">Object</td>
+          </tr>
+        </>
+      )) ||
+      (objectSuffix.type === "Directory" && (
+        <>
+          <tr key={objectSuffix.id}>
+            <th
+              scope="row"
+              className="folder-title"
+              onClick={() => setPath(`${path}${objectSuffix.suffix}/`)}
+            >
+              <FolderIcon className="folder-icon" />
+              <span className="custom-link">
+                {truncateToDeepestPath(objectSuffix.suffix)}
+              </span>
+            </th>
+            <td className="data-cell">Folder</td>
+          </tr>
+        </>
+      ))
     );
   };
 
@@ -85,17 +98,6 @@ function BucketContent(props: { bucketName: string; bucketId: string }) {
         <span> / </span>
         {breadcrumbs}
       </div>
-    );
-  };
-
-  const getObjectRow = (bucket: ObjectResponse) => {
-    return (
-      <tr key={bucket.id}>
-        <th scope="row">
-          <span className="custom-link">{bucket.fileName}</span>
-        </th>
-        <td className="data-cell">Object</td>
-      </tr>
     );
   };
 
@@ -126,8 +128,9 @@ function BucketContent(props: { bucketName: string; bucketId: string }) {
           </tr>
         </thead>
         <tbody>
-          {folders.map((folder) => getFolderRow(folder))}
-          {objects.map((object) => getObjectRow(object))}
+          {objectSuffixes.map((objectSuffix) =>
+            getObjectSuffixRow(objectSuffix)
+          )}
         </tbody>
       </table>
     </div>
