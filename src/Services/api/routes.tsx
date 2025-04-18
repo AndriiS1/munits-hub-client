@@ -21,6 +21,9 @@ export const MUNITS_HUB_ROUTES = {
   FILTER_OBJECTS: `objects/filter`,
   INITIATE_UPLOAD: `objects/upload/initiate`,
 
+  GET_OBJECT: (bucketName: string, fileKey: string) =>
+    `objects/${bucketName}/${fileKey}`,
+
   COMPLETE_UPLOAD: (objectId: string, uploadId: string) =>
     `objects/${objectId}/upload/${uploadId}/complete`,
 

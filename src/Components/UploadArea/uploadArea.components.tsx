@@ -9,16 +9,22 @@ interface UploadAreaProps {
   pathPlaceholder: string;
   bucketId: string;
   bucketName: string;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  onRefresh?: () => void;
 }
 
-const UploadArea: React.FC<UploadAreaProps> = ({ bucketId, bucketName }) => {
+const UploadArea: React.FC<UploadAreaProps> = ({
+  bucketId,
+  bucketName,
+  setIsOpen,
+  onRefresh,
+}) => {
   const [files, setFiles] = useState<File[]>([]);
   const [uploadPath, setUploadPath] = useState<string>("");
   const [uploadPathError, setUploadPathError] = useState<string | undefined>(
     undefined
   );
-  const [uploadButtonDisabled, setUploadButtonDisabled] =
-    useState<boolean>(false);
+  const [uploadStarted, setUploadStarted] = useState<boolean>(false);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = event.target.files;
@@ -44,13 +50,18 @@ const UploadArea: React.FC<UploadAreaProps> = ({ bucketId, bucketName }) => {
   };
 
   const handleUpload = () => {
-    if (uploadButtonDisabled) return;
+    if (uploadStarted) return;
 
     files.forEach(async (file) => {
-      await storageServiceInstance.UploadFile(bucketId, uploadPath, file);
+      await storageServiceInstance.UploadFile(
+        bucketId,
+        uploadPath,
+        file,
+        onRefresh
+      );
     });
 
-    setUploadButtonDisabled(true);
+    setUploadStarted(true);
   };
 
   const handleUploadPathChange = (
@@ -146,12 +157,19 @@ const UploadArea: React.FC<UploadAreaProps> = ({ bucketId, bucketName }) => {
                   Continue file selection
                 </label>
               </div>
-              <Button
-                text="upload"
-                disabled={uploadButtonDisabled}
-                color="orange"
-                onClick={() => handleUpload()}
-              ></Button>
+              {uploadStarted ? (
+                <Button
+                  text="close"
+                  color="blue"
+                  onClick={() => setIsOpen(false)}
+                ></Button>
+              ) : (
+                <Button
+                  text="upload"
+                  color="orange"
+                  onClick={() => handleUpload()}
+                ></Button>
+              )}
             </div>
           </>
         )}

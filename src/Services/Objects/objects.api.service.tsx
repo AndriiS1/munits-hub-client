@@ -1,6 +1,7 @@
 import api from "../api/api";
 import { MUNITS_HUB_ROUTES } from "../api/routes";
 import {
+  GetObjectResponse,
   GetObjectsResponse,
   InitiateUploadResponse,
   ObjectSuffixesCursor,
@@ -52,6 +53,17 @@ class ObjectsService {
         uploadId,
         sizeInBytes
       )
+    );
+
+    return response.data;
+  }
+
+  async GetObject(
+    bucketName: string,
+    fileKey: string
+  ): Promise<GetObjectResponse> {
+    const response = await api.get(
+      MUNITS_HUB_ROUTES.GET_OBJECT(bucketName, fileKey)
     );
 
     return response.data;

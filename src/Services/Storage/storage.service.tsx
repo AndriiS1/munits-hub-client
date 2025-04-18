@@ -3,8 +3,13 @@ import objectsServiceInstance from "../Objects/objects.api.service";
 import { InitiateUploadResponse } from "../Objects/objects.types";
 
 class StorageService {
-  async UploadFile(bucketId: string, uploadPathPrefix: string, file: File) {
-    let initiateUploadData: InitiateUploadResponse;
+  async UploadFile(
+    bucketId: string,
+    uploadPathPrefix: string,
+    file: File,
+    onRefresh?: () => void
+  ) {
+    let initiateUploadData: InitiateUploadResponse | undefined = undefined;
 
     const fileKey = `${uploadPathPrefix}/${file.name}`;
     try {
@@ -40,12 +45,18 @@ class StorageService {
         ETags
       );
 
+      onRefresh && onRefresh();
+
       console.log("Upload completed successfully.");
     } catch (error) {
       console.error("Upload failed", error);
-      // if (uploadId) {
-      //   await objectsServiceInstance.AbortUpload(uploadId, bucketId);
-      // }
+      if (initiateUploadData) {
+        await objectsServiceInstance.AbortUpload(
+          bucketId,
+          initiateUploadData.objectId,
+          initiateUploadData.uploadId
+        );
+      }
     }
   }
 
@@ -56,7 +67,7 @@ class StorageService {
     const CHUNK_SIZE = 5 * 1024 * 1024;
     const etags: Record<number, string> = {};
 
-    for (let i = 0; i < urls.length; i++) {
+    const uploadPromises = urls.map(async (url, i) => {
       const start = i * CHUNK_SIZE;
       const end = Math.min(start + CHUNK_SIZE, file.size);
       const chunk = file.slice(start, end);
@@ -65,29 +76,22 @@ class StorageService {
       formData.append("file", chunk, file.name);
 
       try {
-        console.log("Uploading part.");
-        const res = await axios.put(urls[i], formData, {
+        const res = await axios.put(url, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
         });
-
         const etag = res.data?.eTag;
-        console.log("part upload response.", res.data);
-
-        if (etag) {
-          etags[i + 1] = etag;
-        } else {
-          throw new Error(`Missing ETag in response body for part ${i + 1}`);
-        }
-      } catch (error) {
-        throw new Error(`Failed to upload part ${i + 1}: ${error}`);
+        if (!etag) throw new Error(`Missing ETag for part ${i + 1}`);
+        etags[i + 1] = etag;
+      } catch (err) {
+        throw new Error(`Failed to upload part ${i + 1}: ${err}`);
       }
-    }
+    });
 
-    return {
-      ETags: etags,
-    };
+    await Promise.all(uploadPromises);
+
+    return { ETags: etags };
   }
 }
 

@@ -121,6 +121,8 @@ function BucketContent(props: { bucketName: string; bucketId: string }) {
           bucketId={props.bucketId}
           bucketName={props.bucketName}
           pathPlaceholder={path}
+          setIsOpen={setUploadFormIsOpened}
+          onRefresh={() => fetchObjects()}
         />
       )}
       <table className="content-table">

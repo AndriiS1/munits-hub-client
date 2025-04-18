@@ -8,6 +8,7 @@ import Buckets from "./Pages/Buckets/buckets.page";
 import Home from "./Pages/Home/home.page";
 import LandingPage from "./Pages/Landing/landing.page";
 import Login from "./Pages/Login/login.page";
+import ObjectPage from "./Pages/Object/object.page";
 import SignUp from "./Pages/SignUp/signUp.page";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
@@ -46,6 +47,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedWrap>
             <Bucket />
+          </ProtectedWrap>
+        ),
+      },
+      {
+        path: "buckets/:bucketName/*",
+        element: (
+          <ProtectedWrap>
+            <ObjectPage />
           </ProtectedWrap>
         ),
       },

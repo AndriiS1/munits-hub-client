@@ -1,0 +1,45 @@
+.object-data-wrapper {
+  .bucket-data {
+    width: 50%;
+  }
+
+  .bucket-data-table {
+    width: 100%;
+  }
+
+  .bucket-data-table thead {
+    font-size: 1.125rem;
+    color: #374151;
+  }
+
+  .bucket-data-table thead th {
+    padding-top: 12px;
+  }
+
+  .bucket-data-table tbody td {
+    padding-top: 15px;
+  }
+
+  .bucket-data-table th {
+    color: var(--link-color);
+    font-weight: 500;
+    color: #111827;
+    text-align: left;
+    background-color: var(--light-gray);
+  }
+
+  .bucket-data-table td {
+    font-size: medium;
+    font-weight: 400;
+  }
+
+  .bucket-options {
+    display: flex;
+  }
+
+  .search-objects-button {
+    margin-left: 1%;
+    height: 38px;
+    width: 8%;
+  }
+}

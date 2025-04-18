@@ -21,3 +21,20 @@ export interface InitiateUploadResponse {
   objectId: string;
   uploadId: string;
 }
+
+export interface ObjectResponse {
+  uploadId: string;
+  uploadStatus: string;
+  customMetadata: Record<string, string>;
+  initiatedAt: Date;
+  sizeInBytes: number;
+  mimeType: string;
+  tags: Record<string, string>;
+}
+
+export interface GetObjectResponse {
+  id: string;
+  fileKey: string;
+  createdAt: Date;
+  versions: ObjectResponse[];
+}
