@@ -1,7 +1,8 @@
+import { ReactNode } from "react";
 import "./button.style.css";
 
 export default function Button(props: {
-  text: string;
+  children: ReactNode;
   onClick?: () => void;
   disabled?: boolean;
   color?: string;
@@ -13,7 +14,7 @@ export default function Button(props: {
       disabled={props.disabled}
       style={{ backgroundColor: props.color }}
     >
-      {props.text}
+      {props.children}
     </button>
   );
 }

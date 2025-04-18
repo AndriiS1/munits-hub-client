@@ -13,7 +13,7 @@ export interface ObjectSuffixesCursor {
 
 export interface GetObjectsResponse {
   objectSuffixes: ObjectSuffixResponse[];
-  nextCursor?: ObjectSuffixesCursor[];
+  nextCursor?: ObjectSuffixesCursor;
   hasNext: boolean;
 }
 

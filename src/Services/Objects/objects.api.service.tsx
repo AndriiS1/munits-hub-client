@@ -12,7 +12,7 @@ class ObjectsService {
     bucketId: string,
     prefix: string,
     cursor?: ObjectSuffixesCursor,
-    pageSize: number = 20
+    pageSize: number = 5
   ): Promise<GetObjectsResponse> {
     const response = await api.post(MUNITS_HUB_ROUTES.FILTER_OBJECTS, {
       bucketId,

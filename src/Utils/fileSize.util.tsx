@@ -14,3 +14,15 @@ export function GetFileUploadPathWithPrefix(
 ): string {
   return `${prefix}/${path}`;
 }
+
+export function TruncateContentType(contentType: string): string {
+  if (contentType.length > 20) {
+    return (
+      contentType.substring(0, 20) +
+      "..." +
+      contentType.substring(contentType.length - 5, contentType.length)
+    );
+  }
+
+  return contentType;
+}

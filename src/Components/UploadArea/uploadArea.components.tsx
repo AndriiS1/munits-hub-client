@@ -145,7 +145,7 @@ const UploadArea: React.FC<UploadAreaProps> = ({
                       className="file-actions"
                       onClick={() => handleRemoveFile(file.name)}
                     >
-                      <Button text="Remove" color="red" />
+                      <Button color="red">Remove</Button>
                     </div>
                   </div>
                 ))}
@@ -158,17 +158,13 @@ const UploadArea: React.FC<UploadAreaProps> = ({
                 </label>
               </div>
               {uploadStarted ? (
-                <Button
-                  text="close"
-                  color="blue"
-                  onClick={() => setIsOpen(false)}
-                ></Button>
+                <Button color="blue" onClick={() => setIsOpen(false)}>
+                  close
+                </Button>
               ) : (
-                <Button
-                  text="upload"
-                  color="orange"
-                  onClick={() => handleUpload()}
-                ></Button>
+                <Button color="orange" onClick={() => handleUpload()}>
+                  upload
+                </Button>
               )}
             </div>
           </>

@@ -67,7 +67,7 @@ function Bucket() {
       <div className="bucket-options">
         {/* <SearchInput placeholder="Search for objects" /> */}
         <div className="search-objects-button">
-          <Button text="Search"></Button>
+          <Button>Search</Button>
         </div>
       </div>
 

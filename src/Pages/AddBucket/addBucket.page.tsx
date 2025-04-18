@@ -172,16 +172,10 @@ export default function AddBucketPage() {
           the API. Bucket access can be changed to Public at any time.
         </span>
         <div className="create-bucket-buttons">
-          <Button
-            color="#9d03fc"
-            text="Cancel"
-            onClick={() => navigate("/buckets")}
-          />
-          <Button
-            onClick={handleCreateBucket}
-            disabled={!creationDataIsValid}
-            text="Create"
-          />
+          <Button onClick={() => navigate("/buckets")}>Cancel</Button>
+          <Button onClick={handleCreateBucket} disabled={!creationDataIsValid}>
+            Create
+          </Button>
         </div>
       </div>
     </div>

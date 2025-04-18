@@ -1,16 +1,20 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { ReactComponent as FolderIcon } from "../../Assets/folder.icon.svg";
 import objectsServiceInstance from "../../Services/Objects/objects.api.service";
-import { ObjectSuffixResponse } from "../../Services/Objects/objects.types";
+import {
+  GetObjectsResponse,
+  ObjectSuffixesCursor,
+  ObjectSuffixResponse,
+} from "../../Services/Objects/objects.types";
+import { TruncateContentType } from "../../Utils/fileSize.util";
 import Button from "../Button/button.component";
 import UploadArea from "../UploadArea/uploadArea.components";
 import "./bucketContent.style.css";
 
 function BucketContent(props: { bucketName: string; bucketId: string }) {
   const [path, setPath] = useState<string>("/");
-  const [objectSuffixes, setObjectSuffixes] = useState<ObjectSuffixResponse[]>(
-    []
-  );
+  const currentCursorRef = useRef<ObjectSuffixesCursor | undefined>(undefined);
+  const [objectsResponse, setObjectsResponse] = useState<GetObjectsResponse>();
   const [uploadFormIsOpened, setUploadFormIsOpened] = useState<boolean>(false);
 
   const truncateToDeepestPath = useCallback((path: string) => {
@@ -19,30 +23,37 @@ function BucketContent(props: { bucketName: string; bucketId: string }) {
     return `${deepest}/`;
   }, []);
 
-  const fetchObjects = useCallback(async () => {
-    if (!props.bucketId) {
-      return;
-    }
+  const fetchObjects = useCallback(
+    async (cursor?: ObjectSuffixesCursor | undefined) => {
+      if (!props.bucketId) return;
 
-    console.log("fetchObjects", path);
+      try {
+        const response = await objectsServiceInstance.GetObjectSuffixes(
+          props.bucketId,
+          path,
+          cursor,
+          10
+        );
 
-    try {
-      const objects = await objectsServiceInstance.GetObjectSuffixes(
-        props.bucketId,
-        path
-      );
+        console.log("Fetched objects:", response);
 
-      setObjectSuffixes(objects.objectSuffixes);
-
-      console.log("suffixes", objects);
-    } catch (error) {
-      console.error("Failed to fetch objects:", error);
-    }
-  }, [props.bucketId, path]);
+        setObjectsResponse(response);
+        currentCursorRef.current = response.nextCursor;
+      } catch (error) {
+        console.error("Failed to fetch objects:", error);
+      }
+    },
+    [props.bucketId, path]
+  );
 
   useEffect(() => {
+    currentCursorRef.current = undefined;
     fetchObjects();
-  }, [fetchObjects]);
+  }, [fetchObjects, path]);
+
+  const handlePathChange = (newPath: string) => {
+    setPath(newPath);
+  };
 
   const getObjectSuffixRow = (objectSuffix: ObjectSuffixResponse) => {
     return (
@@ -53,7 +64,9 @@ function BucketContent(props: { bucketName: string; bucketId: string }) {
               <span className="custom-link">{objectSuffix.suffix}</span>
             </th>
             <td className="data-cell">Object</td>
-            <td className="data-cell">{objectSuffix.mimeType}</td>
+            <td className="data-cell">
+              {TruncateContentType(objectSuffix.mimeType)}
+            </td>
           </tr>
         </>
       )) ||
@@ -63,7 +76,9 @@ function BucketContent(props: { bucketName: string; bucketId: string }) {
             <th
               scope="row"
               className="folder-title"
-              onClick={() => setPath(`${path}${objectSuffix.suffix}/`)}
+              onClick={() => {
+                handlePathChange(`${path}${objectSuffix.suffix}/`);
+              }}
             >
               <FolderIcon className="folder-icon" />
               <span className="custom-link">
@@ -72,7 +87,9 @@ function BucketContent(props: { bucketName: string; bucketId: string }) {
             </th>
             <td className="data-cell">Folder</td>
 
-            <td className="data-cell">{objectSuffix.mimeType}</td>
+            <td className="data-cell">
+              {TruncateContentType(objectSuffix.mimeType)}
+            </td>
           </tr>
         </>
       ))
@@ -85,7 +102,10 @@ function BucketContent(props: { bucketName: string; bucketId: string }) {
       const path = parts.slice(0, index + 1).join("/ ");
       return (
         <>
-          <span className="custom-link" onClick={() => setPath(`/${path}/`)}>
+          <span
+            className="custom-link"
+            onClick={() => handlePathChange(`/${path}/`)}
+          >
             {part}
           </span>
           <span> / </span>
@@ -95,7 +115,11 @@ function BucketContent(props: { bucketName: string; bucketId: string }) {
 
     return (
       <div className="breadcrumbs">
-        <span className="custom-link" key="/" onClick={() => setPath("/")}>
+        <span
+          className="custom-link"
+          key="/"
+          onClick={() => handlePathChange("/")}
+        >
           {props.bucketName}
         </span>
         <span> / </span>
@@ -109,11 +133,10 @@ function BucketContent(props: { bucketName: string; bucketId: string }) {
       <div className="navigation">
         {getBreadcrumbs()}
         <div className="options">
-          <Button text="Refresh" onClick={() => fetchObjects()} />
-          <Button
-            text="Upload"
-            onClick={() => setUploadFormIsOpened(!uploadFormIsOpened)}
-          />
+          <Button onClick={() => fetchObjects()}>Refresh</Button>
+          <Button onClick={() => setUploadFormIsOpened(!uploadFormIsOpened)}>
+            Upload
+          </Button>
         </div>
       </div>
       {uploadFormIsOpened && props.bucketName && (
@@ -134,11 +157,19 @@ function BucketContent(props: { bucketName: string; bucketId: string }) {
           </tr>
         </thead>
         <tbody>
-          {objectSuffixes.map((objectSuffix) =>
+          {objectsResponse?.objectSuffixes.map((objectSuffix) =>
             getObjectSuffixRow(objectSuffix)
           )}
         </tbody>
       </table>
+
+      <div className="objects-pagination">
+        {objectsResponse?.hasNext && (
+          <Button onClick={() => fetchObjects(currentCursorRef.current)}>
+            Next
+          </Button>
+        )}
+      </div>
     </div>
   );
 }
