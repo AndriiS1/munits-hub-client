@@ -76,6 +76,7 @@ function Bucket() {
         <BucketContent
           bucketName={bucketName}
           bucketId={bucketData?.id}
+          fetchBucket={() => fetchBucket()}
         ></BucketContent>
       )}
     </div>

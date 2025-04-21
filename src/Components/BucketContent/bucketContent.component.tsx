@@ -12,11 +12,16 @@ import Button from "../Button/button.component";
 import UploadArea from "../UploadArea/uploadArea.components";
 import "./bucketContent.style.css";
 
-function BucketContent(props: { bucketName: string; bucketId: string }) {
+function BucketContent(props: {
+  bucketName: string;
+  bucketId: string;
+  fetchBucket: () => void;
+}) {
   const [path, setPath] = useState<string>("/");
-  const currentCursorRef = useRef<ObjectSuffixesCursor | undefined>(undefined);
+  const cursorsRef = useRef<(ObjectSuffixesCursor | undefined)[]>([]);
   const [objectsResponse, setObjectsResponse] = useState<GetObjectsResponse>();
   const [uploadFormIsOpened, setUploadFormIsOpened] = useState<boolean>(false);
+  const [paginationIndex, setPaginationIndex] = useState(0);
 
   const truncateToDeepestPath = useCallback((path: string) => {
     const parts = path.split("/").filter(Boolean);
@@ -27,21 +32,33 @@ function BucketContent(props: { bucketName: string; bucketId: string }) {
   const navigate = useNavigate();
 
   const fetchObjects = useCallback(
-    async (cursor?: ObjectSuffixesCursor | undefined) => {
+    async (
+      cursor?: ObjectSuffixesCursor | undefined,
+      indexDelta: number = 0
+    ) => {
       if (!props.bucketId) return;
 
       try {
+        console.log(cursorsRef.current);
         const response = await objectsServiceInstance.GetObjectSuffixes(
           props.bucketId,
           path,
           cursor,
-          10
+          5
+        );
+        setObjectsResponse(response);
+
+        const existingIndex = cursorsRef.current.findIndex(
+          (c) =>
+            c?.suffix === response.nextCursor?.suffix &&
+            c?.type === response.nextCursor?.type
         );
 
-        console.log("Fetched objects:", response);
+        if (existingIndex === -1 && response.nextCursor) {
+          cursorsRef.current.push(response.nextCursor);
+        }
 
-        setObjectsResponse(response);
-        currentCursorRef.current = response.nextCursor;
+        setPaginationIndex((prev) => prev + indexDelta);
       } catch (error) {
         console.error("Failed to fetch objects:", error);
       }
@@ -50,7 +67,6 @@ function BucketContent(props: { bucketName: string; bucketId: string }) {
   );
 
   useEffect(() => {
-    currentCursorRef.current = undefined;
     fetchObjects();
   }, [fetchObjects, path]);
 
@@ -151,7 +167,10 @@ function BucketContent(props: { bucketName: string; bucketId: string }) {
           bucketName={props.bucketName}
           pathPlaceholder={path}
           setIsOpen={setUploadFormIsOpened}
-          onRefresh={() => fetchObjects()}
+          onRefresh={() => {
+            fetchObjects();
+            props.fetchBucket();
+          }}
         />
       )}
       <table className="content-table">
@@ -168,13 +187,26 @@ function BucketContent(props: { bucketName: string; bucketId: string }) {
           )}
         </tbody>
       </table>
-
       <div className="objects-pagination">
-        {objectsResponse?.hasNext && (
-          <Button onClick={() => fetchObjects(currentCursorRef.current)}>
-            Next
-          </Button>
-        )}
+        <Button
+          disabled={paginationIndex === 0}
+          onClick={() => {
+            const prevCursor = cursorsRef.current[paginationIndex - 2];
+            fetchObjects(prevCursor, -1);
+          }}
+        >
+          &lt; Previous
+        </Button>
+
+        <Button
+          disabled={!objectsResponse?.hasNext}
+          onClick={() => {
+            const nextCursor = cursorsRef.current[paginationIndex];
+            fetchObjects(nextCursor, 1);
+          }}
+        >
+          Next &gt;
+        </Button>
       </div>
     </div>
   );
