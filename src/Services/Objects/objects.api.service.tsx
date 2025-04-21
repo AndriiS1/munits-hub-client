@@ -14,12 +14,14 @@ class ObjectsService {
     cursor?: ObjectSuffixesCursor,
     pageSize: number = 5
   ): Promise<GetObjectsResponse> {
-    const response = await api.post(MUNITS_HUB_ROUTES.FILTER_OBJECTS, {
-      bucketId,
-      prefix,
-      pageSize,
-      cursor,
-    });
+    const response = await api.post(
+      MUNITS_HUB_ROUTES.FILTER_OBJECTS(bucketId),
+      {
+        prefix,
+        pageSize,
+        cursor,
+      }
+    );
 
     return response.data;
   }
@@ -30,12 +32,14 @@ class ObjectsService {
     sizeInBytes: number,
     mimeType: string
   ): Promise<InitiateUploadResponse> {
-    const response = await api.post(MUNITS_HUB_ROUTES.INITIATE_UPLOAD, {
-      bucketId,
-      fileKey,
-      sizeInBytes,
-      contentType: mimeType,
-    });
+    const response = await api.post(
+      MUNITS_HUB_ROUTES.INITIATE_UPLOAD(bucketId),
+      {
+        fileKey,
+        sizeInBytes,
+        contentType: mimeType,
+      }
+    );
 
     return response.data;
   }
@@ -60,10 +64,10 @@ class ObjectsService {
 
   async GetObject(
     bucketName: string,
-    fileKey: string
+    objectId: string
   ): Promise<GetObjectResponse> {
     const response = await api.get(
-      MUNITS_HUB_ROUTES.GET_OBJECT(bucketName, fileKey)
+      MUNITS_HUB_ROUTES.GET_OBJECT(bucketName, objectId)
     );
 
     return response.data;
@@ -75,16 +79,18 @@ class ObjectsService {
     uploadId: string,
     ETags: Record<number, string>
   ) {
-    await api.post(MUNITS_HUB_ROUTES.COMPLETE_UPLOAD(objectId, uploadId), {
-      bucketId,
-      ETags,
-    });
+    await api.post(
+      MUNITS_HUB_ROUTES.COMPLETE_UPLOAD(bucketId, objectId, uploadId),
+      {
+        ETags,
+      }
+    );
   }
 
   async AbortUpload(bucketId: string, objectId: string, uploadId: string) {
-    await api.post(MUNITS_HUB_ROUTES.ABORT_UPLOAD(objectId, uploadId), {
-      bucketId,
-    });
+    await api.post(
+      MUNITS_HUB_ROUTES.ABORT_UPLOAD(bucketId, objectId, uploadId)
+    );
   }
 }
 

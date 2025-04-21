@@ -18,17 +18,18 @@ export const BUCKETS_API_ROUTES = {
 };
 
 export const MUNITS_HUB_ROUTES = {
-  FILTER_OBJECTS: `objects/filter`,
-  INITIATE_UPLOAD: `objects/upload/initiate`,
+  FILTER_OBJECTS: (bucketId: string) => `buckets/${bucketId}/objects/filter`,
+  INITIATE_UPLOAD: (bucketId: string) =>
+    `buckets/${bucketId}/objects/uploads/initiate`,
 
-  GET_OBJECT: (bucketName: string, fileKey: string) =>
-    `objects/${bucketName}/${fileKey}`,
+  GET_OBJECT: (bucketName: string, objectId: string) =>
+    `buckets/${bucketName}/objects/${objectId}`,
 
-  COMPLETE_UPLOAD: (objectId: string, uploadId: string) =>
-    `objects/${objectId}/upload/${uploadId}/complete`,
+  COMPLETE_UPLOAD: (bucketId: string, objectId: string, uploadId: string) =>
+    `buckets/${bucketId}/objects/${objectId}/uploads/${uploadId}/complete`,
 
-  ABORT_UPLOAD: (objectId: string, uploadId: string) =>
-    `objects/${objectId}/upload/${uploadId}abort/`,
+  ABORT_UPLOAD: (bucketId: string, objectId: string, uploadId: string) =>
+    `buckets/${bucketId}/objects/${objectId}/uploads/${uploadId}abort/`,
 
   GET_UPLOAD_SIGNED_URLS: (
     bucketId: string,
@@ -36,5 +37,5 @@ export const MUNITS_HUB_ROUTES = {
     uploadId: string,
     fileSize: number
   ) =>
-    `objects/${objectId}/upload/${uploadId}/signed-urls?bucketId=${bucketId}&fileSize=${fileSize}`,
+    `buckets/${bucketId}/objects/${objectId}/uploads/${uploadId}/signed-urls?&fileSize=${fileSize}`,
 };

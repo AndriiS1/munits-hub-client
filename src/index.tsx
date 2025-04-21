@@ -51,7 +51,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "buckets/:bucketName/*",
+        path: "buckets/:bucketName/objects/:objectId",
         element: (
           <ProtectedWrap>
             <ObjectPage />

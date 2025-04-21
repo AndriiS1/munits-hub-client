@@ -1,45 +1,113 @@
 .object-data-wrapper {
-  .bucket-data {
-    width: 50%;
-  }
-
-  .bucket-data-table {
-    width: 100%;
-  }
-
-  .bucket-data-table thead {
-    font-size: 1.125rem;
-    color: #374151;
-  }
-
-  .bucket-data-table thead th {
-    padding-top: 12px;
-  }
-
-  .bucket-data-table tbody td {
-    padding-top: 15px;
-  }
-
-  .bucket-data-table th {
-    color: var(--link-color);
-    font-weight: 500;
-    color: #111827;
-    text-align: left;
-    background-color: var(--light-gray);
-  }
-
-  .bucket-data-table td {
-    font-size: medium;
-    font-weight: 400;
-  }
-
-  .bucket-options {
+  .object-data {
     display: flex;
   }
 
-  .search-objects-button {
-    margin-left: 1%;
-    height: 38px;
-    width: 8%;
+  .object-data {
+    border: solid rgb(160, 160, 160);
+    border-width: 1px;
+  }
+
+  .data {
+    flex: 2;
+    padding: 1rem;
+
+    .details-table {
+      width: 100%;
+
+      th,
+      td {
+        text-align: left;
+      }
+    }
+
+    .metadata {
+      margin: 5vh;
+      text-align: center;
+    }
+
+    .tags {
+      margin: 5vh;
+      text-align: center;
+    }
+  }
+
+  .versions-container {
+    flex: 1;
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+
+  .versions-container {
+    ul,
+    li {
+      list-style: none;
+      padding: 0;
+    }
+
+    .timeline {
+      border: solid rgb(160, 160, 160);
+      border-width: 1px;
+      padding: 2rem;
+      border-radius: 15px;
+    }
+    h1 {
+      font-size: 1.1rem;
+      font-family: sans-serif;
+    }
+    .sessions {
+      margin-top: 2rem;
+      border-radius: 12px;
+      position: relative;
+    }
+
+    li {
+      padding-bottom: 1.5rem;
+      border-left: 1px solid rgba(0, 0, 255, 0.466);
+      position: relative;
+      padding-left: 20px;
+      margin-left: 10px;
+      &:last-child {
+        border: 0px;
+        padding-bottom: 0;
+      }
+      &:before {
+        content: "";
+        width: 15px;
+        height: 15px;
+        background: white;
+        border: 1px solid var(--primary-color);
+        box-shadow: 3px 3px 0px rgba(0, 0, 255, 0.466);
+        border-radius: 50%;
+        position: absolute;
+        left: -10px;
+        top: 0px;
+      }
+    }
+
+    .selected-version {
+      padding: 10px;
+      border-radius: 10px;
+      background-color: #bfbfbf;
+    }
+
+    .non-selected-version {
+      padding: 10px;
+      border-radius: 10px;
+      background-color: var(--light-gray);
+    }
+
+    .non-selected-version:hover {
+      cursor: pointer;
+    }
+
+    .time {
+      font-weight: 500;
+    }
+    p {
+      color: rgb(59, 59, 59);
+      line-height: 1.5;
+      margin-top: 0.4rem;
+    }
   }
 }

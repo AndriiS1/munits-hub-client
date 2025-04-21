@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { ReactComponent as FolderIcon } from "../../Assets/folder.icon.svg";
 import objectsServiceInstance from "../../Services/Objects/objects.api.service";
 import {
@@ -22,6 +23,8 @@ function BucketContent(props: { bucketName: string; bucketId: string }) {
     const deepest = parts[parts.length - 1] || "";
     return `${deepest}/`;
   }, []);
+
+  const navigate = useNavigate();
 
   const fetchObjects = useCallback(
     async (cursor?: ObjectSuffixesCursor | undefined) => {
@@ -60,11 +63,14 @@ function BucketContent(props: { bucketName: string; bucketId: string }) {
       (objectSuffix.type === "Object" && (
         <>
           <tr key={objectSuffix.id}>
-            <th scope="row">
+            <th
+              scope="row"
+              onClick={() => navigate(`objects/${objectSuffix.id}`)}
+            >
               <span className="custom-link">{objectSuffix.suffix}</span>
             </th>
             <td className="data-cell">Object</td>
-            <td className="data-cell">
+            <td className="data-cell" title={objectSuffix.mimeType}>
               {TruncateContentType(objectSuffix.mimeType)}
             </td>
           </tr>
