@@ -18,9 +18,10 @@ const UploadArea: React.FC<UploadAreaProps> = ({
   bucketName,
   setIsOpen,
   onRefresh,
+  pathPlaceholder,
 }) => {
   const [files, setFiles] = useState<File[]>([]);
-  const [uploadPath, setUploadPath] = useState<string>("");
+  const [uploadPath, setUploadPath] = useState<string>(pathPlaceholder);
   const [uploadPathError, setUploadPathError] = useState<string | undefined>(
     undefined
   );

@@ -167,7 +167,7 @@ function BucketContent(props: {
         <UploadArea
           bucketId={props.bucketId}
           bucketName={props.bucketName}
-          pathPlaceholder={path}
+          pathPlaceholder={path.replace(/^\/|\/$/g, "").trim()}
           setIsOpen={setUploadFormIsOpened}
           onRefresh={() => {
             fetchObjects();
@@ -175,44 +175,52 @@ function BucketContent(props: {
           }}
         />
       )}
-      <table className="content-table">
-        <thead>
-          <tr>
-            <th scope="col">Objects</th>
-            <th scope="col">Storage class</th>
-            <th scope="col">Type</th>
-          </tr>
-        </thead>
-        <tbody>
-          {objectsResponse?.objectSuffixes.map((objectSuffix) =>
-            getObjectSuffixRow(objectSuffix)
-          )}
-        </tbody>
-      </table>
-      {objectsResponse?.objectSuffixes.length === objectsLimit &&
-        paginationIndex === 0 && (
-          <div className="objects-pagination">
-            <Button
-              disabled={paginationIndex === 0}
-              onClick={() => {
-                const prevCursor = cursorsRef.current[paginationIndex - 2];
-                fetchObjects(prevCursor, -1);
-              }}
-            >
-              &lt; Previous
-            </Button>
+      {objectsResponse?.objectSuffixes.length === 0 ? (
+        <div className="no-objects">
+          No objects found. Upload some to start working with.
+        </div>
+      ) : (
+        <div className="content-table-wrapper">
+          <table className="content-table">
+            <thead>
+              <tr>
+                <th scope="col">Objects</th>
+                <th scope="col">Storage class</th>
+                <th scope="col">Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              {objectsResponse?.objectSuffixes.map((objectSuffix) =>
+                getObjectSuffixRow(objectSuffix)
+              )}
+            </tbody>
+          </table>
+          {(objectsResponse?.objectSuffixes.length === objectsLimit ||
+            paginationIndex > 0) && (
+            <div className="objects-pagination">
+              <Button
+                disabled={paginationIndex === 0}
+                onClick={() => {
+                  const prevCursor = cursorsRef.current[paginationIndex - 2];
+                  fetchObjects(prevCursor, -1);
+                }}
+              >
+                &lt; Previous
+              </Button>
 
-            <Button
-              disabled={!objectsResponse?.hasNext}
-              onClick={() => {
-                const nextCursor = cursorsRef.current[paginationIndex];
-                fetchObjects(nextCursor, 1);
-              }}
-            >
-              Next &gt;
-            </Button>
-          </div>
-        )}
+              <Button
+                disabled={!objectsResponse?.hasNext}
+                onClick={() => {
+                  const nextCursor = cursorsRef.current[paginationIndex];
+                  fetchObjects(nextCursor, 1);
+                }}
+              >
+                Next &gt;
+              </Button>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

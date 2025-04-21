@@ -7,6 +7,16 @@
     margin-top: 2.5rem;
   }
 
+  .content-table-wrapper {
+    justify-items: center;
+  }
+
+  .no-objects {
+    width: 100%;
+    text-align: center;
+    margin-top: 15rem;
+  }
+
   .folder-title {
     display: flex;
     align-items: center;
