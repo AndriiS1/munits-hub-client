@@ -1,3 +1,6 @@
+export const nameTruncateLength = 25;
+export const typeTruncateLength = 20;
+
 export function GetSizeString(sizeInBytes: number): string {
   const sizes = ["B", "KB", "MB", "GB", "TB"];
   let i = 0;
@@ -16,13 +19,25 @@ export function GetFileUploadPathWithPrefix(
 }
 
 export function TruncateContentType(contentType: string): string {
-  if (contentType.length > 20) {
+  if (contentType.length > typeTruncateLength) {
     return (
-      contentType.substring(0, 20) +
+      contentType.substring(0, typeTruncateLength) +
       "..." +
       contentType.substring(contentType.length - 5, contentType.length)
     );
   }
 
   return contentType;
+}
+
+export function TruncateFileName(fileName: string): string {
+  if (fileName.length > nameTruncateLength) {
+    return (
+      fileName.substring(0, nameTruncateLength) +
+      "..." +
+      fileName.substring(fileName.length - 5, fileName.length)
+    );
+  }
+
+  return fileName;
 }

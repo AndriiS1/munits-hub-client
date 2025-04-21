@@ -7,7 +7,12 @@ import {
   ObjectSuffixesCursor,
   ObjectSuffixResponse,
 } from "../../Services/Objects/objects.types";
-import { TruncateContentType } from "../../Utils/fileSize.util";
+import {
+  nameTruncateLength,
+  TruncateContentType,
+  TruncateFileName,
+  typeTruncateLength,
+} from "../../Utils/fileSize.util";
 import Button from "../Button/button.component";
 import UploadArea from "../UploadArea/uploadArea.components";
 import "./bucketContent.style.css";
@@ -23,13 +28,8 @@ function BucketContent(props: {
   const [uploadFormIsOpened, setUploadFormIsOpened] = useState<boolean>(false);
   const [paginationIndex, setPaginationIndex] = useState(0);
 
-  const truncateToDeepestPath = useCallback((path: string) => {
-    const parts = path.split("/").filter(Boolean);
-    const deepest = parts[parts.length - 1] || "";
-    return `${deepest}/`;
-  }, []);
-
   const navigate = useNavigate();
+  const objectsLimit = 20;
 
   const fetchObjects = useCallback(
     async (
@@ -44,7 +44,7 @@ function BucketContent(props: {
           props.bucketId,
           path,
           cursor,
-          5
+          objectsLimit
         );
         setObjectsResponse(response);
 
@@ -75,46 +75,48 @@ function BucketContent(props: {
   };
 
   const getObjectSuffixRow = (objectSuffix: ObjectSuffixResponse) => {
-    return (
-      (objectSuffix.type === "Object" && (
-        <>
-          <tr key={objectSuffix.id}>
-            <th
-              scope="row"
-              onClick={() => navigate(`objects/${objectSuffix.id}`)}
-            >
-              <span className="custom-link">{objectSuffix.suffix}</span>
-            </th>
-            <td className="data-cell">Object</td>
-            <td className="data-cell" title={objectSuffix.mimeType}>
-              {TruncateContentType(objectSuffix.mimeType)}
-            </td>
-          </tr>
-        </>
-      )) ||
-      (objectSuffix.type === "Directory" && (
-        <>
-          <tr key={objectSuffix.id}>
-            <th
-              scope="row"
-              className="folder-title"
-              onClick={() => {
-                handlePathChange(`${path}${objectSuffix.suffix}/`);
-              }}
-            >
-              <FolderIcon className="folder-icon" />
-              <span className="custom-link">
-                {truncateToDeepestPath(objectSuffix.suffix)}
-              </span>
-            </th>
-            <td className="data-cell">Folder</td>
+    const isObject = objectSuffix.type === "Object";
+    const isDirectory = objectSuffix.type === "Directory";
 
-            <td className="data-cell">
-              {TruncateContentType(objectSuffix.mimeType)}
-            </td>
-          </tr>
-        </>
-      ))
+    const handleRowClick = () => {
+      if (isObject) {
+        navigate(`objects/${objectSuffix.id}`);
+      } else if (isDirectory) {
+        handlePathChange(`${path}${objectSuffix.suffix}/`);
+      }
+    };
+
+    return (
+      <tr key={objectSuffix.id}>
+        <th
+          scope="row"
+          className={isDirectory ? "folder-title" : ""}
+          onClick={handleRowClick}
+        >
+          {isDirectory && <FolderIcon className="folder-icon" />}
+          <span
+            className="custom-link"
+            title={
+              objectSuffix.suffix.length > nameTruncateLength
+                ? objectSuffix.suffix
+                : undefined
+            }
+          >
+            {TruncateFileName(objectSuffix.suffix) + (isDirectory ? " /" : "")}
+          </span>
+        </th>
+        <td className="data-cell">{isObject ? "Object" : "Folder"}</td>
+        <td
+          className="data-cell"
+          title={
+            objectSuffix.mimeType.length > typeTruncateLength
+              ? objectSuffix.mimeType
+              : undefined
+          }
+        >
+          {TruncateContentType(objectSuffix.mimeType)}
+        </td>
+      </tr>
     );
   };
 
@@ -187,27 +189,30 @@ function BucketContent(props: {
           )}
         </tbody>
       </table>
-      <div className="objects-pagination">
-        <Button
-          disabled={paginationIndex === 0}
-          onClick={() => {
-            const prevCursor = cursorsRef.current[paginationIndex - 2];
-            fetchObjects(prevCursor, -1);
-          }}
-        >
-          &lt; Previous
-        </Button>
+      {objectsResponse?.objectSuffixes.length === objectsLimit &&
+        paginationIndex === 0 && (
+          <div className="objects-pagination">
+            <Button
+              disabled={paginationIndex === 0}
+              onClick={() => {
+                const prevCursor = cursorsRef.current[paginationIndex - 2];
+                fetchObjects(prevCursor, -1);
+              }}
+            >
+              &lt; Previous
+            </Button>
 
-        <Button
-          disabled={!objectsResponse?.hasNext}
-          onClick={() => {
-            const nextCursor = cursorsRef.current[paginationIndex];
-            fetchObjects(nextCursor, 1);
-          }}
-        >
-          Next &gt;
-        </Button>
-      </div>
+            <Button
+              disabled={!objectsResponse?.hasNext}
+              onClick={() => {
+                const nextCursor = cursorsRef.current[paginationIndex];
+                fetchObjects(nextCursor, 1);
+              }}
+            >
+              Next &gt;
+            </Button>
+          </div>
+        )}
     </div>
   );
 }
