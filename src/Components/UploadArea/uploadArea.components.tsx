@@ -137,7 +137,7 @@ const UploadArea: React.FC<UploadAreaProps> = ({
 
             <div className="file-list">
               <div className="file-list__container">
-                {files.map((file, index) => (
+                {files.map((file) => (
                   <div className="file-item" key={file.name}>
                     <div className="file-info">
                       <p>{file.name}</p>
@@ -146,7 +146,9 @@ const UploadArea: React.FC<UploadAreaProps> = ({
                       className="file-actions"
                       onClick={() => handleRemoveFile(file.name)}
                     >
-                      <Button color="red">Remove</Button>
+                      <Button inverted color="red">
+                        Remove
+                      </Button>
                     </div>
                   </div>
                 ))}
@@ -163,7 +165,7 @@ const UploadArea: React.FC<UploadAreaProps> = ({
                   close
                 </Button>
               ) : (
-                <Button color="orange" onClick={() => handleUpload()}>
+                <Button color="orange" inverted onClick={() => handleUpload()}>
                   upload
                 </Button>
               )}

@@ -8,6 +8,16 @@
     border-width: 1px;
   }
 
+  .object-options {
+    display: flex;
+    justify-content: end;
+    margin-bottom: 1rem;
+
+    .options {
+      width: 10%;
+    }
+  }
+
   .data {
     flex: 2;
     padding: 1rem;

@@ -1,11 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import Button from "../../Components/Button/button.component";
 import objectsServiceInstance from "../../Services/Objects/objects.api.service";
 import {
   GetObjectResponse,
   ObjectResponse,
 } from "../../Services/Objects/objects.types";
 import { GetSizeString, TruncateContentType } from "../../Utils/fileSize.util";
+import Modal from "./Modal/modal.component";
 import "./object.style.css";
 
 function ObjectPage() {
@@ -16,6 +18,19 @@ function ObjectPage() {
   const [selectedVersion, setSelectedVersion] = useState<
     ObjectResponse | undefined
   >();
+  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState<boolean>(false);
+  const navigate = useNavigate();
+
+  const deleteObject = useCallback(() => {
+    if (!objectData) return;
+
+    objectsServiceInstance
+      .Delete(objectData.bucketId, objectData.fileKey)
+      .then(() => {
+        setDeleteModalIsOpen(false);
+        navigate(`/buckets/${bucketName}`);
+      });
+  }, [objectData, navigate, bucketName]);
 
   const fetchObject = useCallback(async () => {
     if (bucketName && objectId) {
@@ -29,7 +44,7 @@ function ObjectPage() {
       setSelectedVersion(objectResponse.versions.find(Boolean));
     }
     setLoading(false);
-  }, []);
+  }, [bucketName, objectId]);
 
   useEffect(() => {
     fetchObject();
@@ -138,6 +153,21 @@ function ObjectPage() {
           🠔 MunitS / {bucketName}
         </Link>
         <h1>{objectData?.fileKey}</h1>
+      </div>
+
+      <hr />
+      <Modal
+        text="Confirm object deletion"
+        isOpen={deleteModalIsOpen}
+        onClose={() => setDeleteModalIsOpen(false)}
+        onDelete={deleteObject}
+      />
+      <div className="object-options">
+        <div className="options">
+          <Button color="red" onClick={() => setDeleteModalIsOpen(true)}>
+            Delete
+          </Button>
+        </div>
       </div>
 
       <div className="object-data">

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Button from "../../Button/button.component";
 import Input from "../../Input/input.component";
-import "./customModal.style.css";
+import "./modalWithInput.style.css";
 
 interface ModalProps {
   isOpen: boolean;
@@ -11,7 +11,7 @@ interface ModalProps {
   bucketName: string;
 }
 
-const CustomModal: React.FC<ModalProps> = ({
+const ModalWithInput: React.FC<ModalProps> = ({
   isOpen,
   onClose,
   onDelete,
@@ -46,7 +46,12 @@ const CustomModal: React.FC<ModalProps> = ({
         ></Input>
         <div className="modal-actions">
           <Button onClick={onClose}>Cancel</Button>
-          <Button disabled={isDisabled} onClick={() => onDelete(inputValue)}>
+          <Button
+            disabled={isDisabled}
+            color="red"
+            inverted={true}
+            onClick={() => onDelete(inputValue)}
+          >
             Delete
           </Button>
         </div>
@@ -55,4 +60,4 @@ const CustomModal: React.FC<ModalProps> = ({
   );
 };
 
-export default CustomModal;
+export default ModalWithInput;

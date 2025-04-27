@@ -1,7 +1,6 @@
 .custom-button {
   appearance: button;
   backface-visibility: hidden;
-  background-color: var(--primary-color);
   border-radius: 6px;
   border-width: 0;
   box-shadow: rgba(50, 50, 93, 0.1) 0 0 0 1px inset,
@@ -31,7 +30,7 @@
 
 .custom-button:disabled {
   cursor: default;
-  background-color: rgb(84, 84, 84);
+  background-color: rgb(122, 122, 122);
 }
 
 .custom-button:focus {

@@ -48,6 +48,10 @@
     flex-direction: row;
     justify-content: space-between;
 
+    .breadcrumbs {
+      display: flex;
+      flex-direction: row;
+    }
     button {
       margin: 5px;
     }

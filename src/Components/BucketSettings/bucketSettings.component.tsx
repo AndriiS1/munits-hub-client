@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import bucketServiceInstance from "../../Services/Buckets/buckets.api.service";
 import Button from "../Button/button.component";
 import "./bucketSettings.style.css";
-import CustomModal from "./Modal/customModal.component";
+import ModalWithInput from "./Modal/modalWithInput.component";
 
 function BucketSettings(props: { bucketName: string; bucketId: string }) {
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState<boolean>(false);
@@ -18,7 +18,7 @@ function BucketSettings(props: { bucketName: string; bucketId: string }) {
 
   return (
     <div className="bucket-settings-wrapper">
-      <CustomModal
+      <ModalWithInput
         bucketName={props.bucketName}
         text={`To delete this bucket, please type '${props.bucketName}' to confirm.`}
         onDelete={deleteBucket}

@@ -34,6 +34,7 @@ export interface ObjectResponse {
 
 export interface GetObjectResponse {
   id: string;
+  bucketId: string;
   fileKey: string;
   createdAt: Date;
   versions: ObjectResponse[];
