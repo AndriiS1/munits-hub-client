@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import BucketContent from "../../Components/BucketContent/bucketContent.component";
-import Button from "../../Components/Button/button.component";
+import BucketSettings from "../../Components/BucketSettings/bucketSettings.component";
 import bucketServiceInstance from "../../Services/Buckets/buckets.api.service";
 import { BucketResponse } from "../../Services/Buckets/buckets.types";
 import { GetSizeString } from "../../Utils/fileSize.util";
@@ -11,6 +11,7 @@ function Bucket() {
   const { bucketName } = useParams();
   const navigate = useNavigate();
   const [bucketData, setBucketData] = useState<BucketResponse>();
+  const [option, setOptions] = useState<"objects" | "settings">("objects");
 
   const fetchBucket = useCallback(async () => {
     if (!bucketName) {
@@ -24,6 +25,27 @@ function Bucket() {
   useEffect(() => {
     fetchBucket();
   }, [fetchBucket]);
+
+  const options: ("objects" | "settings")[] = ["objects", "settings"];
+
+  const optionComponents = {
+    objects:
+      bucketName && bucketData ? (
+        <BucketContent
+          bucketName={bucketName}
+          bucketId={bucketData.id}
+          fetchBucket={fetchBucket}
+        />
+      ) : (
+        <></>
+      ),
+    settings:
+      bucketName && bucketData ? (
+        <BucketSettings bucketName={bucketName} bucketId={bucketData.id} />
+      ) : (
+        <></>
+      ),
+  };
 
   return (
     <div className="bucket-data-wrapper">
@@ -41,8 +63,10 @@ function Bucket() {
               <th scope="col">Objects count</th>
               <th scope="col">Size</th>
               <th scope="col">Versioning enabled</th>
-              {bucketData?.versioningEnabled ?? (
+              {bucketData?.versioningEnabled ? (
                 <th scope="col">Versions limit</th>
+              ) : (
+                <></>
               )}
             </tr>
           </thead>
@@ -55,8 +79,10 @@ function Bucket() {
                   : 0}
               </td>
               <td>{bucketData?.versioningEnabled ? "Yes" : "No"}</td>
-              {bucketData?.versioningEnabled ?? (
+              {bucketData?.versioningEnabled ? (
                 <td>{bucketData?.versionsLimit}</td>
+              ) : (
+                <></>
               )}
             </tr>
           </tbody>
@@ -65,20 +91,19 @@ function Bucket() {
 
       <hr />
       <div className="bucket-options">
-        {/* <SearchInput placeholder="Search for objects" /> */}
-        <div className="search-objects-button">
-          <Button>Search</Button>
-        </div>
+        {options.map((opt) => (
+          <div
+            key={opt}
+            className={`option ${option === opt ? "active" : ""}`}
+            onClick={() => setOptions(opt)}
+          >
+            {opt.charAt(0).toUpperCase() + opt.slice(1)}
+          </div>
+        ))}
       </div>
 
       <hr />
-      {bucketName && bucketData?.id && (
-        <BucketContent
-          bucketName={bucketName}
-          bucketId={bucketData?.id}
-          fetchBucket={() => fetchBucket()}
-        ></BucketContent>
-      )}
+      {optionComponents[option]}
     </div>
   );
 }

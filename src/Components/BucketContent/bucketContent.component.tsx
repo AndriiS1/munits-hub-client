@@ -125,7 +125,7 @@ function BucketContent(props: {
     const breadcrumbs = parts.map((part, index) => {
       const path = parts.slice(0, index + 1).join("/ ");
       return (
-        <>
+        <div key={path}>
           <span
             className="custom-link"
             onClick={() => handlePathChange(`/${path}/`)}
@@ -133,7 +133,7 @@ function BucketContent(props: {
             {part}
           </span>
           <span> / </span>
-        </>
+        </div>
       );
     });
 
@@ -195,8 +195,7 @@ function BucketContent(props: {
               )}
             </tbody>
           </table>
-          {(objectsResponse?.objectSuffixes.length === objectsLimit ||
-            paginationIndex > 0) && (
+          {(objectsResponse?.hasNext || paginationIndex > 0) && (
             <div className="objects-pagination">
               <Button
                 disabled={paginationIndex === 0}

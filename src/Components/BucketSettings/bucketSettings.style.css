@@ -1,0 +1,8 @@
+.bucket-settings-wrapper {
+  border: solid 1px rgb(159, 159, 159);
+  padding: 2rem;
+
+  .bucket-settings {
+    width: 20%;
+  }
+}

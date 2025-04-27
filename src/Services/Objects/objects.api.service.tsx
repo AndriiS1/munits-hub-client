@@ -87,6 +87,10 @@ class ObjectsService {
     );
   }
 
+  async Delete(bucketId: string, fileKey: string, uploadId?: string) {
+    await api.delete(MUNITS_HUB_ROUTES.DELETE(bucketId, fileKey, uploadId));
+  }
+
   async AbortUpload(bucketId: string, objectId: string, uploadId: string) {
     await api.post(
       MUNITS_HUB_ROUTES.ABORT_UPLOAD(bucketId, objectId, uploadId)

@@ -35,6 +35,20 @@
 
   .bucket-options {
     display: flex;
+
+    .option {
+      padding: 10px;
+      font-weight: 500;
+    }
+
+    .option:hover {
+      background-color: var(--light-gray);
+      cursor: pointer;
+    }
+
+    .active {
+      background-color: var(--light-gray);
+    }
   }
 
   .search-objects-button {

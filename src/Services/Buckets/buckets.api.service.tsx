@@ -28,6 +28,12 @@ class BucketService {
     return response.data;
   }
 
+  async Delete(bucketId: string): Promise<BucketResponse> {
+    const response = await api.delete(BUCKETS_API_ROUTES.DELETE(bucketId));
+
+    return response.data;
+  }
+
   async BucketExistsCheck(name: string): Promise<boolean> {
     const response = await api.post(BUCKETS_API_ROUTES.EXISTS, { name });
     return response.data.exists;

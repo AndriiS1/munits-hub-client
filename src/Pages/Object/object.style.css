@@ -47,9 +47,8 @@
 
     .timeline {
       border: solid rgb(160, 160, 160);
-      border-width: 1px;
+      border-width: 0px 1px 0px 1px;
       padding: 2rem;
-      border-radius: 15px;
     }
     h1 {
       font-size: 1.1rem;
@@ -63,7 +62,7 @@
 
     li {
       padding-bottom: 1.5rem;
-      border-left: 1px solid rgba(0, 0, 255, 0.466);
+      border-left: 1px solid rgb(160, 160, 160);
       position: relative;
       padding-left: 20px;
       margin-left: 10px;
@@ -76,8 +75,8 @@
         width: 15px;
         height: 15px;
         background: white;
-        border: 1px solid var(--primary-color);
-        box-shadow: 3px 3px 0px rgba(0, 0, 255, 0.466);
+        border: 1px solid black;
+        box-shadow: 3px 3px 0px rgb(160, 160, 160);
         border-radius: 50%;
         position: absolute;
         left: -10px;

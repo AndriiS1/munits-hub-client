@@ -12,7 +12,7 @@ export const BUCKETS_API_ROUTES = {
   GET_BUCKETS: `buckets/filter`,
   SEARCH_BUCKETS: `buckets/search`,
   GET_BUCKET_BY_NAME: (bucketName: string) => `buckets/by-name/${bucketName}`,
-  DELETE: `buckets/`,
+  DELETE: (bucketId: string) => `buckets/${bucketId}`,
   CREATE: `buckets/`,
   EXISTS: `buckets/exists`,
 };
@@ -21,6 +21,11 @@ export const MUNITS_HUB_ROUTES = {
   FILTER_OBJECTS: (bucketId: string) => `buckets/${bucketId}/objects/filter`,
   INITIATE_UPLOAD: (bucketId: string) =>
     `buckets/${bucketId}/objects/uploads/initiate`,
+
+  DELETE: (bucketId: string, fileKey: string, uploadId?: string) =>
+    uploadId
+      ? `buckets/${bucketId}/objects/${fileKey}?uploadId=${uploadId}`
+      : `buckets/${bucketId}/objects/${fileKey}`,
 
   GET_OBJECT: (bucketName: string, objectId: string) =>
     `buckets/${bucketName}/objects/${objectId}`,
