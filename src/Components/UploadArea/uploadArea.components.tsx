@@ -50,17 +50,14 @@ const UploadArea: React.FC<UploadAreaProps> = ({
     setFiles((prevFiles) => prevFiles.filter((file) => file.name !== fileName));
   };
 
-  const handleUpload = () => {
+  const handleUpload = async () => {
     if (uploadStarted) return;
 
-    files.forEach(async (file) => {
-      await storageServiceInstance.UploadFile(
-        bucketId,
-        uploadPath,
-        file,
-        onRefresh
-      );
-    });
+    var fileUploadTasks = files.map((file) =>
+      storageServiceInstance.UploadFile(bucketId, uploadPath, file, onRefresh)
+    );
+
+    await Promise.all(fileUploadTasks);
 
     setUploadStarted(true);
   };

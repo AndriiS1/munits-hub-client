@@ -37,8 +37,7 @@ export default function Home() {
           <div className="user-email">{userEmail}</div>
           <ul>
             <li className="">Dashboard</li>
-            <li className="">Analytics</li>
-            <li>Settings</li>
+            <li className="">Metrics</li>
           </ul>
         </div>
         <div className="page-content-wrapper">
