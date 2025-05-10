@@ -12,15 +12,15 @@ export default function Button(props: {
 
   return (
     <button
-      className={`custom-button ${
-        props.inverted ? "inverted" : "not-inverted"
-      }`}
-      onClick={props.disabled ? undefined : props.onClick}
+      className={`custom-button${props.inverted ? " inverted" : ""}`}
+      onClick={props.onClick}
       disabled={props.disabled}
       style={
-        !props.inverted
-          ? { backgroundColor: color }
-          : { color: color, borderColor: color, borderWidth: "1px" }
+        props.disabled
+          ? undefined
+          : props.inverted
+          ? { color, borderColor: color, borderWidth: "1px" }
+          : { backgroundColor: color }
       }
     >
       {props.children}
