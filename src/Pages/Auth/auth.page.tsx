@@ -8,9 +8,9 @@ export default function Auth() {
     <div className="auth-wrap">
       <header>
         <ul className="nav">
-          <li className="logo-text" onClick={() => navigate("")}>
+          <ul className="logo-text" onClick={() => navigate("")}>
             MunitS
-          </li>
+          </ul>
         </ul>
       </header>
 

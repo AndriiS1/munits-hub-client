@@ -25,10 +25,10 @@ export default function Home() {
     <div className="home-wrap">
       <header>
         <ul className="nav">
-          <li className="logo-text">MunitS</li>
-          <li className="log-out" onClick={() => handleLogout()}>
+          <ul className="logo-text">MunitS</ul>
+          <ul className="log-out" onClick={() => handleLogout()}>
             Log out
-          </li>
+          </ul>
         </ul>
       </header>
 
@@ -36,8 +36,8 @@ export default function Home() {
         <div className="side-bar">
           <div className="user-email">{userEmail}</div>
           <ul>
-            <li className="">Dashboard</li>
-            <li className="">Metrics</li>
+            <ul className="">Dashboard</ul>
+            <ul className="">Metrics</ul>
           </ul>
         </div>
         <div className="page-content-wrapper">
