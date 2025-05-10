@@ -1,5 +1,4 @@
 import { Button, Snackbar, TextField } from "@mui/material";
-import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { Form, Link, useNavigate } from "react-router-dom";
 import AuthService from "../../Services/auth.service";
@@ -11,7 +10,7 @@ export default function Login() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [open, setOpen] = useState<boolean>(false);
-  const [axiosErrorMessage, setAxiosErrorMessage] = useState<any>("");
+  const [axiosErrorMessage, setAxiosErrorMessage] = useState<string>("");
 
   const [emailError, setEmailError] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<boolean>(false);
@@ -31,7 +30,9 @@ export default function Login() {
       regexPattern: RegExp,
       setError: (error: boolean) => void
     ) => {
-      field && setError(!regexPattern.test(field));
+      if (field) {
+        setError(!regexPattern.test(field));
+      }
     };
 
     validateField(email, emailRegexPatter, setEmailError);
@@ -47,8 +48,10 @@ export default function Login() {
         navigate("/buckets");
       }
     } catch (e) {
-      const error = e as AxiosError;
-      setAxiosErrorMessage(error?.response?.data || error?.message);
+      const error = e as { response?: { data?: string }; message?: string };
+      setAxiosErrorMessage(
+        error?.response?.data || error?.message || "An error occurred"
+      );
       console.log(error);
       setOpen(true);
     }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ReactComponent as CloudUploadIcon } from "../../Assets/upload-cloud.icon.svg";
+import UploadCloud from "../../Assets/uploadCloud.icon";
 import storageServiceInstance from "../../Services/Storage/storage.service";
 import Button from "../Button/button.component";
 import Input from "../Input/input.component";
@@ -53,7 +53,7 @@ const UploadArea: React.FC<UploadAreaProps> = ({
   const handleUpload = async () => {
     if (uploadStarted) return;
 
-    var fileUploadTasks = files.map((file) =>
+    const fileUploadTasks = files.map((file) =>
       storageServiceInstance.UploadFile(bucketId, uploadPath, file, onRefresh)
     );
 
@@ -88,7 +88,7 @@ const UploadArea: React.FC<UploadAreaProps> = ({
       >
         {files.length === 0 && (
           <>
-            <CloudUploadIcon className="upload-cloud-icon" />
+            <UploadCloud className="upload-cloud-icon" />
             <div className="welcome-upload-info">
               <div>Your bucket is ready. Add files to get started. </div>
 
@@ -122,7 +122,9 @@ const UploadArea: React.FC<UploadAreaProps> = ({
                   placeholder="custom upload path"
                   type="text"
                   value={uploadPath}
-                  onChange={(e: any) => handleUploadPathChange(e)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    handleUploadPathChange(e)
+                  }
                 />
               </div>
               <div className="success-file">

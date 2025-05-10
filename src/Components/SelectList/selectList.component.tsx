@@ -5,20 +5,20 @@ import "./selectList.style.css";
 interface SelectListOption {
   title: string;
   content: string;
-  value: any;
+  value: unknown;
 }
 
 interface ExtendedSelectListOption extends SelectListOption {
   childPlaceholder: string;
-  childInputValue: any;
+  childInputValue: unknown;
   childErrorMessage?: string;
-  onChildInputChange: (value: any) => void;
+  onChildInputChange: (value: unknown) => void;
 }
 
 export default function SelectList(props: {
   options: (SelectListOption | ExtendedSelectListOption)[];
-  selectedValue: any | null;
-  onChange: (value: any) => void;
+  selectedValue: unknown | null;
+  onChange: (value: unknown) => void;
 }) {
   const optionRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -30,7 +30,9 @@ export default function SelectList(props: {
           <span>{option.content}</span>
           <Input
             type="number"
-            value={(option as ExtendedSelectListOption).childInputValue}
+            value={String(
+              (option as ExtendedSelectListOption).childInputValue ?? ""
+            )}
             placeholder={(option as ExtendedSelectListOption).childPlaceholder}
             errorMessage={
               (option as ExtendedSelectListOption).childErrorMessage

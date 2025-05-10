@@ -7,24 +7,32 @@ type signUpModel = {
   password: string;
 };
 
+interface AuthResponse {
+  accessToken: string;
+  refreshToken: string;
+  [key: string]: unknown;
+}
+
 class AuthService {
   async login(email: string, password: string) {
     const response = await api.post(AUTH_API_ROUTES.LOGIN, {
       email,
       password,
     });
-    if (response.data.accessToken) {
+    const data = response.data as AuthResponse;
+    if (data.accessToken) {
       TokenService.setUserTokens({
-        accessToken: response.data.accessToken,
-        refreshToken: response.data.refreshToken,
+        accessToken: data.accessToken,
+        refreshToken: data.refreshToken,
       });
     }
-    return response.data;
+    return data;
   }
 
   async getUserEmail(): Promise<string> {
     const response = await api.get(AUTH_API_ROUTES.GET_USER_EMAIL);
-    return response.data.email;
+    const data = response.data as { email: string };
+    return data.email;
   }
 
   logout() {
@@ -32,15 +40,15 @@ class AuthService {
   }
 
   async signUp(registerData: signUpModel) {
-    console.log(process.env.REACT_APP_MUNITS_SERVER_URL);
     const response = await api.post(AUTH_API_ROUTES.SIGN_UP, registerData);
-    if (response.data.accessToken) {
+    const data = response.data as AuthResponse;
+    if (data.accessToken) {
       TokenService.setUserTokens({
-        accessToken: response.data.accessToken,
-        refreshToken: response.data.refreshToken,
+        accessToken: data.accessToken,
+        refreshToken: data.refreshToken,
       });
     }
-    return response.data;
+    return data;
   }
 }
 

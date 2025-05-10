@@ -1,6 +1,6 @@
 import axios from "axios";
 import objectsServiceInstance from "../Objects/objects.api.service";
-import { InitiateUploadResponse } from "../Objects/objects.types";
+import type { InitiateUploadResponse } from "../Objects/objects.types";
 
 class StorageService {
   async UploadFile(
@@ -45,7 +45,9 @@ class StorageService {
         ETags
       );
 
-      onRefresh && onRefresh();
+      if (onRefresh) {
+        onRefresh();
+      }
 
       console.log("Upload completed successfully.");
     } catch (error) {
@@ -81,8 +83,10 @@ class StorageService {
             "Content-Type": "multipart/form-data",
           },
         });
-        const etag = res.data?.eTag;
+        const etag = (res.data as { eTag: string }).eTag;
+
         if (!etag) throw new Error(`Missing ETag for part ${i + 1}`);
+
         etags[i + 1] = etag;
       } catch (err) {
         throw new Error(`Failed to upload part ${i + 1}: ${err}`);

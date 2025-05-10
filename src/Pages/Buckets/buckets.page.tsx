@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../Components/Button/button.component";
 import SearchInput from "../../Components/SearchInput/searchInput.component";
 import bucketServiceInstance from "../../Services/Buckets/buckets.api.service";
-import { BucketResponse } from "../../Services/Buckets/buckets.types";
+import type { BucketResponse } from "../../Services/Buckets/buckets.types";
 import { GetSizeString } from "../../Utils/fileSize.util";
 import "./buckets.style.css";
 
@@ -84,7 +84,9 @@ function Buckets() {
 
       <div className="buckets-options">
         <SearchInput
-          onChange={(e: any) => handleSearchChange(e)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            handleSearchChange(e)
+          }
           value={search ?? ""}
           placeholder="Search for buckets"
         />

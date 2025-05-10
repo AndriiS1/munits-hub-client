@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import BucketContent from "../../Components/BucketContent/bucketContent.component";
 import BucketSettings from "../../Components/BucketSettings/bucketSettings.component";
 import bucketServiceInstance from "../../Services/Buckets/buckets.api.service";
-import { BucketResponse } from "../../Services/Buckets/buckets.types";
+import type { BucketResponse } from "../../Services/Buckets/buckets.types";
 import { GetSizeString } from "../../Utils/fileSize.util";
 import "./bucket.style.css";
 

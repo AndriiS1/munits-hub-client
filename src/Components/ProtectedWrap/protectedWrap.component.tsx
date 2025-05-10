@@ -1,4 +1,4 @@
-import { JSX, useEffect, useState } from "react";
+import { type JSX, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TokenService from "../../Services/token.service";
 

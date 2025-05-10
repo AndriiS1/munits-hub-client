@@ -6,14 +6,17 @@ import SelectList from "../../Components/SelectList/selectList.component";
 import bucketServiceInstance from "../../Services/Buckets/buckets.api.service";
 import "./addBucket.style.css";
 
-enum LocationOptions {
-  DEFAULT = "default",
-}
+const LocationOptions = {
+  DEFAULT: "default",
+} as const;
+type LocationOptions = (typeof LocationOptions)[keyof typeof LocationOptions];
 
-enum VersioningOptions {
-  NO_VERSIONING = "none",
-  VERSIONING_ENABLED = "enabled",
-}
+const VersioningOptions = {
+  NO_VERSIONING: "none",
+  VERSIONING_ENABLED: "enabled",
+} as const;
+type VersioningOptions =
+  (typeof VersioningOptions)[keyof typeof VersioningOptions];
 
 export default function AddBucketPage() {
   const navigate = useNavigate();
@@ -34,12 +37,12 @@ export default function AddBucketPage() {
   const [creationDataIsValid, setCreationDataIsValid] =
     useState<boolean>(false);
 
-  const handleLocationSelectionChange = (value: LocationOptions) => {
-    setLocationOption(value);
+  const handleLocationSelectionChange = (value: unknown) => {
+    setLocationOption(value as LocationOptions);
   };
 
-  const handleVersioningSelectionChange = (value: VersioningOptions) => {
-    setVersioningOption(value);
+  const handleVersioningSelectionChange = (value: unknown) => {
+    setVersioningOption(value as VersioningOptions);
   };
 
   const handleVersionCountChange = (value: number) => {
@@ -106,7 +109,13 @@ export default function AddBucketPage() {
         (versioningOption === VersioningOptions.NO_VERSIONING ||
           (!!versionsCount && versionsCount > minimumVersionLimit))
     );
-  }, [bucketName, versioningOption, versionsCount]);
+  }, [
+    bucketName,
+    bucketNameErrorMessage,
+    versionLimitErrorMessage,
+    versioningOption,
+    versionsCount,
+  ]);
 
   return (
     <div className="new-bucket-data">
@@ -125,7 +134,9 @@ export default function AddBucketPage() {
         topPlaceholder="Bucket name"
         bottomPlaceholder="Bucket name is permanent and unchangeable."
         value={bucketName}
-        onChange={(e: any) => setBucketName(e.target.value.toLowerCase())}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setBucketName(e.target.value.toLowerCase())
+        }
       />
       <hr />
       <h2>Location</h2>
@@ -158,8 +169,8 @@ export default function AddBucketPage() {
             content: "Each object has fixed number of versions.",
             childPlaceholder: "Number of versions",
             childInputValue: versionsCount,
-            onChildInputChange: (e: any) =>
-              handleVersionCountChange(e.target.value.toLowerCase()),
+            onChildInputChange: (value: unknown) =>
+              handleVersionCountChange(Number(value)),
             childErrorMessage: versionLimitErrorMessage,
           },
         ]}

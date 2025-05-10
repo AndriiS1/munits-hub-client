@@ -10,22 +10,26 @@ const api = axios.create({
 });
 
 api.interceptors.request.use(
-  async (config) => {
+  (config) => {
     const token = TokenService.getLocalAccessToken();
     if (token) {
+      if (!config.headers) {
+        config.headers = {};
+      }
       config.headers["Authorization"] = `Bearer ${token}`;
     }
     return config;
   },
-  async (error) => {
+  (error) => {
     return Promise.reject(error);
   }
 );
 
 api.interceptors.response.use(
-  async (res) => {
+  (res) => {
     return res;
   },
+
   async (err) => {
     const originalConfig = err.config;
 
@@ -41,7 +45,9 @@ api.interceptors.response.use(
               refreshToken,
             });
 
-            const { accessToken } = response.data;
+            const { accessToken } = response.data as { accessToken: string } & {
+              refreshToken: string;
+            };
             TokenService.updateLocalAccessToken(accessToken);
 
             return api(originalConfig);

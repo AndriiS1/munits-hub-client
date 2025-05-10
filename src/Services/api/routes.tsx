@@ -1,4 +1,5 @@
-export const API_BASE_URL = process.env.REACT_APP_MUNITS_HUB_SERVER_URL || "";
+// Ensure TypeScript knows about the VITE_MUNITS_HUB_SERVER_URL env variable
+export const API_BASE_URL = import.meta.env.VITE_MUNITS_HUB_SERVER_URL || "";
 
 export const AUTH_API_ROUTES = {
   GET_USER_EMAIL: `users/email`,

@@ -1,6 +1,6 @@
 import api from "../api/api";
 import { MUNITS_HUB_ROUTES } from "../api/routes";
-import {
+import type {
   GetObjectResponse,
   GetObjectsResponse,
   InitiateUploadResponse,
@@ -23,7 +23,7 @@ class ObjectsService {
       }
     );
 
-    return response.data;
+    return response.data as GetObjectsResponse;
   }
 
   async InitiateUpload(
@@ -41,7 +41,7 @@ class ObjectsService {
       }
     );
 
-    return response.data;
+    return response.data as InitiateUploadResponse;
   }
 
   async GetUploadSignedUrls(
@@ -59,7 +59,7 @@ class ObjectsService {
       )
     );
 
-    return response.data;
+    return response.data as { urls: string[] };
   }
 
   async GetObject(
@@ -70,7 +70,7 @@ class ObjectsService {
       MUNITS_HUB_ROUTES.GET_OBJECT(bucketName, objectId)
     );
 
-    return response.data;
+    return response.data as GetObjectResponse;
   }
 
   async CompleteUpload(

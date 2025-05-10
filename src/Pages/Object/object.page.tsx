@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Button from "../../Components/Button/button.component";
 import objectsServiceInstance from "../../Services/Objects/objects.api.service";
-import {
+import type {
   GetObjectResponse,
   ObjectResponse,
 } from "../../Services/Objects/objects.types";
@@ -13,7 +13,7 @@ import "./object.style.css";
 function ObjectPage() {
   const { bucketName, objectId } = useParams();
 
-  const [loading, setLoading] = useState<boolean>(true);
+  const [, setLoading] = useState<boolean>(true);
   const [objectData, setObjectData] = useState<GetObjectResponse>();
   const [selectedVersion, setSelectedVersion] = useState<
     ObjectResponse | undefined

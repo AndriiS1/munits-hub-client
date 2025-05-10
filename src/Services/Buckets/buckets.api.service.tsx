@@ -1,6 +1,6 @@
 import api from "../api/api";
 import { BUCKETS_API_ROUTES } from "../api/routes";
-import { BucketResponse } from "./buckets.types";
+import type { BucketResponse } from "./buckets.types";
 
 class BucketService {
   async GetBuckets(): Promise<BucketResponse[]> {
@@ -9,7 +9,7 @@ class BucketService {
       pageSize: 100,
     });
 
-    return response.data;
+    return response.data as BucketResponse[];
   }
 
   async SearchBuckets(search: string): Promise<BucketResponse[]> {
@@ -19,24 +19,24 @@ class BucketService {
       pageSize: 100,
     });
 
-    return response.data;
+    return response.data as BucketResponse[];
   }
 
   async GetBucketByName(name: string): Promise<BucketResponse> {
     const response = await api.get(BUCKETS_API_ROUTES.GET_BUCKET_BY_NAME(name));
 
-    return response.data;
+    return response.data as BucketResponse;
   }
 
   async Delete(bucketId: string): Promise<BucketResponse> {
     const response = await api.delete(BUCKETS_API_ROUTES.DELETE(bucketId));
 
-    return response.data;
+    return response.data as BucketResponse;
   }
 
   async BucketExistsCheck(name: string): Promise<boolean> {
     const response = await api.post(BUCKETS_API_ROUTES.EXISTS, { name });
-    return response.data.exists;
+    return (response.data as { exists: boolean }).exists;
   }
 
   async CreateBucket(

@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ReactComponent as FolderIcon } from "../../Assets/folder.icon.svg";
+import FolderIcon from "../../Assets/folder.icon";
 import objectsServiceInstance from "../../Services/Objects/objects.api.service";
-import {
+import type {
   GetObjectsResponse,
   ObjectSuffixesCursor,
   ObjectSuffixResponse,
