@@ -72,7 +72,12 @@ function Buckets() {
           High-performance storage for files and objects with zero egress
           charges.
         </h3>
-        <a href="https://github.com/AndriiS1/MunitS" className="link">
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://github.com/AndriiS1/MunitS"
+          className="link"
+        >
           MunitS source code
         </a>
       </div>

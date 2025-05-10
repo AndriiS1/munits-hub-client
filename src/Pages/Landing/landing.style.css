@@ -1,125 +1,110 @@
-.welcomeWrap {
-  background-image: linear-gradient(
-    45deg,
-    hsl(240deg 100% 20%) 0%,
-    hsl(281deg 100% 21%) 8%,
-    hsl(304deg 100% 23%) 17%,
-    hsl(319deg 100% 30%) 25%,
-    hsl(329deg 100% 36%) 33%,
-    hsl(336deg 100% 41%) 42%,
-    hsl(346deg 83% 51%) 50%,
-    hsl(3deg 95% 61%) 58%,
-    hsl(17deg 100% 59%) 67%,
-    hsl(30deg 100% 55%) 75%,
-    hsl(40deg 100% 50%) 83%,
-    hsl(48deg 100% 50%) 92%,
-    hsl(55deg 100% 50%) 100%
-  );
-  height: 80ch;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .page {
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
-}
 
-.welcomeContent {
-  width: 60%;
-  height: 70%;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-weight: 230;
-  font-family: "Exo 2", sans-serif;
-}
+  .welcomeWrap {
+    height: 80ch;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-.logoText {
-  margin-top: 1.4ch;
-  font-family: "Exo 2", sans-serif;
-  font-size: 4rem;
-  font-weight: 700;
-  font-style: normal;
-}
+  .welcomeContent {
+    width: 60%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: 230;
+    font-family: "Exo 2", sans-serif;
+  }
 
-.subLogoText {
-  margin-top: 1.4ch;
-  font-family: "Exo 2", sans-serif;
-  font-size: 2rem;
-  font-weight: 600;
-  font-style: normal;
-}
+  .logoText {
+    margin-top: 1.4ch;
+    font-family: "Exo 2", sans-serif;
+    font-size: 4rem;
+    font-weight: 700;
+    font-style: normal;
+  }
 
-.optionsWrap {
-  width: 70%;
-  height: 45%;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-}
+  .subLogoText {
+    margin-top: 1.4ch;
+    font-family: "Exo 2", sans-serif;
+    font-size: 2rem;
+    font-weight: 600;
+    font-style: normal;
+  }
 
-.welcomeOption {
-  margin-top: 5ch;
-  width: 40ch;
-  background-color: white;
-  padding: 5ch;
-  border-radius: 3ch;
-  text-align: left;
-  font-family: "Exo 2", sans-serif;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
-    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
-}
+  .optionsWrap {
+    margin-top: 5vh;
+    width: 70%;
+    height: 15vh;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
 
-.welcomeOption span {
-  line-height: 30px;
-}
+    .welcomeOption {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2vh;
+      width: 35vh;
+      background-color: white;
+      border-radius: 3ch;
+      text-align: left;
+      font-family: "Exo 2", sans-serif;
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+        rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    }
 
-.welcomeOption:hover {
-  border: 3px solid;
-}
+    .welcomeOption:hover {
+      border: 2px solid;
+    }
 
-.optionTitle {
-  margin-bottom: 10px;
-  font-size: 1.5rem;
-  font-weight: 500;
-  font-style: normal;
-}
+    .optionTitle {
+      margin-bottom: 10px;
+      font-size: 1.5rem;
+      font-weight: 500;
+      font-style: normal;
+    }
+  }
 
-.comparisonTableWrap {
-  margin-top: 10ch;
-  height: 20ch;
-  background-color: red;
-  width: 80%;
-  display: flex;
-  flex-direction: column;
-  margin-left: auto;
-  margin-right: auto;
-}
+  .comparisonTableWrap {
+    margin-top: 10ch;
+    height: 20ch;
+    background-color: red;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
-.tableTitle {
-  text-align: center;
-  font-size: 2rem;
-  font-weight: 700;
-  font-style: normal;
-  font-family: "Exo 2", sans-serif;
-}
+  .tableTitle {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    font-style: normal;
+    font-family: "Exo 2", sans-serif;
+  }
 
-.footer {
-  font-family: "Exo 2", sans-serif;
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-}
+  .footer {
+    margin-top: 12vh;
+    .content {
+      font-family: "Exo 2", sans-serif;
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
 
-.footerText {
-  margin-top: 2%;
-  margin-bottom: 2%;
-  line-height: 30px;
+      .footerText {
+        margin-top: 2%;
+        margin-bottom: 2%;
+        line-height: 30px;
+      }
+    }
+  }
 }

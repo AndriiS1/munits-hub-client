@@ -1,22 +1,37 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Login from "./Components/Login/login.page";
 import ProtectedWrap from "./Components/ProtectedWrap/protectedWrap.component";
+import SignUp from "./Components/SignUp/signUp.page";
+import "./index.css";
 import AddBucketPage from "./Pages/AddBucket/addBucket.page";
+import Auth from "./Pages/Auth/auth.page";
 import Bucket from "./Pages/Bucket/bucket.page";
 import Buckets from "./Pages/Buckets/buckets.page";
 import Home from "./Pages/Home/home.page";
 import LandingPage from "./Pages/Landing/landing.page";
-import Login from "./Pages/Login/login.page";
 import ObjectPage from "./Pages/Object/object.page";
-import SignUp from "./Pages/SignUp/signUp.page";
-import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <LandingPage />,
+  },
+  {
+    path: "/",
+    element: <Auth />,
+    children: [
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "sign-up",
+        element: <SignUp />,
+      },
+    ],
   },
   {
     path: "/",

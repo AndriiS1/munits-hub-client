@@ -22,7 +22,7 @@ export default function Home() {
   };
 
   return (
-    <div>
+    <div className="home-wrap">
       <header>
         <ul className="nav">
           <li className="logo-text">MunitS</li>

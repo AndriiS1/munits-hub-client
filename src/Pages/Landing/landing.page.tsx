@@ -21,6 +21,8 @@ export default function LandingPage() {
                 </span>
               </Link>
               <a
+                target="_blank"
+                rel="noopener noreferrer"
                 href="https://github.com/AndriiS1/MunitS"
                 className="welcomeOption"
               >
@@ -34,16 +36,15 @@ export default function LandingPage() {
             </div>
           </div>
         </div>
-        <div className="comparisonTableWrap">
-          <div className="tableTitle">MunitS Capabilities</div>
-          <hr />
-        </div>
       </main>
-      <hr />
+
       <footer className="footer">
-        <div className="footerText">
-          <h3>MunitS</h3>
-          <div>© 2025 MunitS. All rights reserved.</div>
+        <hr />
+        <div className="content">
+          <div className="footerText">
+            <h3>MunitS</h3>
+            <div>© 2025 MunitS. All rights reserved.</div>
+          </div>
         </div>
       </footer>
     </div>

@@ -4,9 +4,8 @@ import { useEffect, useState } from "react";
 import { Form, Link, useNavigate } from "react-router-dom";
 import AuthService from "../../Services/auth.service";
 import TokenService from "../../Services/token.service";
-import "./login.style.css";
 
-export default function Login() {
+export default function SignUp() {
   const navigate = useNavigate();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -16,7 +15,7 @@ export default function Login() {
   const [emailError, setEmailError] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<boolean>(false);
 
-  const userLoginDataIsValid = !emailError && !passwordError;
+  const userRegisterDataIsValid = !emailError && !passwordError;
 
   useEffect(() => {
     const emailRegexPatter = new RegExp(
@@ -38,13 +37,16 @@ export default function Login() {
     validateField(password, passwordRegexPatter, setPasswordError);
   }, [email, password]);
 
-  const HandleLoginSubmit = async () => {
+  const HandleSignUpSubmit = async () => {
     try {
-      if (userLoginDataIsValid) {
-        await AuthService.login(email, password);
+      if (userRegisterDataIsValid) {
+        await AuthService.signUp({
+          email,
+          password,
+        });
       }
       if (TokenService.getUserTokens()) {
-        navigate("/buckets");
+        navigate("/home");
       }
     } catch (e) {
       const error = e as AxiosError;
@@ -55,9 +57,9 @@ export default function Login() {
   };
 
   return (
-    <div className="form-wrap">
-      <Form className="form-container" onSubmit={() => HandleLoginSubmit()}>
-        <span className="form-title">Login</span>
+    <div>
+      <Form className="form-container" onSubmit={() => HandleSignUpSubmit()}>
+        <span className="form-title">Sign up</span>
         <TextField
           error={emailError}
           onChange={(e) => setEmail(e.target.value)}
@@ -80,8 +82,8 @@ export default function Login() {
         <Button className="form-element" type="submit">
           Submit
         </Button>
-        <Link className="register-link form-element" to="/sign-up">
-          Sign up
+        <Link className="register-link form-element" to={"/login"}>
+          Log in
         </Link>
         <Snackbar
           open={open}
