@@ -45,7 +45,7 @@ function Buckets() {
     } else {
       fetchBuckets();
     }
-  }, [fetchBuckets, search]);
+  }, [fetchBuckets, search, searchBuckets]);
 
   const getDataRow = (bucket: BucketResponse) => {
     return (
