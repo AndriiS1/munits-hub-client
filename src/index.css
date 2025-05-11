@@ -62,11 +62,11 @@ a {
     hsl(31deg 100% 54%) 92%,
     hsl(39deg 100% 50%) 100%
   );
-  text-decoration-color: hsl(344deg 83% 47%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-decoration: underline;
+  color: transparent;
+  position: relative;
 }
 
 .router-link {

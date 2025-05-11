@@ -1,3 +1,5 @@
+import MetricsIcon from "@/Assets/metrics.icon";
+import { DatabaseIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import authServiceInstance from "../../Services/auth.service";
@@ -36,8 +38,14 @@ export default function Home() {
         <div className="side-bar">
           <div className="user-email">{userEmail}</div>
           <ul>
-            <ul>Dashboard</ul>
-            <ul>Metrics</ul>
+            <ul className="option">
+              <DatabaseIcon className="option-icon" />
+              <span>Dashboard</span>
+            </ul>
+            <ul className="option">
+              <MetricsIcon className="option-icon" />
+              <span>Metrics</span>
+            </ul>
           </ul>
         </div>
         <div className="page-content-wrapper">

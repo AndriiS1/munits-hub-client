@@ -32,16 +32,31 @@
     .side-bar {
       height: 100%;
       position: static;
-      flex: 0 0 15%;
+      flex: 0 0 10%;
       background-color: #ffffff;
       color: white;
       border-right: 1px solid #b3b3b3;
+
+      .option {
+        display: flex;
+
+        .option-icon {
+          height: 20px;
+          width: 20px;
+          translate: 0 5px;
+        }
+
+        span {
+          font-size: 20px;
+          margin-left: 5px;
+        }
+      }
 
       .user-email {
         padding: 20px;
         text-align: center;
         color: #000000;
-        font-size: x-large;
+        font-size: 20px;
         font-weight: 400;
         border-bottom: #b3b3b3 1px solid;
       }
@@ -50,7 +65,6 @@
         width: 100%;
         list-style-type: none;
         color: #000000;
-        font-size: x-large;
         font-weight: 600;
 
         ul {
