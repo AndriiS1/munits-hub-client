@@ -36,8 +36,8 @@ export default function Home() {
         <div className="side-bar">
           <div className="user-email">{userEmail}</div>
           <ul>
-            <ul className="">Dashboard</ul>
-            <ul className="">Metrics</ul>
+            <ul>Dashboard</ul>
+            <ul>Metrics</ul>
           </ul>
         </div>
         <div className="page-content-wrapper">

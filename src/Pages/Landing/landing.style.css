@@ -93,7 +93,7 @@
   }
 
   .footer {
-    margin-top: 12vh;
+    margin-top: 15vh;
     .content {
       font-family: "Exo 2", sans-serif;
       width: 80%;
@@ -101,8 +101,6 @@
       margin-right: auto;
 
       .footerText {
-        margin-top: 2%;
-        margin-bottom: 2%;
         line-height: 30px;
       }
     }

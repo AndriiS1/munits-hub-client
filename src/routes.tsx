@@ -8,6 +8,7 @@ import Bucket from "./Pages/Bucket/bucket.page";
 import Buckets from "./Pages/Buckets/buckets.page";
 import Home from "./Pages/Home/home.page";
 import LandingPage from "./Pages/Landing/landing.page";
+import { Metrics } from "./Pages/Metrics/metrics.page";
 import ObjectPage from "./Pages/Object/object.page";
 
 export const router = createBrowserRouter([
@@ -46,6 +47,14 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: "metrics",
+        element: (
+          <ProtectedWrap>
+            <Metrics />
+          </ProtectedWrap>
+        ),
+      },
+      {
         path: "buckets/new",
         element: (
           <ProtectedWrap>
@@ -70,13 +79,5 @@ export const router = createBrowserRouter([
         ),
       },
     ],
-  },
-  {
-    path: "login",
-    element: <Login />,
-  },
-  {
-    path: "sign-up",
-    element: <SignUp />,
   },
 ]);
