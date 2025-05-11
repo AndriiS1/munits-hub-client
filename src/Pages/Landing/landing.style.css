@@ -62,7 +62,7 @@
     }
 
     .welcomeOption:hover {
-      border: 2px solid;
+      border: 2px solid hsl(313deg 100% 26%);
     }
 
     .optionTitle {
