@@ -7,8 +7,8 @@ import "./home.style.css";
 
 export default function Home() {
   const navigate = useNavigate();
-
   const [userEmail, setUserEmail] = useState<string>("admin@gmail.com");
+  const [option, setOptions] = useState<"dashboard" | "metrics">("dashboard");
 
   useEffect(() => {
     const getUserEmail = async () => {
@@ -38,11 +38,23 @@ export default function Home() {
         <div className="side-bar">
           <div className="user-email">{userEmail}</div>
           <ul>
-            <ul className="option">
+            <ul
+              className={`option ${option === "dashboard" ? "active" : ""}`}
+              onClick={() => {
+                setOptions("dashboard");
+                navigate("/buckets");
+              }}
+            >
               <DatabaseIcon className="option-icon" />
               <span>Dashboard</span>
             </ul>
-            <ul className="option">
+            <ul
+              className={`option ${option === "metrics" ? "active" : ""}`}
+              onClick={() => {
+                setOptions("metrics");
+                navigate("/metrics");
+              }}
+            >
               <MetricsIcon className="option-icon" />
               <span>Metrics</span>
             </ul>
