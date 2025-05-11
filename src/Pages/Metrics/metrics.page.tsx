@@ -1,5 +1,6 @@
 import type { BucketResponse } from "@/Services/Buckets/buckets.types";
 import { BucketChart } from "./Chart/bucketChart.component";
+import "./metrics.style.css";
 
 import {
   Select,
@@ -15,6 +16,9 @@ import { useCallback, useEffect, useState } from "react";
 
 export function Metrics() {
   const [buckets, setBuckets] = useState<BucketResponse[]>([]);
+  const [bucketData, setBucketData] = useState<BucketResponse | undefined>(
+    undefined
+  );
 
   const fetchBuckets = useCallback(async () => {
     setBuckets(await bucketServiceInstance.GetBuckets());
@@ -24,9 +28,17 @@ export function Metrics() {
     fetchBuckets();
   }, [fetchBuckets]);
 
+  useEffect(() => {}, [bucketData]);
+
   function BucketSelect() {
     return (
-      <Select>
+      <Select
+        value={bucketData?.name}
+        onValueChange={(value) => {
+          const selected = buckets.find((bucket) => bucket.name === value);
+          setBucketData(selected);
+        }}
+      >
         <SelectTrigger className="w-[180px]">
           <SelectValue placeholder="Select a bucket" />
         </SelectTrigger>
@@ -34,7 +46,9 @@ export function Metrics() {
           <SelectGroup>
             <SelectLabel>Buckets</SelectLabel>
             {buckets.map((bucket) => (
-              <SelectItem value={bucket.name}>{bucket.name}</SelectItem>
+              <SelectItem key={bucket.id} value={bucket.name}>
+                {bucket.name}
+              </SelectItem>
             ))}
           </SelectGroup>
         </SelectContent>
@@ -44,11 +58,16 @@ export function Metrics() {
 
   return (
     <div>
-      <BucketSelect />
-
-      <div className="metrics-wrapper">
-        <BucketChart />
+      <div>
+        <BucketSelect />
       </div>
+      {bucketData != undefined ? (
+        <div className="metrics-wrapper">
+          <BucketChart bucketId={bucketData.id} />
+        </div>
+      ) : (
+        <div className="no-bucket-content">Select bucket to see charts.</div>
+      )}
     </div>
   );
 }

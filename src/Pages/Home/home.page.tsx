@@ -5,10 +5,21 @@ import { Outlet, useNavigate } from "react-router-dom";
 import authServiceInstance from "../../Services/auth.service";
 import "./home.style.css";
 
+type OptionType = "dashboard" | "metrics";
+
 export default function Home() {
   const navigate = useNavigate();
   const [userEmail, setUserEmail] = useState<string>("admin@gmail.com");
-  const [option, setOptions] = useState<"dashboard" | "metrics">("dashboard");
+
+  const firstSegment = location.pathname.split("/").filter(Boolean)[0];
+
+  const isValidOption = (value: string): value is OptionType => {
+    return value === "dashboard" || value === "metrics";
+  };
+
+  const [option, setOptions] = useState<OptionType>(
+    isValidOption(firstSegment) ? firstSegment : "dashboard"
+  );
 
   useEffect(() => {
     const getUserEmail = async () => {
