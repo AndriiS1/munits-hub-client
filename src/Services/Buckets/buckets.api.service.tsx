@@ -1,6 +1,10 @@
 import api from "../api/api";
 import { BUCKETS_API_ROUTES } from "../api/routes";
-import type { BucketResponse } from "./buckets.types";
+import type {
+  BucketResponse,
+  MetricResponse,
+  MetricsResponse,
+} from "./buckets.types";
 
 class BucketService {
   async GetBuckets(): Promise<BucketResponse[]> {
@@ -49,6 +53,11 @@ class BucketService {
       versioningEnabled,
       versionsLimit,
     });
+  }
+
+  async GetMetrics(bucketId: string): Promise<MetricResponse[]> {
+    const response = await api.get(BUCKETS_API_ROUTES.GET_METRICS(bucketId));
+    return (response.data as MetricsResponse).metrics;
   }
 }
 

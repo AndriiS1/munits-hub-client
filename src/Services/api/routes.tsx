@@ -16,6 +16,7 @@ export const BUCKETS_API_ROUTES = {
   DELETE: (bucketId: string) => `buckets/${bucketId}`,
   CREATE: `buckets/`,
   EXISTS: `buckets/exists`,
+  GET_METRICS: (bucketId: string) => `buckets/${bucketId}/metrics`,
 };
 
 export const MUNITS_HUB_ROUTES = {
@@ -35,7 +36,7 @@ export const MUNITS_HUB_ROUTES = {
     `buckets/${bucketId}/objects/${objectId}/uploads/${uploadId}/complete`,
 
   ABORT_UPLOAD: (bucketId: string, objectId: string, uploadId: string) =>
-    `buckets/${bucketId}/objects/${objectId}/uploads/${uploadId}abort/`,
+    `buckets/${bucketId}/objects/${objectId}/uploads/${uploadId}/abort`,
 
   GET_UPLOAD_SIGNED_URLS: (
     bucketId: string,

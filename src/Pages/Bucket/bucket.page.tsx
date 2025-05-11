@@ -68,6 +68,8 @@ function Bucket() {
               ) : (
                 <></>
               )}
+              <th scope="col">A operations</th>
+              <th scope="col">B operations</th>
             </tr>
           </thead>
           <tbody>
@@ -84,6 +86,8 @@ function Bucket() {
               ) : (
                 <></>
               )}
+              <td>{bucketData?.counter?.typeAOperationsCount}</td>
+              <td>{bucketData?.counter?.typeBOperationsCount}</td>
             </tr>
           </tbody>
         </table>
