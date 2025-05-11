@@ -12,7 +12,7 @@ interface ExtendedSelectListOption extends SelectListOption {
   childPlaceholder: string;
   childInputValue: unknown;
   childErrorMessage?: string;
-  onChildInputChange: (value: unknown) => void;
+  onChildInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default function SelectList(props: {

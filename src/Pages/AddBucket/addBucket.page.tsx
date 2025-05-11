@@ -45,7 +45,7 @@ export default function AddBucketPage() {
     setVersioningOption(value as VersioningOptions);
   };
 
-  const handleVersionCountChange = (value: number) => {
+  const handleVersionCountChange = (value: number | null) => {
     setVersionsCount(value);
   };
 
@@ -66,7 +66,7 @@ export default function AddBucketPage() {
     const bucketNameRegex = /^$|^[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9-]+)*$/;
     const maxBucketNameLength = 63;
     const minimumBucketName = 3;
-    const versionsLimit = 5;
+    const versionsLimit = 1000;
     const minimumVersionLimit = 1;
 
     if (bucketName.length > maxBucketNameLength) {
@@ -169,8 +169,8 @@ export default function AddBucketPage() {
             content: "Each object has fixed number of versions.",
             childPlaceholder: "Number of versions",
             childInputValue: versionsCount,
-            onChildInputChange: (value: unknown) =>
-              handleVersionCountChange(Number(value)),
+            onChildInputChange: (e) =>
+              handleVersionCountChange(Number(e.target.value)),
             childErrorMessage: versionLimitErrorMessage,
           },
         ]}
