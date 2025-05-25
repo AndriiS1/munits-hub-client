@@ -4,6 +4,17 @@ import "./landing.style.css";
 export default function LandingPage() {
   return (
     <div className="page">
+      <header className="landing-header">
+        <ul className="landing-nav">
+          <ul className="logo-text">MunitS</ul>
+          <ul className="right-side-options">
+            <div className="localization">
+              <ul className="language-option">UA</ul>|
+              <ul className="language-option">EN</ul>
+            </div>
+          </ul>
+        </ul>
+      </header>
       <main className="main">
         <div className="welcomeWrap">
           <div className="welcomeContent">

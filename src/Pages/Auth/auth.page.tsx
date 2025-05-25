@@ -11,6 +11,12 @@ export default function Auth() {
           <ul className="logo-text" onClick={() => navigate("")}>
             MunitS
           </ul>
+          <ul className="right-side-options">
+            <div className="localization">
+              <ul className="language-option">UA</ul>|
+              <ul className="language-option">EN</ul>
+            </div>
+          </ul>
         </ul>
       </header>
 

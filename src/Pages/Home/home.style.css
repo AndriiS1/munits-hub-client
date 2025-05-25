@@ -110,6 +110,24 @@
     .log-out {
       cursor: pointer;
     }
+
+    .right-side-options {
+      display: flex;
+      .localization {
+        display: flex;
+        margin-left: 20px;
+        margin-right: 20px;
+
+        .language-option {
+          margin-left: 10px;
+          margin-right: 10px;
+        }
+
+        .language-option:hover {
+          cursor: pointer;
+        }
+      }
+    }
   }
 
   .buckets-options {

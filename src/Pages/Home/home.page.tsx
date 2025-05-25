@@ -39,8 +39,14 @@ export default function Home() {
       <header>
         <ul className="nav">
           <ul className="logo-text">MunitS</ul>
-          <ul className="log-out" onClick={() => handleLogout()}>
-            Log out
+          <ul className="right-side-options">
+            <div className="localization">
+              <ul className="language-option">UA</ul>|
+              <ul className="language-option">EN</ul>
+            </div>
+            <div className="log-out" onClick={() => handleLogout()}>
+              Log out
+            </div>
           </ul>
         </ul>
       </header>

@@ -13,6 +13,47 @@
     justify-content: center;
   }
 
+  .landing-header {
+    width: 100%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    color: #000000;
+    border-bottom: 1px solid #b3b3b3;
+
+    .landing-nav {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+
+      .logo-text {
+        font-family: "Exo 2", sans-serif;
+        font-size: xx-large;
+        cursor: pointer;
+      }
+
+      .right-side-options {
+        display: flex;
+        .localization {
+          display: flex;
+          margin-left: 20px;
+          margin-right: 20px;
+
+          .language-option {
+            margin-left: 10px;
+            margin-right: 10px;
+          }
+
+          .language-option:hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+
   .welcomeContent {
     width: 60%;
     text-align: center;
@@ -93,7 +134,7 @@
   }
 
   .footer {
-    margin-top: 15vh;
+    margin-top: 8vh;
     .content {
       font-family: "Exo 2", sans-serif;
       width: 80%;
