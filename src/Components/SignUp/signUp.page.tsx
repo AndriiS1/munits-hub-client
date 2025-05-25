@@ -1,3 +1,4 @@
+import localizationService from "@/Localization/localization.service";
 import { Button, Snackbar, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Form, Link, useNavigate } from "react-router-dom";
@@ -68,23 +69,23 @@ export default function SignUp() {
           placeholder="example@gmail.com"
           margin="dense"
           size="small"
-          label="Email"
+          label={localizationService.translate("email")}
         />
         <TextField
           error={passwordError}
           onChange={(e) => setPassword(e.target.value)}
           required
           type="password"
-          placeholder="Password"
+          placeholder={localizationService.translate("password")}
           margin="dense"
           size="small"
-          label="Password"
+          label={localizationService.translate("password")}
         />
         <Button className="form-element" type="submit">
-          Submit
+          {localizationService.translate("submit")}
         </Button>
         <Link className="register-link form-element" to={"/login"}>
-          Log in
+          {localizationService.translate("login")}
         </Link>
         <Snackbar
           open={open}

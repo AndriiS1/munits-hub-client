@@ -1,3 +1,4 @@
+import localizationService from "@/Localization/localization.service";
 import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Button from "../../Components/Button/button.component";
@@ -55,11 +56,13 @@ function ObjectPage() {
       <table className="details-table">
         <thead>
           <tr>
-            <th scope="col">Created at</th>
-            <th scope="col">Version initiated at</th>
-            <th scope="col">Content type</th>
-            <th scope="col">Size</th>
-            <th scope="col">Status</th>
+            <th scope="col">{localizationService.translate("created_at")}</th>
+            <th scope="col">
+              {localizationService.translate("version_initiated_at")}
+            </th>
+            <th scope="col">{localizationService.translate("content_type")}</th>
+            <th scope="col">{localizationService.translate("size")}</th>
+            <th scope="col">{localizationService.translate("status")}</th>
           </tr>
         </thead>
         <tbody>
@@ -92,7 +95,7 @@ function ObjectPage() {
       Object.keys(selectedVersion.customMetadata).length > 0 ? (
         <></>
       ) : (
-        <>No custom metadata attached.</>
+        <>{localizationService.translate("no_custom_metadata_attached")}</>
       )}
     </div>
   );
@@ -102,7 +105,7 @@ function ObjectPage() {
       {selectedVersion?.tags && Object.keys(selectedVersion.tags).length > 0 ? (
         <></>
       ) : (
-        <>No tags attached.</>
+        <>{localizationService.translate("no_tags_attached")}</>
       )}
     </div>
   );
@@ -117,7 +120,7 @@ function ObjectPage() {
     <div className="versions-container">
       <div className="timeline-container">
         <div className="timeline">
-          <h1>Versions</h1>
+          <h1>{localizationService.translate("versions")}</h1>
           <ul className="sessions">
             {objectData?.versions.map((version) => (
               <li key={version.uploadId}>

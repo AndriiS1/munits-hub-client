@@ -1,3 +1,4 @@
+import localizationService from "@/Localization/localization.service";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../Components/Button/button.component";
@@ -66,19 +67,16 @@ function Buckets() {
   return (
     <div className="buckets-data">
       <div>
-        <h3>MunitS object storage</h3>
-        <h1>Overview</h1>
-        <h3>
-          High-performance storage for files and objects with zero egress
-          charges.
-        </h3>
+        <h3>{localizationService.translate("munits_object_storage")}</h3>
+        <h1>{localizationService.translate("overview")}</h1>
+        <h3>{localizationService.translate("high_performance_storage")}</h3>
         <a
           target="_blank"
           rel="noopener noreferrer"
           href="https://github.com/AndriiS1/MunitS"
           className="link"
         >
-          MunitS source code
+          {localizationService.translate("munits_source_code")}
         </a>
       </div>
 
@@ -88,28 +86,32 @@ function Buckets() {
             handleSearchChange(e)
           }
           value={search ?? ""}
-          placeholder="Search for buckets"
+          placeholder={localizationService.translate("search_buckets")}
         />
         <div className="add-bucket-button">
-          <Button onClick={handleNewBucketClick}>Add bucket</Button>
+          <Button onClick={handleNewBucketClick}>
+            {localizationService.translate("add_bucket")}
+          </Button>
         </div>
       </div>
 
       <hr />
       {loading ? (
-        <div className="no-buckets">Loading...</div>
+        <div className="no-buckets">
+          {localizationService.translate("loading")}...
+        </div>
       ) : !buckets || buckets.length === 0 ? (
         <div className="no-buckets">
-          You have no buckets created. Add one to start working with.
+          {localizationService.translate("you_have_no_buckets_created")}
         </div>
       ) : (
         <div className="table-container">
           <table className="buckets-table">
             <thead>
               <tr>
-                <th scope="col">Buckets</th>
-                <th scope="col">Objects</th>
-                <th scope="col">Size</th>
+                <th scope="col">{localizationService.translate("buckets")}</th>
+                <th scope="col">{localizationService.translate("objects")}</th>
+                <th scope="col">{localizationService.translate("size")}</th>
               </tr>
             </thead>
             <tbody>{buckets.map((bucket) => getDataRow(bucket))}</tbody>

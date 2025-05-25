@@ -1,4 +1,7 @@
 import MetricsIcon from "@/Assets/metrics.icon";
+import localizationService, {
+  type LocalizationLang,
+} from "@/Localization/localization.service";
 import { DatabaseIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
@@ -34,6 +37,11 @@ export default function Home() {
     navigate("/");
   };
 
+  const handleLanguageChange = (language: LocalizationLang) => {
+    localizationService.setUserTokens(language);
+    window.location.reload();
+  };
+
   return (
     <div className="home-wrap">
       <header>
@@ -41,11 +49,22 @@ export default function Home() {
           <ul className="logo-text">MunitS</ul>
           <ul className="right-side-options">
             <div className="localization">
-              <ul className="language-option">UA</ul>|
-              <ul className="language-option">EN</ul>
+              <ul
+                className="language-option"
+                onClick={() => handleLanguageChange("UA")}
+              >
+                UA
+              </ul>
+              |
+              <ul
+                className="language-option"
+                onClick={() => handleLanguageChange("EN")}
+              >
+                EN
+              </ul>
             </div>
             <div className="log-out" onClick={() => handleLogout()}>
-              Log out
+              {localizationService.translate("log_out")}
             </div>
           </ul>
         </ul>
@@ -63,7 +82,7 @@ export default function Home() {
               }}
             >
               <DatabaseIcon className="option-icon" />
-              <span>Dashboard</span>
+              <span> {localizationService.translate("dashboard")}</span>
             </ul>
             <ul
               className={`option ${option === "metrics" ? "active" : ""}`}
@@ -73,7 +92,7 @@ export default function Home() {
               }}
             >
               <MetricsIcon className="option-icon" />
-              <span>Metrics</span>
+              <span>{localizationService.translate("metrics")}</span>
             </ul>
           </ul>
         </div>

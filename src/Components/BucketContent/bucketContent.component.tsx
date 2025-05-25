@@ -1,3 +1,4 @@
+import localizationService from "@/Localization/localization.service";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FolderIcon from "../../Assets/folder.icon";
@@ -105,7 +106,11 @@ function BucketContent(props: {
             {TruncateFileName(objectSuffix.suffix) + (isDirectory ? " /" : "")}
           </span>
         </th>
-        <td className="data-cell">{isObject ? "Object" : "Folder"}</td>
+        <td className="data-cell">
+          {isObject
+            ? localizationService.translate("object")
+            : localizationService.translate("folder")}
+        </td>
         <td
           className="data-cell"
           title={
@@ -157,9 +162,11 @@ function BucketContent(props: {
       <div className="navigation">
         {getBreadcrumbs()}
         <div className="options">
-          <Button onClick={() => fetchObjects()}>Refresh</Button>
+          <Button onClick={() => fetchObjects()}>
+            {localizationService.translate("refresh")}
+          </Button>
           <Button onClick={() => setUploadFormIsOpened(!uploadFormIsOpened)}>
-            Upload
+            {localizationService.translate("upload")}
           </Button>
         </div>
       </div>
@@ -177,16 +184,18 @@ function BucketContent(props: {
       )}
       {objectsResponse?.objectSuffixes.length === 0 ? (
         <div className="no-objects">
-          No objects found. Upload some to start working with.
+          {localizationService.translate("no_objects_found")}
         </div>
       ) : (
         <div className="content-table-wrapper">
           <table className="content-table">
             <thead>
               <tr>
-                <th scope="col">Objects</th>
-                <th scope="col">Storage class</th>
-                <th scope="col">Type</th>
+                <th scope="col">{localizationService.translate("objects")}</th>
+                <th scope="col">
+                  {localizationService.translate("storage_class")}
+                </th>
+                <th scope="col">{localizationService.translate("type")}</th>
               </tr>
             </thead>
             <tbody>
@@ -204,7 +213,7 @@ function BucketContent(props: {
                   fetchObjects(prevCursor, -1);
                 }}
               >
-                &lt; Previous
+                &lt; {localizationService.translate("previous")}
               </Button>
 
               <Button
@@ -214,7 +223,8 @@ function BucketContent(props: {
                   fetchObjects(nextCursor, 1);
                 }}
               >
-                Next &gt;
+                {localizationService.translate("next")}
+                &gt;
               </Button>
             </div>
           )}

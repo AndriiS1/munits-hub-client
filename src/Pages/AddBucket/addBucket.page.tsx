@@ -1,3 +1,4 @@
+import localizationService from "@/Localization/localization.service";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../Components/Button/button.component";
@@ -70,16 +71,22 @@ export default function AddBucketPage() {
     const minimumVersionLimit = 1;
 
     if (bucketName.length > maxBucketNameLength) {
-      setBucketNameErrorMessage("Maximum bucket name is 63 symbols.");
+      setBucketNameErrorMessage(
+        localizationService.translate("maximum_bucket_name")
+      );
     } else if (!bucketNameRegex.test(bucketName)) {
-      setBucketNameErrorMessage("Invalid bucket name.");
+      setBucketNameErrorMessage(
+        localizationService.translate("invalid_bucket_name")
+      );
     } else if (bucketName) {
       const checkBucketExists = async () => {
         const bucketExists = await bucketServiceInstance.BucketExistsCheck(
           bucketName
         );
         if (bucketExists) {
-          setBucketNameErrorMessage("Bucket with this name already exists.");
+          setBucketNameErrorMessage(
+            localizationService.translate("bucket_with_name_exists")
+          );
         } else {
           setBucketNameErrorMessage(undefined);
         }
@@ -122,52 +129,55 @@ export default function AddBucketPage() {
       <Link className="router-link text-base" to="/buckets">
         ⬅ MunitS
       </Link>
-      <h1>Create a bucket</h1>
+      <h1>{localizationService.translate("create_a_bucket")}</h1>
       <h3>
-        Get started by creating a new empty bucket. You'll be able to add data
-        to your bucket using the dashboard
+        {localizationService.translate("get_started_by_creating_new_bucket")}
       </h3>
 
       <Input
         type="text"
         errorMessage={bucketNameErrorMessage}
-        topPlaceholder="Bucket name"
-        bottomPlaceholder="Bucket name is permanent and unchangeable."
+        topPlaceholder={localizationService.translate("bucket_name")}
+        bottomPlaceholder={localizationService.translate(
+          "bucket_name_is_permanent"
+        )}
         value={bucketName}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           setBucketName(e.target.value.toLowerCase())
         }
       />
       <hr />
-      <h2>Location</h2>
+      <h2>{localizationService.translate("location")}</h2>
       <SelectList
         selectedValue={locationOption}
         onChange={handleLocationSelectionChange}
         options={[
           {
-            title: "Default",
+            title: `${localizationService.translate("default")}`,
             value: LocationOptions.DEFAULT,
-            content:
-              "We have chosen to place your bucket in Eastern Europe. Provide a location hint, if you would like to use a different location.",
+            content: `${localizationService.translate("we_have_chosen")}`,
           },
         ]}
       />
-      <h2>Location</h2>
+      <h2>{localizationService.translate("versioning")}</h2>
       <SelectList
         selectedValue={versioningOption}
         onChange={handleVersioningSelectionChange}
         options={[
           {
-            title: "Not versioned bucket",
+            title: `${localizationService.translate("not_versioned_bucket")}`,
             value: VersioningOptions.NO_VERSIONING,
-            content:
-              "Only one version of each object is stored. When you overwrite an object, the previous version is lost.",
+            content: `${localizationService.translate("only_one_version")}`,
           },
           {
-            title: "Versioning enabled",
+            title: `${localizationService.translate("versioning_enabled")}`,
             value: VersioningOptions.VERSIONING_ENABLED,
-            content: "Each object has fixed number of versions.",
-            childPlaceholder: "Number of versions",
+            content: `${localizationService.translate(
+              "each_object_has_fixed"
+            )}`,
+            childPlaceholder: `${localizationService.translate(
+              "number_of_versions"
+            )}`,
             childInputValue: versionsCount,
             onChildInputChange: (e) =>
               handleVersionCountChange(Number(e.target.value)),
@@ -178,14 +188,16 @@ export default function AddBucketPage() {
       <hr />
       <div>
         <span>
-          By default buckets are not publicly accessible. You can access objects
-          stored within your bucket by binding the bucket to a Worker or using
-          the API. Bucket access can be changed to Public at any time.
+          {localizationService.translate(
+            "by_default_buckets_are_not_publicly_accessible"
+          )}
         </span>
         <div className="create-bucket-buttons">
-          <Button onClick={() => navigate("/buckets")}>Cancel</Button>
+          <Button onClick={() => navigate("/buckets")}>
+            {localizationService.translate("cancel")}
+          </Button>
           <Button onClick={handleCreateBucket} disabled={!creationDataIsValid}>
-            Create
+            {localizationService.translate("create")}
           </Button>
         </div>
       </div>

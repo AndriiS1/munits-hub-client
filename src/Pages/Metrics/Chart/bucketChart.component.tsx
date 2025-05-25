@@ -25,20 +25,21 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import localizationService from "@/Localization/localization.service";
 import bucketServiceInstance from "@/Services/Buckets/buckets.api.service";
 import type { MetricResponse } from "@/Services/Buckets/buckets.types";
 import { useCallback, useEffect, useState } from "react";
 
 const chartConfig = {
   visitors: {
-    label: "Amount",
+    label: `${localizationService.translate("amount")}`,
   },
   typeAOperationsCount: {
-    label: "A operations",
+    label: `A ${localizationService.translate("operations")}`,
     color: "hsl(var(--chart-1))",
   },
   typeBOperationsCount: {
-    label: "B operations",
+    label: `B ${localizationService.translate("operations")}`,
     color: "hsl(var(--chart-2))",
   },
 } satisfies ChartConfig;
@@ -83,9 +84,12 @@ export function BucketChart(props: { bucketId: string }) {
     <Card>
       <CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
         <div className="grid flex-1 gap-1 text-center sm:text-left">
-          <CardTitle>Bucket - Interactive</CardTitle>
+          <CardTitle>
+            {" "}
+            {localizationService.translate("bucket_interactive")}
+          </CardTitle>
           <CardDescription>
-            Showing total operations metrics for the last 3 months
+            {localizationService.translate("showing_total_operations_metrics")}
           </CardDescription>
         </div>
         <Select value={timeRange} onValueChange={setTimeRange}>
@@ -97,13 +101,13 @@ export function BucketChart(props: { bucketId: string }) {
           </SelectTrigger>
           <SelectContent className="rounded-xl">
             <SelectItem value="90d" className="rounded-lg">
-              Last 3 months
+              {localizationService.translate("last_3_months")}
             </SelectItem>
             <SelectItem value="30d" className="rounded-lg">
-              Last 30 days
+              {localizationService.translate("last_30_days")}
             </SelectItem>
             <SelectItem value="7d" className="rounded-lg">
-              Last 7 days
+              {localizationService.translate("last_7_days")}
             </SelectItem>
           </SelectContent>
         </Select>

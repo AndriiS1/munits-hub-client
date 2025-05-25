@@ -1,3 +1,4 @@
+import localizationService from "@/Localization/localization.service";
 import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import BucketContent from "../../Components/BucketContent/bucketContent.component";
@@ -60,16 +61,26 @@ function Bucket() {
         <table className="bucket-data-table">
           <thead>
             <tr>
-              <th scope="col">Objects count</th>
-              <th scope="col">Size</th>
-              <th scope="col">Versioning enabled</th>
+              <th scope="col">
+                {localizationService.translate("objects_count")}
+              </th>
+              <th scope="col">{localizationService.translate("size")}</th>
+              <th scope="col">
+                {localizationService.translate("versioning_enabled")}
+              </th>
               {bucketData?.versioningEnabled ? (
-                <th scope="col">Versions limit</th>
+                <th scope="col">
+                  {localizationService.translate("versions_limit")}
+                </th>
               ) : (
                 <></>
               )}
-              <th scope="col">A operations</th>
-              <th scope="col">B operations</th>
+              <th scope="col">
+                A {localizationService.translate("operations")}
+              </th>
+              <th scope="col">
+                B {localizationService.translate("operations")}
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -80,7 +91,11 @@ function Bucket() {
                   ? GetSizeString(bucketData.counter.size)
                   : 0}
               </td>
-              <td>{bucketData?.versioningEnabled ? "Yes" : "No"}</td>
+              <td>
+                {bucketData?.versioningEnabled
+                  ? localizationService.translate("yes")
+                  : localizationService.translate("no")}
+              </td>
               {bucketData?.versioningEnabled ? (
                 <td>{bucketData?.versionsLimit}</td>
               ) : (
@@ -101,7 +116,9 @@ function Bucket() {
             className={`option ${option === opt ? "active" : ""}`}
             onClick={() => setOptions(opt)}
           >
-            {opt.charAt(0).toUpperCase() + opt.slice(1)}
+            {opt === "objects"
+              ? localizationService.translate("objects")
+              : localizationService.translate("settings")}
           </div>
         ))}
       </div>

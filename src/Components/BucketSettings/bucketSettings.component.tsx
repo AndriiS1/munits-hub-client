@@ -1,3 +1,4 @@
+import localizationService from "@/Localization/localization.service";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import bucketServiceInstance from "../../Services/Buckets/buckets.api.service";
@@ -20,14 +21,16 @@ function BucketSettings(props: { bucketName: string; bucketId: string }) {
     <div className="bucket-settings-wrapper">
       <ModalWithInput
         bucketName={props.bucketName}
-        text={`To delete this bucket, please type '${props.bucketName}' to confirm.`}
+        text={`${localizationService.translate("to_delete_this_bucket")} '${
+          props.bucketName
+        }'`}
         onDelete={deleteBucket}
         isOpen={deleteModalIsOpen}
         onClose={() => setDeleteModalIsOpen(false)}
       />
       <div className="bucket-settings">
         <Button color="red" onClick={() => setDeleteModalIsOpen(true)}>
-          Delete bucket
+          {localizationService.translate("delete_bucket")}
         </Button>
       </div>
     </div>

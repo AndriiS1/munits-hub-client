@@ -1,8 +1,15 @@
+import type { LocalizationLang } from "@/Localization/localization.service";
+import localizationService from "@/Localization/localization.service";
 import { Outlet, useNavigate } from "react-router-dom";
 import "./auth.style.css";
 
 export default function Auth() {
   const navigate = useNavigate();
+
+  const handleLanguageChange = (language: LocalizationLang) => {
+    localizationService.setUserTokens(language);
+    window.location.reload();
+  };
 
   return (
     <div className="auth-wrap">
@@ -13,8 +20,19 @@ export default function Auth() {
           </ul>
           <ul className="right-side-options">
             <div className="localization">
-              <ul className="language-option">UA</ul>|
-              <ul className="language-option">EN</ul>
+              <ul
+                className="language-option"
+                onClick={() => handleLanguageChange("UA")}
+              >
+                UA
+              </ul>
+              |
+              <ul
+                className="language-option"
+                onClick={() => handleLanguageChange("EN")}
+              >
+                EN
+              </ul>
             </div>
           </ul>
         </ul>

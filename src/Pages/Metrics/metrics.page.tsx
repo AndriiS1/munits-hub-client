@@ -11,6 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import localizationService from "@/Localization/localization.service";
 import bucketServiceInstance from "@/Services/Buckets/buckets.api.service";
 import { useCallback, useEffect, useState } from "react";
 
@@ -40,11 +41,15 @@ export function Metrics() {
         }}
       >
         <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Select a bucket" />
+          <SelectValue
+            placeholder={localizationService.translate("select_a_bucket")}
+          />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            <SelectLabel>Buckets</SelectLabel>
+            <SelectLabel>
+              {localizationService.translate("buckets")}
+            </SelectLabel>
             {buckets.map((bucket) => (
               <SelectItem key={bucket.id} value={bucket.name}>
                 {bucket.name}
@@ -66,7 +71,9 @@ export function Metrics() {
           <BucketChart bucketId={bucketData.id} />
         </div>
       ) : (
-        <div className="no-bucket-content">Select bucket to see charts.</div>
+        <div className="no-bucket-content">
+          {localizationService.translate("select_buckets_to_see_charts")}
+        </div>
       )}
     </div>
   );

@@ -1,3 +1,4 @@
+import localizationService from "@/Localization/localization.service";
 import { useEffect, useState } from "react";
 import Button from "../../Button/button.component";
 import Input from "../../Input/input.component";
@@ -45,14 +46,17 @@ const ModalWithInput: React.FC<ModalProps> = ({
           onChange={handleInputChange}
         ></Input>
         <div className="modal-actions">
-          <Button onClick={onClose}>Cancel</Button>
+          <Button onClick={onClose}>
+            {" "}
+            {localizationService.translate("cancel")}
+          </Button>
           <Button
             disabled={isDisabled}
             color="red"
             inverted={true}
             onClick={() => onDelete(inputValue)}
           >
-            Delete
+            {localizationService.translate("delete")}
           </Button>
         </div>
       </div>

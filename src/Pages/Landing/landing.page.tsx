@@ -1,7 +1,15 @@
+import localizationService, {
+  type LocalizationLang,
+} from "@/Localization/localization.service";
 import { Link } from "react-router-dom";
 import "./landing.style.css";
 
 export default function LandingPage() {
+  const handleLanguageChange = (language: LocalizationLang) => {
+    localizationService.setUserTokens(language);
+    window.location.reload();
+  };
+
   return (
     <div className="page">
       <header className="landing-header">
@@ -9,8 +17,19 @@ export default function LandingPage() {
           <ul className="logo-text">MunitS</ul>
           <ul className="right-side-options">
             <div className="localization">
-              <ul className="language-option">UA</ul>|
-              <ul className="language-option">EN</ul>
+              <ul
+                className="language-option"
+                onClick={() => handleLanguageChange("UA")}
+              >
+                UA
+              </ul>
+              |
+              <ul
+                className="language-option"
+                onClick={() => handleLanguageChange("EN")}
+              >
+                EN
+              </ul>
             </div>
           </ul>
         </ul>
@@ -18,17 +37,20 @@ export default function LandingPage() {
       <main className="main">
         <div className="welcomeWrap">
           <div className="welcomeContent">
-            MunitS is completely free and open source. Explore below for more
-            details.
+            {localizationService.translate("welcome_message")}
             <span className="logoText">MunitS</span>
-            <span className="subLogoText">Secure. Scalable. Yours.</span>
+            <span className="subLogoText">
+              {localizationService.translate("sub_logo_message")}
+            </span>
             <div className="optionsWrap">
               <Link to="/login" className="welcomeOption">
-                <div className="optionTitle">Start Now</div>
+                <div className="optionTitle">
+                  {localizationService.translate("start_now")}
+                </div>
                 <span>
-                  Free access to MunitS Hub.
+                  {localizationService.translate("free_access")}
                   <br />
-                  Experience hosted storage.
+                  {localizationService.translate("experience_storage")}
                 </span>
               </Link>
               <a
@@ -37,11 +59,13 @@ export default function LandingPage() {
                 href="https://github.com/AndriiS1/MunitS"
                 className="welcomeOption"
               >
-                <div className="optionTitle">Explore Open Source</div>
+                <div className="optionTitle">
+                  {localizationService.translate("explore_open_source")}
+                </div>
                 <span>
-                  Full access to code.
+                  {localizationService.translate("full_access")}
                   <br />
-                  Make it work for you.
+                  {localizationService.translate("make_it_work")}
                 </span>
               </a>
             </div>
@@ -54,7 +78,7 @@ export default function LandingPage() {
         <div className="content">
           <div className="footerText">
             <h3>MunitS</h3>
-            <div>© 2025 MunitS. All rights reserved.</div>
+            <div>{localizationService.translate("all_rights_reserved")}</div>
           </div>
         </div>
       </footer>

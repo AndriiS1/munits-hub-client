@@ -13,7 +13,7 @@ class TokenService {
   }
 
   updateLocalAccessToken(accessToken: string) {
-    let userTokens = this.getUserTokens();
+    const userTokens = this.getUserTokens();
     userTokens.accessToken = accessToken;
     localStorage.setItem("userTokens", JSON.stringify(userTokens));
   }
