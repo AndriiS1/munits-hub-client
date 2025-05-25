@@ -197,9 +197,9 @@ class LocalizationService {
       if (parsed === "UA" || parsed === "EN") {
         return parsed;
       }
-      return "EN";
+      return "UA";
     } catch {
-      return "EN";
+      return "UA";
     }
   }
 
