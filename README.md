@@ -1,6 +1,36 @@
+The system consists of **two parts** and **three components**:
+
+1. **MunitS Hub**
+   - [**MunitS Hub Client**](https://github.com/AndriiS1/munits-hub-client) – a frontend interface to showcase the storage capabilities.
+   - [**MunitS Hub Backend**](https://github.com/AndriiS1/munits-hub) – a backend layer between the client and the object storage, providing authentication and management functionality.
+2. [**MunitS**](https://github.com/AndriiS1/munits) – an **integrable object storage solution** that can be connected to other systems.
+
 # MunitS Hub Client
 
 MunitS Hub Client is the official web front-end for the [MunitS Object Storage](https://github.com/AndriiS1/MunitS) system. It provides a modern, user-friendly interface for managing buckets, objects, and user settings. Built with React, TypeScript, and Vite, this client offers a responsive and efficient user experience for interacting with your storage.
+
+## Demo
+
+![Buckets overview](screenshots/buckets_overview.png)
+_1. Buckets overview._
+
+![Create bucket](screenshots/create_bucket_overview.png)
+_2. Create bucket overview._
+
+![Bucket overview](screenshots/bucket_overview.png)
+_3. Bucket overview._
+
+![Upload form](screenshots/upload_form_overview.png)
+_4. Upload form overview._
+
+![Upload overview](screenshots/upload_overview.png)
+_5. Upload overview._
+
+![Object overview](screenshots/object_overview.png)
+_6. Object overview._
+
+![Metrics overview](screenshots/upload_form_overview.png)
+_7. Metrics overview._
 
 ## Getting Started
 
@@ -72,7 +102,7 @@ src/
 └── routes.tsx           # Application routing configuration
 ```
 
-# Links
+# Don't forget to check
 
 - [MunitS](https://github.com/AndriiS1/munits)
 - [MunitS Hub Backend](https://github.com/AndriiS1/munits-hub)
