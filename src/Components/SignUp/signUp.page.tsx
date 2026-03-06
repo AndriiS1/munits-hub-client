@@ -19,16 +19,16 @@ export default function SignUp() {
 
   useEffect(() => {
     const emailRegexPatter = new RegExp(
-      "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+      "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
     );
     const passwordRegexPatter = new RegExp(
-      "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$"
+      "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$",
     );
 
     const validateField = (
       field: string,
       regexPattern: RegExp,
-      setError: (error: boolean) => void
+      setError: (error: boolean) => void,
     ) => {
       if (field) {
         setError(!regexPattern.test(field));
@@ -48,7 +48,7 @@ export default function SignUp() {
         });
       }
       if (TokenService.getUserTokens()) {
-        navigate("/home");
+        navigate("/buckets");
       }
     } catch (e) {
       const error = e as { response?: { data?: string }; message?: string };

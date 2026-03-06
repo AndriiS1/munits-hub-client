@@ -1,4 +1,3 @@
-// Ensure TypeScript knows about the VITE_MUNITS_HUB_SERVER_URL env variable
 export const API_BASE_URL = import.meta.env.VITE_MUNITS_HUB_SERVER_URL || "";
 
 export const AUTH_API_ROUTES = {
@@ -42,7 +41,7 @@ export const MUNITS_HUB_ROUTES = {
     bucketId: string,
     objectId: string,
     uploadId: string,
-    fileSize: number
+    fileSize: number,
   ) =>
     `buckets/${bucketId}/objects/${objectId}/uploads/${uploadId}/signed-urls?&fileSize=${fileSize}`,
 };
