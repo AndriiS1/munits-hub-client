@@ -1,3 +1,4 @@
+import localizationService from "@/Localization/localization.service";
 import { useState } from "react";
 import UploadCloud from "../../Assets/uploadCloud.icon";
 import storageServiceInstance from "../../Services/Storage/storage.service";
@@ -90,12 +91,11 @@ const UploadArea: React.FC<UploadAreaProps> = ({
           <>
             <UploadCloud className="upload-cloud-icon" />
             <div className="welcome-upload-info">
-              <div>Your bucket is ready. Add files to get started. </div>
-
+              <div>{localizationService.translate("your_bucket_is_ready")}</div>
               <div>
-                Drag and drop your files here to upload or{" "}
+                {localizationService.translate("drag_and_drop_files_here")}{" "}
                 <label className="custom-link" htmlFor="browse-files">
-                  select from you computer
+                  {localizationService.translate("select_from_your_computer")}
                 </label>
                 .
               </div>
@@ -119,7 +119,9 @@ const UploadArea: React.FC<UploadAreaProps> = ({
                 <span>{bucketName} / </span>
                 <Input
                   errorMessage={uploadPathError}
-                  placeholder="custom upload path"
+                  placeholder={localizationService.translate(
+                    "custom_upload_path"
+                  )}
                   type="text"
                   value={uploadPath}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -129,7 +131,8 @@ const UploadArea: React.FC<UploadAreaProps> = ({
               </div>
               <div className="success-file">
                 <p>
-                  {files.length} file{files.length > 1 ? "s" : ""} selected
+                  {files.length}
+                  {localizationService.translate("file_selected")}
                 </p>
               </div>
             </div>
@@ -146,7 +149,7 @@ const UploadArea: React.FC<UploadAreaProps> = ({
                       onClick={() => handleRemoveFile(file.name)}
                     >
                       <Button inverted color="red">
-                        Remove
+                        {localizationService.translate("remove")}
                       </Button>
                     </div>
                   </div>
@@ -156,16 +159,16 @@ const UploadArea: React.FC<UploadAreaProps> = ({
             <div className="options">
               <div className="browse-files-wrapper">
                 <label className="custom-link" htmlFor="browse-files">
-                  Continue file selection
+                  {localizationService.translate("continue_file_selection")}
                 </label>
               </div>
               {uploadStarted ? (
                 <Button color="blue" onClick={() => setIsOpen(false)}>
-                  close
+                  {localizationService.translate("close")}
                 </Button>
               ) : (
                 <Button color="orange" inverted onClick={() => handleUpload()}>
-                  upload
+                  {localizationService.translate("upload")}
                 </Button>
               )}
             </div>
