@@ -1,54 +1,78 @@
-# React + TypeScript + Vite
+# MunitS Hub Client
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+MunitS Hub Client is the official web front-end for the [MunitS Object Storage](https://github.com/AndriiS1/MunitS) system. It provides a modern, user-friendly interface for managing buckets, objects, and user settings. Built with React, TypeScript, and Vite, this client offers a responsive and efficient user experience for interacting with your storage.
 
-Currently, two official plugins are available:
+## Getting Started
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes.
 
-## Expanding the ESLint configuration
+### Prerequisites
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Node.js (v18 or newer)
+- npm or an equivalent package manager
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+### Running the Application
+
+1. **Clone the repository:**
+
+```sh
+git clone https://github.com/AndriiS1/munits-hub-client.git
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. **Navigate to the project directory:**
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```sh
+cd munits-hub-client
 ```
+
+3. **Install the dependencies:**
+
+```sh
+npm install
+```
+
+4. **Configure Environment Variables:** Create a `.env` file in the root of the project and add the URL for your MunitS Hub backend server.
+
+```
+VITE_MUNITS_HUB_SERVER_URL=http://localhost:5000/api
+```
+
+1. **Run the application:**
+
+```sh
+npm run dev
+```
+
+The application will be available at `http://localhost:3000`.
+
+## Available Scripts
+
+In the project directory, you can run the following scripts:
+
+- `npm run dev`: Starts the development server with Hot Module Replacement (HMR).
+- `npm run build`: Compiles TypeScript and bundles the application for production.
+- `npm run lint`: Lints the codebase using ESLint to identify and fix code quality issues.
+- `npm run preview`: Serves the production build locally to preview the final app.
+
+## Project Structure
+
+The project follows a component-based architecture to promote modularity and reusability. Key directories include:
+
+```
+src/
+├── Assets/              # SVG icons
+├── Components/          # Reusable React components (e.g., Button, Input, UploadArea)
+├── Localization/        # Language files for internationalization
+├── Pages/               # Top-level page components for different routes
+├── Services/            # API interaction services (auth, buckets, objects)
+├── Utils/               # Utility functions (e.g., file size formatting)
+├── components/ui/       # shadcn/ui components
+├── lib/                 # Core utility files
+├── main.tsx             # Main application entry point
+└── routes.tsx           # Application routing configuration
+```
+
+# Links
+
+- [MunitS Hub Client](https://github.com/AndriiS1/munits-hub-client)
+- [MunitS Hub Backend](https://github.com/AndriiS1/munits-hub)
