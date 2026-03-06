@@ -74,5 +74,5 @@ src/
 
 # Links
 
-- [MunitS Hub Client](https://github.com/AndriiS1/munits-hub-client)
+- [MunitS](https://github.com/AndriiS1/munits)
 - [MunitS Hub Backend](https://github.com/AndriiS1/munits-hub)
